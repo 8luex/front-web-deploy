@@ -58,10 +58,12 @@ liff.init({
 })
 liff.ready.then(() => {
     if(!liff.isLoggedIn()) {
-        liff.login();
+        liff.login(); //Test PC
     }
     liff.getProfile().then(profile => {
         console.log(profile)
+        this.$store.dispatch('setLine', profile);
+        this.isDone();
     })
 });
 </script>
@@ -74,6 +76,10 @@ export default {
         connect() {
             this.$router.push('/connect-done') 
         }
+    },
+    methods: {
+        isDone() {
+        },
     }
 }
 </script>

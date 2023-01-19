@@ -4,11 +4,14 @@
             <v-row>
                 <v-col cols="12" class="text-center pb-0 pt-10">
                     <v-avatar size="155px" class="mt-12">
-                        <img src="@/assets/gur.png" alt="" width="155">
+                        <img :src="getLine.pictureUrl" alt="" width="155">
                     </v-avatar>
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-5" style="color: #1DE9B6;font-size: 20px;font-weight: bold;">
+                        Welcome, 
+                    </div>
+                    <div class="mt-1" style="color: #1DE9B6;font-size: 20px;font-weight: bold;">
                         Connected Successfully!
                     </div>
                 </v-col>
@@ -41,8 +44,14 @@ const lineID = ref([])
 export default {
     methods: {
         close() {
+            this.$store.dispatch('setRegister', this.form)
             this.$router.push('/connect') 
         }
-    }
+    },
+    computed: {
+        getLine() {
+            return this.$store.getters.getLine;
+        },
+    },
 }
 </script>
