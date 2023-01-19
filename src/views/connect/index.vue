@@ -77,8 +77,8 @@ export default {
     data() {
         return {
             student: {
-                studentID: this.store.getters.getStudent.id,
-                studentPassword: this.store.getters.getStudent.pass,
+                studentID: this.$store.getters.getStudent.id,
+                studentPassword: this.$store.getters.getStudent.pass,
             }
         }
     },
@@ -105,7 +105,7 @@ export default {
     },
     computed: {
         getStudent() {
-            return this.store.getters.getStudent;
+            return this.$store.getters.getStudent;
         },
     },
 }
