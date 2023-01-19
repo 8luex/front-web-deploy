@@ -66,7 +66,7 @@ liff.ready.then(() => {
     }
     liff.getProfile().then(profile => {
         console.log(profile)
-        store.dispatch('setLine', profile);
+        this.store.dispatch('setLine', profile);
         this.isDone();
     })
 });
@@ -77,8 +77,8 @@ export default {
     data() {
         return {
             student: {
-                studentID: store.getters.getStudent.id,
-                studentPassword: store.getters.getStudent.pass,
+                studentID: this.store.getters.getStudent.id,
+                studentPassword: this.store.getters.getStudent.pass,
             }
         }
     },
@@ -105,7 +105,7 @@ export default {
     },
     computed: {
         getStudent() {
-            return store.getters.getStudent;
+            return this.store.getters.getStudent;
         },
     },
 }
