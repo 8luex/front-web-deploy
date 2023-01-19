@@ -5,9 +5,9 @@ export const state = () => ({
         userId: null
     },
     student: {
-        isShow: false,
-        title: '',
-        message: ''
+        fname: null,
+        lname: null,
+        message: null
     },
 })
 

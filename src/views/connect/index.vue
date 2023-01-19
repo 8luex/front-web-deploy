@@ -46,6 +46,7 @@
 <script setup>
 import { ref } from 'vue';
 import liff from '@line/liff';
+import store from '@/store/index.js';
 // const connect = () => {
 //     this.$router.push('/connect/done')
 // }
@@ -62,7 +63,7 @@ liff.ready.then(() => {
     }
     liff.getProfile().then(profile => {
         console.log(profile)
-        this.$store.dispatch('setLine', profile);
+        this.store.dispatch('setLine', profile);
         this.isDone();
     })
 });
