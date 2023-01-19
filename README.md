@@ -1,44 +1,21 @@
-# default
+# front-web-deploy
 
-## Project setup
+> test project
 
-```
-# yarn
-yarn
+## Build Setup
 
-# npm
+``` bash
+# install dependencies
 npm install
 
-# pnpm
-pnpm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-# yarn
-yarn dev
-
-# npm
+# serve with hot reload at localhost:8080
 npm run dev
 
-# pnpm
-pnpm dev
-```
-
-### Compiles and minifies for production
-
-```
-# yarn
-yarn build
-
-# npm
+# build for production with minification
 npm run build
 
-# pnpm
-pnpm build
+# build for production and view the bundle analyzer report
+npm run build --report
 ```
 
-### Customize configuration
-
-See [Configuration Reference](https://vitejs.dev/config/).
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
