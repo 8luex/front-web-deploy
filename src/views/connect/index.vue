@@ -63,7 +63,7 @@ liff.ready.then(() => {
     }
     liff.getProfile().then(profile => {
         console.log(profile)
-        this.store.dispatch('setLine', profile);
+        this.$store.dispatch('setLine', profile);
         this.isDone();
     })
 });
