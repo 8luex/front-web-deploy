@@ -104,9 +104,9 @@ export default {
         },
     },
     computed: {
-        getStudent() {
-            return this.store.getters.getStudent;
-        },
+        // getStudent() {
+        //     return this.store.getters.getStudent;
+        // },
     },
 }
 </script>
