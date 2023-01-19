@@ -9,9 +9,11 @@ const store = createStore({
             userId: null
         },
         student: {
+            id: null,
             fname: null,
             lname: null,
-            message: null
+            pass: null,
+            faculty: null
         },
     },
     getters: {

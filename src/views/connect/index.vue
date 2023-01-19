@@ -15,14 +15,14 @@
                 <v-col cols="12" class="text-center pl-10 pr-10">
                     <v-form>
                         <v-text-field
-                            v-model="studentID"
+                            v-model="student.studentID"
                             dense
                             label="Username"
                             color="teal-accent-3"                   
                         >
                         </v-text-field>
                         <v-text-field
-                            v-model="studentPassword"
+                            v-model="student.studentPassword"
                             dense
                             label="Password"
                             color="teal-accent-3"
@@ -47,6 +47,9 @@
 import { computed, ref } from 'vue';
 import liff from '@line/liff';
 import { useStore } from 'vuex'
+
+const store = useStore();
+
 // const connect = () => {
 //     this.$router.push('/connect/done')
 // }
@@ -73,34 +76,37 @@ liff.ready.then(() => {
 export default {
     data() {
         return {
-            form: {
-                username: null,
-                password: null,
+            student: {
+                studentID: store.getters.getStudent.id,
+                studentPassword: store.getters.getStudent.pass,
             }
         }
     },
-    setup() {
-        const store = useStore();
+    // setup() {
+    //     const store = useStore();
 
-        const line = computed(() => store.state.line);
-        function set() {
-            store.dispatch('setLine', this.form)
-        }
-        return {
-            note,
-            set
-        }
-    },
+    //     const line = computed(() => store.state.line);
+    //     function set() {
+    //         store.dispatch('setLine', this.form)
+    //     }
+    //     return {
+    //         note,
+    //         set
+    //     }
+    // },
     mounted() {
     },
     methods: {
         connect() {
             this.$router.push('/connect-done') 
-        }
-    },
-    methods: {
+        },
         isDone() {
         },
-    }
+    },
+    computed: {
+        getStudent() {
+            return store.getters.getStudent;
+        },
+    },
 }
 </script>
