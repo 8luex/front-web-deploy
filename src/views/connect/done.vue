@@ -50,7 +50,7 @@ export default {
     },
     computed: {
         getLine() {
-            return this.store.getters.getLine;
+            return this.$store.getters.getLine;
         },
     },
 }

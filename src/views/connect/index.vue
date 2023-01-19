@@ -66,7 +66,7 @@ liff.ready.then(() => {
     }
     liff.getProfile().then(profile => {
         console.log(profile)
-        this.store.dispatch('setLine', profile);
+        store.dispatch('setLine', profile);
         this.isDone();
     })
 });
@@ -104,9 +104,9 @@ export default {
         },
     },
     computed: {
-        // getStudent() {
-        //     return this.store.getters.getStudent;
-        // },
+        getStudent() {
+            return this.store.getters.getStudent;
+        },
     },
 }
 </script>
