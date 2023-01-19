@@ -21,7 +21,7 @@
             </v-row>
             <v-dialog v-model="isShowDialog" max-width="290">
                 <v-card class="dialog-card">
-                    <v-img class="white--text align-end" height="200px" :src="dialog.image"></v-img>
+                    <v-img cover class="white--text align-end" height="200px" :src="dialog.image"></v-img>
                     <v-card-title class="text-h6">
                         {{ dialog.name }}
                     </v-card-title>
