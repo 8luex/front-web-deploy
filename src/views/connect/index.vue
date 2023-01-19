@@ -44,9 +44,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import liff from '@line/liff';
-import store from '@/store/index.js';
+import { useStore } from 'vuex'
 // const connect = () => {
 //     this.$router.push('/connect/done')
 // }
@@ -63,7 +63,7 @@ liff.ready.then(() => {
     }
     liff.getProfile().then(profile => {
         console.log(profile)
-        this.$store.dispatch('setLine', profile);
+        store.dispatch('setLine', profile);
         this.isDone();
     })
 });
@@ -71,6 +71,26 @@ liff.ready.then(() => {
 
 <script>
 export default {
+    data() {
+        return {
+            form: {
+                username: null,
+                password: null,
+            }
+        }
+    },
+    setup() {
+        const store = useStore();
+
+        const line = computed(() => store.state.line);
+        function set() {
+            store.dispatch('setLine', this.form)
+        }
+        return {
+            note,
+            set
+        }
+    },
     mounted() {
     },
     methods: {

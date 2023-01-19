@@ -1,45 +1,52 @@
-export const state = () => ({
-    line: {
-        pictureUrl: null,
-        displayName: null,
-        userId: null
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
+
+const store = createStore({
+    state: {
+        line: {
+            pictureUrl: null,
+            displayName: null,
+            userId: null
+        },
+        student: {
+            fname: null,
+            lname: null,
+            message: null
+        },
     },
-    student: {
-        fname: null,
-        lname: null,
-        message: null
+    getters: {
+        getLine(state) {
+            return state.line
+        },
+        getStudent(state) {
+            return state.student
+        }
     },
+    mutations: {
+        // SET_NOTE(state, data) {
+        //     state.note.push(data);
+        // },
+        SET_LINE(state, data) {
+            state.line = {
+                ...state.line,
+                ...data
+            }
+        },
+        SET_STUDENT(state, data) {
+            state.student = {
+                ...state.student,
+                ...data
+            }
+        }
+    },
+    actions: {
+        setLine({ commit }, data) {
+            commit('SET_LINE', data) //user
+        },
+        setStudent({ commit }, data) {
+            commit('SET_STUDENT', data)
+        }
+    }
 })
 
-export const getters = {
-    getProfile(state) {
-        return state.line
-    },
-    getStudent(state) {
-        return state.student
-    }
-}
-
-export const mutations = {
-    SET_LINE(state, data) {
-        state.line = {
-            ...state.line,
-            ...data
-        }
-    },
-    SET_STUDENT(state, data) {
-        state.student = {
-            ...state.student,
-            ...data
-        }
-    }
-}
-
-export const actions = {
-    setLine({ commit }, data) {
-        commit('SET_LINE', data) //user
-    },
-    setStudent({ commit }, data) {
-        commit('SET_STUDENT', data)
-    }
-}
+export default store;

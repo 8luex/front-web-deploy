@@ -44,13 +44,12 @@ const lineID = ref([])
 export default {
     methods: {
         close() {
-            this.$store.dispatch('setRegister', this.form)
             this.$router.push('/connect') 
         }
     },
     computed: {
         getLine() {
-            return this.$store.getters.getLine;
+            return store.getters.getLine;
         },
     },
 }
