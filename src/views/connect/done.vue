@@ -31,7 +31,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex'
 // const connect = () => {
 //     this.$router.push('/connect/done')
 // }
@@ -49,7 +50,7 @@ export default {
     },
     computed: {
         getLine() {
-            return store.getters.getLine;
+            return this.store.getters.getLine;
         },
     },
 }
