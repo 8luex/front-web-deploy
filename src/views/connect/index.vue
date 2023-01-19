@@ -45,31 +45,30 @@
 
 <script setup>
 import { ref } from 'vue';
+import liff from '@line/liff';
 // const connect = () => {
 //     this.$router.push('/connect/done')
 // }
 const studentID = ref([])
 const studentPassword = ref([])
 const lineID = ref([])
+
+liff.init({
+    liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
+})
+liff.ready.then(() => {
+    if(!liff.isLoggedIn()) {
+        liff.login();
+    }
+    liff.getProfile().then(profile => {
+        console.log(profile)
+    })
+});
 </script>
 
 <script>
-import liff from '@line/liff';
-
-liff.init({
-    liffId: '1234567890-AbcdEfgh', // Use own liffId
-});
-
 export default {
     mounted() {
-        liff.init({
-            liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
-        })
-        liff.ready.then(() => {
-            liff.getProfile().then(profile => {
-                alert(profile)
-            })
-        });
     },
     methods: {
         connect() {
