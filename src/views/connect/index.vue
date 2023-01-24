@@ -53,9 +53,9 @@ const store = useStore();
 // const connect = () => {
 //     this.$router.push('/connect/done')
 // }
-const studentID = ref([])
-const studentPassword = ref([])
-const lineID = ref([])
+// const studentID = ref([])
+// const studentPassword = ref([])
+// const lineID = ref([])
 
 // function isDone() {
     
