@@ -60,8 +60,8 @@ const connect=() =>{
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "studentID": getStudent.studentID,
-                "studentPassword": getStudent.studentID,
+                "studentID": getStudent.studentID.value,
+                "studentPassword": getStudent.studentID.value,
                 "lineID": getLine.userId
             });
 
