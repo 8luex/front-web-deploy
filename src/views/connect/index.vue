@@ -43,71 +43,6 @@
     </div>
 </template>
 
-<script setup>
-import { computed, ref } from 'vue';
-import liff from '@line/liff';
-import { useStore } from 'vuex'
-
-const store = useStore();
-
-// const connect = () => {
-//     this.$router.push('/connect/done')
-// }
-
-const connect=() =>{
-            // store.dispatch('setStudent', this.student);
-            console.log(student)
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var raw = JSON.stringify({
-                "studentID": getStudent.id,
-                "studentPassword": getStudent.pass,
-                "lineID": getLine.userId
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch("https://apricot-binturong-kit.cyclic.app/login", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.status === 'ok') {
-                    this.$router.push('/connect-done') 
-                } else {
-                    alert(result.message)
-                }
-            })
-            .catch(error => console.log('error', error));
-        }
-
-// const studentID = ref([])
-// const studentPassword = ref([])
-// const lineID = ref([])
-
-// function isDone() {
-    
-// }
-
-liff.init({
-    liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
-})
-liff.ready.then(() => {
-    if(!liff.isLoggedIn()) {
-        liff.login(); //Test PC
-    }
-    liff.getProfile().then(profile => {
-        console.log(profile)
-        store.dispatch('setLine', profile);
-        //this.isDone();
-    })
-});
-</script>
-
 <script>
 export default {
     data() {
@@ -176,3 +111,69 @@ export default {
     },
 }
 </script>
+
+<script setup>
+import { computed, ref } from 'vue';
+import liff from '@line/liff';
+import { useStore } from 'vuex'
+
+const store = useStore();
+
+// const connect = () => {
+//     this.$router.push('/connect/done')
+// }
+
+const connect=() =>{
+            // store.dispatch('setStudent', this.student);
+            console.log(this.student)
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "studentID": getStudent.id,
+                "studentPassword": getStudent.pass,
+                "lineID": getLine.userId
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/login", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === 'ok') {
+                    this.$router.push('/connect-done') 
+                } else {
+                    alert(result.message)
+                }
+            })
+            .catch(error => console.log('error', error));
+        }
+
+// const studentID = ref([])
+// const studentPassword = ref([])
+// const lineID = ref([])
+
+// function isDone() {
+    
+// }
+
+liff.init({
+    liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
+})
+liff.ready.then(() => {
+    if(!liff.isLoggedIn()) {
+        liff.login(); //Test PC
+    }
+    liff.getProfile().then(profile => {
+        console.log(profile)
+        store.dispatch('setLine', profile);
+        //this.isDone();
+    })
+});
+</script>
+
