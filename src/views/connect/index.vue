@@ -57,6 +57,10 @@ const studentID = ref([])
 const studentPassword = ref([])
 const lineID = ref([])
 
+function isDone() {
+    
+}
+
 liff.init({
     liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
 })
@@ -98,14 +102,42 @@ export default {
     },
     methods: {
         connect() {
-            this.$router.push('/connect-done') 
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "studentID": studentID.value,
+                "studentPassword": studentPassword.value,
+                "lineID": getLine.userId
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/login", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === 'ok') {
+                    this.$router.push('/connect-done') 
+                } else {
+                    alert(result.message)
+                }
+            })
+            .catch(error => console.log('error', error));
         },
-        isDone() {
-        },
+        // isDone() {
+        // },
     },
     computed: {
         getStudent() {
             return this.$store.getters.getStudent;
+        },
+        getLine() {
+            return this.$store.getters.getLine;
         },
     },
 }
