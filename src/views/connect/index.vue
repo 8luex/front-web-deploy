@@ -15,14 +15,14 @@
                 <v-col cols="12" class="text-center pl-10 pr-10">
                     <v-form>
                         <v-text-field
-                            v-model="student.studentID"
+                            v-model="student.id"
                             dense
                             label="Username"
                             color="teal-accent-3"                   
                         >
                         </v-text-field>
                         <v-text-field
-                            v-model="student.studentPassword"
+                            v-model="student.pass"
                             dense
                             label="Password"
                             color="teal-accent-3"
@@ -102,7 +102,7 @@ liff.ready.then(() => {
     liff.getProfile().then(profile => {
         console.log(profile)
         store.dispatch('setLine', profile);
-        this.isDone();
+        //this.isDone();
     })
 });
 </script>
@@ -112,8 +112,11 @@ export default {
     data() {
         return {
             student: {
-                studentID: this.$store.getters.getStudent.id,
-                studentPassword: this.$store.getters.getStudent.pass,
+                id: this.$store.getters.getStudent.id,
+                fname: this.$store.getters.getStudent.fname,
+                lname: this.$store.getters.getStudent.lname,
+                pass: this.$store.getters.getStudent.pass,
+                faculty: this.$store.getters.getStudent.faculty,
             }
         }
     },
