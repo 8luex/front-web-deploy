@@ -102,12 +102,13 @@ export default {
     },
     methods: {
         connect() {
+            store.dispatch('setStudent', this.student);
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "studentID": student.studentID,
-                "studentPassword": student.studentID,
+                "studentID": getStudent.studentID,
+                "studentPassword": getStudent.studentID,
                 "lineID": getLine.userId
             });
 
