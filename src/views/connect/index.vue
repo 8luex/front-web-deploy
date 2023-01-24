@@ -57,9 +57,9 @@ const studentID = ref([])
 const studentPassword = ref([])
 const lineID = ref([])
 
-function isDone() {
+// function isDone() {
     
-}
+// }
 
 liff.init({
     liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
@@ -106,8 +106,8 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "studentID": studentID.value,
-                "studentPassword": studentPassword.value,
+                "studentID": student.studentID,
+                "studentPassword": student.studentID,
                 "lineID": getLine.userId
             });
 
