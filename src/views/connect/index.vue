@@ -55,13 +55,14 @@ const store = useStore();
 // }
 
 const connect=() =>{
-            store.dispatch('setStudent', this.student);
+            // store.dispatch('setStudent', this.student);
+            console.log(student)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "studentID": getStudent.studentID.value,
-                "studentPassword": getStudent.studentID.value,
+                "studentID": getStudent.id,
+                "studentPassword": getStudent.pass,
                 "lineID": getLine.userId
             });
 
