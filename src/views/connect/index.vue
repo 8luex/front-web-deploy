@@ -62,9 +62,9 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "studentID": studentID,
-                "studentPassword": studentID,
-                "lineID": lineID
+                "studentID": studentID.value,
+                "studentPassword": studentID.value,
+                "lineID": lineID.value
             });
 
             var requestOptions = {
