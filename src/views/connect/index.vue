@@ -52,9 +52,15 @@ export default {
     setup() {
         const store = useStore();
 
-        const studentID = ref("")
-        const studentPassword = ref("")
-        const lineID = ref("")
+        const studentID = ref('')
+        const studentPassword = ref('')
+        const lineID = ref('')
+
+        const connectx = () => {
+            alert(studentID.value);
+            alert(studentID.value);
+            alert(lineID.value);
+        }
 
         const connect = () => {
             //useStore().dispatch('setStudent', this.student);
@@ -63,7 +69,7 @@ export default {
 
             var raw = JSON.stringify({
                 "studentID": studentID.value,
-                "studentPassword": studentID.value,
+                "studentPassword": studentPassword.value,
                 "lineID": lineID.value
             });
 
