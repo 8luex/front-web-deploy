@@ -54,7 +54,7 @@ export default {
 
         const connect = () => {
             //useStore().dispatch('setStudent', this.student);
-            alert(this.student)
+            console.log(this.student)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -90,11 +90,11 @@ export default {
     data() {
         return {
             student: {
-                id: store.getters.getStudent.id,
-                fname: store.getters.getStudent.fname,
-                lname: store.getters.getStudent.lname,
-                pass: store.getters.getStudent.pass,
-                faculty: store.getters.getStudent.faculty,
+                id: this.$store.getters.getStudent.id,
+                fname: this.$store.getters.getStudent.fname,
+                lname: this.$store.getters.getStudent.lname,
+                pass: this.$store.getters.getStudent.pass,
+                faculty: this.$store.getters.getStudent.faculty,
             }
         }
     },
