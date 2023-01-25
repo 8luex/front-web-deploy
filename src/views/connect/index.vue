@@ -108,8 +108,8 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                store.dispatch('setLine', profile);
-                //this.store.dispatch('setLine', profile);
+                //store.dispatch('setLine', profile);
+                useStore().dispatch('setLine', profile);
                 //this.isDone();
             })
         });
