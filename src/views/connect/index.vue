@@ -69,7 +69,8 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                store.dispatch('setLine', profile);
+                //store.dispatch('setLine', profile);
+                this.$store.dispatch('setLine', profile);
                 //this.isDone();
             })
         });
@@ -78,7 +79,7 @@ export default {
         const store = useStore();
 
         const connect = () => {
-            store.dispatch('setStudent', this.student);
+            this.$store.dispatch('setStudent', this.student);
             console.log(this.student)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
