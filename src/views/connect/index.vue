@@ -54,7 +54,7 @@ export default {
 
         const studentID = ref([])
         const studentPassword = ref([])
-        // const lineID = ref([])
+        const lineID = ref([])
 
         const connect = () => {
             //useStore().dispatch('setStudent', this.student);
@@ -64,7 +64,7 @@ export default {
             var raw = JSON.stringify({
                 "studentID": studentID,
                 "studentPassword": studentPassword,
-                "lineID": getLine.userId
+                "lineID": lineID
             });
 
             var requestOptions = {
@@ -111,7 +111,8 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                store.dispatch('setLine', profile);
+                this.lineID = profile.lineID;
+                //store.dispatch('setLine', profile);
                 //this.isDone();
             })
         });
