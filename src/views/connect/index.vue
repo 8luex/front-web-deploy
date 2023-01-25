@@ -53,7 +53,7 @@ export default {
         //const store = useStore();
 
         const connect = () => {
-            useStore().dispatch('setStudent', this.student);
+            //useStore().dispatch('setStudent', this.student);
             console.log(this.student)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
