@@ -15,14 +15,14 @@
                 <v-col cols="12" class="text-center pl-10 pr-10">
                     <v-form>
                         <v-text-field
-                            
+                            v-model="studentID"
                             dense
                             label="Username"
                             color="teal-accent-3"                   
                         >
                         </v-text-field>
                         <v-text-field
-                            
+                            v-model="studentPassword"
                             dense
                             label="Password"
                             color="teal-accent-3"
@@ -52,7 +52,7 @@ export default {
     setup() {
         const store = useStore();
 
-        const studentID = ref('tttttt')
+        const studentID = ref('')
         const studentPassword = ref('')
         const lineID = ref('')
 
@@ -93,7 +93,9 @@ export default {
         }
 
         return {
-            connect
+            store,
+            studentID, studentPassword, lineID,
+            connect, connectx
         }
     },
     data() {
