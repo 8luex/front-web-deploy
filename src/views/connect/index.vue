@@ -47,40 +47,13 @@
 import { computed, ref } from 'vue';
 import liff from '@line/liff';
 import { useStore } from 'vuex'
-import store from '@/store/index.js';
+
 export default {
-    data() {
-        return {
-            student: {
-                id: this.$store.getters.getStudent.id,
-                fname: this.$store.getters.getStudent.fname,
-                lname: this.$store.getters.getStudent.lname,
-                pass: this.$store.getters.getStudent.pass,
-                faculty: this.$store.getters.getStudent.faculty,
-            }
-        }
-    },
-    mounted() {
-        liff.init({
-            liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
-        })
-        liff.ready.then(() => {
-            if(!liff.isLoggedIn()) {
-                liff.login(); //Test PC
-            }       
-            liff.getProfile().then(profile => {
-                console.log(profile)
-                //store.dispatch('setLine', profile);
-                this.$store.dispatch('setLine', profile);
-                //this.isDone();
-            })
-        });
-    },
     setup() {
-        const store = useStore();
+        //const store = useStore();
 
         const connect = () => {
-            this.$store.dispatch('setStudent', this.student);
+            useStore().dispatch('setStudent', this.student);
             console.log(this.student)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -113,6 +86,33 @@ export default {
         return {
             connect
         }
+    },
+    data() {
+        return {
+            student: {
+                id: this.$store.getters.getStudent.id,
+                fname: this.$store.getters.getStudent.fname,
+                lname: this.$store.getters.getStudent.lname,
+                pass: this.$store.getters.getStudent.pass,
+                faculty: this.$store.getters.getStudent.faculty,
+            }
+        }
+    },
+    mounted() {
+        liff.init({
+            liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
+        })
+        liff.ready.then(() => {
+            if(!liff.isLoggedIn()) {
+                liff.login(); //Test PC
+            }       
+            liff.getProfile().then(profile => {
+                console.log(profile)
+                store.dispatch('setLine', profile);
+                //this.store.dispatch('setLine', profile);
+                //this.isDone();
+            })
+        });
     },
     methods: {
     },
