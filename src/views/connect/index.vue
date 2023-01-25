@@ -52,13 +52,13 @@ export default {
     setup() {
         const store = useStore();
 
-        const studentID = ref('')
+        const studentID = ref('tttttt')
         const studentPassword = ref('')
         const lineID = ref('')
 
         const connectx = () => {
             alert(studentID.value);
-            alert(studentID.value);
+            alert(studentPassword.value);
             alert(lineID.value);
         }
 
