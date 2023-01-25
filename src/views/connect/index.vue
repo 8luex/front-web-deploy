@@ -16,20 +16,16 @@
                     <v-form>
                         <v-text-field
                             v-model="studentID"
-                            dense
-                            required
                             label="Username"
-                            color="teal-accent-3"                   
-                        >
-                        </v-text-field>
+                            filled
+                            required
+                        ></v-text-field>
                         <v-text-field
                             v-model="studentPassword"
-                            dense
-                            required
                             label="Password"
-                            color="teal-accent-3"
-                        >
-                        </v-text-field>
+                            filled
+                            required
+                        ></v-text-field>
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="connect">
                             Sign in
                         </v-btn>
