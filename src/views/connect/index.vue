@@ -17,6 +17,7 @@
                         <v-text-field
                             v-model="studentID"
                             dense
+                            required
                             label="Username"
                             color="teal-accent-3"                   
                         >
@@ -24,6 +25,7 @@
                         <v-text-field
                             v-model="studentPassword"
                             dense
+                            required
                             label="Password"
                             color="teal-accent-3"
                         >
