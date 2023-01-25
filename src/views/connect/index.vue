@@ -80,7 +80,7 @@ export default {
                 if(result.status === 'ok') {
                     this.$router.push('/connect-done') 
                 } else {
-                    alert(result.message)
+                    alert(result)
                 }
             })
             .catch(error => console.log('error', error));
