@@ -90,11 +90,11 @@ export default {
     data() {
         return {
             student: {
-                id: this.$store.getters.getStudent.id,
-                fname: this.$store.getters.getStudent.fname,
-                lname: this.$store.getters.getStudent.lname,
-                pass: this.$store.getters.getStudent.pass,
-                faculty: this.$store.getters.getStudent.faculty,
+                id: getStudent.id,
+                fname: getStudent.fname,
+                lname: getStudent.lname,
+                pass: getStudent.pass,
+                faculty: getStudent.faculty,
             }
         }
     },
@@ -109,7 +109,7 @@ export default {
             liff.getProfile().then(profile => {
                 console.log(profile)
                 //store.dispatch('setLine', profile);
-                useStore().dispatch('setLine', profile);
+                //useStore().dispatch('setLine', profile);
                 //this.isDone();
             })
         });
