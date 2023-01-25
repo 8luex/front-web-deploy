@@ -15,17 +15,19 @@
                 <v-col cols="12" class="text-center pl-10 pr-10">
                     <v-form>
                         <v-text-field
-                            v-model="studentID"
+                            
+                            dense
                             label="Username"
-                            filled
-                            required
-                        ></v-text-field>
+                            color="teal-accent-3"                   
+                        >
+                        </v-text-field>
                         <v-text-field
-                            v-model="studentPassword"
+                            
+                            dense
                             label="Password"
-                            filled
-                            required
-                        ></v-text-field>
+                            color="teal-accent-3"
+                        >
+                        </v-text-field>
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="connect">
                             Sign in
                         </v-btn>
