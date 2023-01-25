@@ -62,41 +62,42 @@ export default {
             alert(lineID.value);
         }
 
-        const connect = () => {
-            //useStore().dispatch('setStudent', this.student);
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
+        // const connect = () => {
+        //     //useStore().dispatch('setStudent', this.student);
+        //     var myHeaders = new Headers();
+        //     myHeaders.append("Content-Type", "application/json");
 
-            var raw = JSON.stringify({
-                "studentID": studentID.value,
-                "studentPassword": studentPassword.value,
-                "lineID": lineID.value
-            });
+        //     var raw = JSON.stringify({
+        //         "studentID": studentID.value,
+        //         "studentPassword": studentPassword.value,
+        //         "lineID": lineID.value
+        //     });
 
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
+        //     var requestOptions = {
+        //         method: 'POST',
+        //         headers: myHeaders,
+        //         body: raw,
+        //         redirect: 'follow'
+        //     };
 
-            fetch("https://apricot-binturong-kit.cyclic.app/login", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.status === 'ok') {
-                    this.next();
-                    //this.$router.push('/connect-done') 
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
-        }
+        //     fetch("https://apricot-binturong-kit.cyclic.app/login", requestOptions)
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         if(result.status === 'ok') {
+        //             this.next();
+        //             //this.$router.push('/connect-done') 
+        //         } else {
+        //             alert(JSON.stringify(result))
+        //         }
+        //     })
+        //     .catch(error => console.log('error', error));
+        // }
 
         return {
             store,
             studentID, studentPassword, lineID,
-            connect, connectx
+            //connect, 
+            connectx
         }
     },
     data() {
@@ -127,8 +128,35 @@ export default {
         });
     },
     methods: {
-        next() {
-            this.$router.push('/connect-done') 
+        connect() {
+            //useStore().dispatch('setStudent', this.student);
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "studentID": studentID.value,
+                "studentPassword": studentPassword.value,
+                "lineID": lineID.value
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/login", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === 'ok') {
+                    //this.next();
+                    this.$router.push('/connect-done') 
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
         },
     },
     computed: {
