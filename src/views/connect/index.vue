@@ -52,9 +52,9 @@ export default {
     setup() {
         const store = useStore();
 
-        const studentID = ref([])
-        const studentPassword = ref([])
-        const lineID = ref([])
+        // const studentID = ref([])
+        // const studentPassword = ref([])
+        const lineID = ref("")
 
         const connect = () => {
             //useStore().dispatch('setStudent', this.student);
@@ -62,8 +62,8 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "studentID": studentID,
-                "studentPassword": studentPassword,
+                "studentID": student.id,
+                "studentPassword": student.pass,
                 "lineID": lineID
             });
 
@@ -92,13 +92,13 @@ export default {
     },
     data() {
         return {
-            // student: {
-            //     id: this.$store.getters.getStudent.id,
-            //     fname: this.$store.getters.getStudent.fname,
-            //     lname: this.$store.getters.getStudent.lname,
-            //     pass: this.$store.getters.getStudent.pass,
-            //     faculty: this.$store.getters.getStudent.faculty,
-            // }
+            student: {
+                id: null,
+                fname: null,
+                lname: null,
+                pass: null,
+                faculty: null,
+            }
         }
     },
     mounted() {
