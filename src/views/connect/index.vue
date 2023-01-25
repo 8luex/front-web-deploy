@@ -62,6 +62,8 @@ export default {
             alert(lineID.value);
         }
 
+        let self = this;
+
         const connect = () => {
             //useStore().dispatch('setStudent', this.student);
             var myHeaders = new Headers();
@@ -84,7 +86,7 @@ export default {
             .then(response => response.json())
             .then(result => {
                 if(result.status === 'ok') {
-                    this.$router.push('/connect-done') 
+                    self.$router.push('/connect-done') 
                 } else {
                     alert(JSON.stringify(result))
                 }
@@ -93,7 +95,7 @@ export default {
         }
 
         return {
-            store,
+            store, self,
             studentID, studentPassword, lineID,
             connect, connectx
         }
