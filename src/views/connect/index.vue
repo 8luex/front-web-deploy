@@ -50,11 +50,11 @@ import { useStore } from 'vuex'
 
 export default {
     setup() {
-        //const store = useStore();
+        const store = useStore();
 
         const connect = () => {
             //useStore().dispatch('setStudent', this.student);
-            console.log(this.student)
+            alert(this.student)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -90,11 +90,11 @@ export default {
     data() {
         return {
             student: {
-                id: getStudent.id,
-                fname: getStudent.fname,
-                lname: getStudent.lname,
-                pass: getStudent.pass,
-                faculty: getStudent.faculty,
+                id: store.getters.getStudent.id,
+                fname: store.getters.getStudent.fname,
+                lname: store.getters.getStudent.lname,
+                pass: store.getters.getStudent.pass,
+                faculty: store.getters.getStudent.faculty,
             }
         }
     },
@@ -108,8 +108,7 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                //store.dispatch('setLine', profile);
-                //useStore().dispatch('setLine', profile);
+                store.dispatch('setLine', profile);
                 //this.isDone();
             })
         });
