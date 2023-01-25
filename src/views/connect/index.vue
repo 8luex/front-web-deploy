@@ -15,14 +15,14 @@
                 <v-col cols="12" class="text-center pl-10 pr-10">
                     <v-form>
                         <v-text-field
-                            v-model="student.id"
+                            v-model="studentID"
                             dense
                             label="Username"
                             color="teal-accent-3"                   
                         >
                         </v-text-field>
                         <v-text-field
-                            v-model="student.pass"
+                            v-model="studentPassword"
                             dense
                             label="Password"
                             color="teal-accent-3"
@@ -52,15 +52,18 @@ export default {
     setup() {
         const store = useStore();
 
+        const studentID = ref([])
+        const studentPassword = ref([])
+        // const lineID = ref([])
+
         const connect = () => {
             //useStore().dispatch('setStudent', this.student);
-            console.log(this.student)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "studentID": getStudent.id,
-                "studentPassword": getStudent.pass,
+                "studentID": studentID,
+                "studentPassword": studentPassword,
                 "lineID": getLine.userId
             });
 
@@ -89,13 +92,13 @@ export default {
     },
     data() {
         return {
-            student: {
-                id: this.$store.getters.getStudent.id,
-                fname: this.$store.getters.getStudent.fname,
-                lname: this.$store.getters.getStudent.lname,
-                pass: this.$store.getters.getStudent.pass,
-                faculty: this.$store.getters.getStudent.faculty,
-            }
+            // student: {
+            //     id: this.$store.getters.getStudent.id,
+            //     fname: this.$store.getters.getStudent.fname,
+            //     lname: this.$store.getters.getStudent.lname,
+            //     pass: this.$store.getters.getStudent.pass,
+            //     faculty: this.$store.getters.getStudent.faculty,
+            // }
         }
     },
     mounted() {
@@ -108,7 +111,7 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                //store.dispatch('setLine', profile);
+                store.dispatch('setLine', profile);
                 //this.isDone();
             })
         });
