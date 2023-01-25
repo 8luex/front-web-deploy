@@ -44,9 +44,6 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
-import liff from '@line/liff';
-import { useStore } from 'vuex'
 export default {
     data() {
         return {
@@ -59,26 +56,75 @@ export default {
             }
         }
     },
-    mounted() {
-        liff.init({
-            liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
-        })
-        liff.ready.then(() => {
-            if(!liff.isLoggedIn()) {
-                liff.login(); //Test PC
-            }       
-            liff.getProfile().then(profile => {
-                console.log(profile)
-                store.dispatch('setLine', profile);
-                //this.isDone();
-            })
-        });
-    },
-    setup() {
-        const store = useStore();
+    // setup() {
+    //     const store = useStore();
 
-        const connect = () => {
-            store.dispatch('setStudent', this.student);
+    //     const line = computed(() => store.state.line);
+    //     function set() {
+    //         store.dispatch('setLine', this.form)
+    //     }
+    //     return {
+    //         note,
+    //         set
+    //     }
+    // },
+    mounted() {
+    },
+    methods: {
+        // connect() {
+        //     store.dispatch('setStudent', this.student);
+        //     var myHeaders = new Headers();
+        //     myHeaders.append("Content-Type", "application/json");
+
+        //     var raw = JSON.stringify({
+        //         "studentID": getStudent.studentID,
+        //         "studentPassword": getStudent.studentID,
+        //         "lineID": getLine.userId
+        //     });
+
+        //     var requestOptions = {
+        //         method: 'POST',
+        //         headers: myHeaders,
+        //         body: raw,
+        //         redirect: 'follow'
+        //     };
+
+        //     fetch("https://apricot-binturong-kit.cyclic.app/login", requestOptions)
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         if(result.status === 'ok') {
+        //             this.$router.push('/connect-done') 
+        //         } else {
+        //             alert(result.message)
+        //         }
+        //     })
+        //     .catch(error => console.log('error', error));
+        // },
+    },
+    computed: {
+        getStudent() {
+            return this.$store.getters.getStudent;
+        },
+        getLine() {
+            return this.$store.getters.getLine;
+        },
+    },
+}
+</script>
+
+<script setup>
+import { computed, ref } from 'vue';
+import liff from '@line/liff';
+import { useStore } from 'vuex'
+
+const store = useStore();
+
+// const connect = () => {
+//     this.$router.push('/connect/done')
+// }
+
+const connect=() =>{
+            // store.dispatch('setStudent', this.student);
             console.log(this.student)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -107,16 +153,27 @@ export default {
             })
             .catch(error => console.log('error', error));
         }
-    },
-    methods: {
-    },
-    computed: {
-        getStudent() {
-            return this.$store.getters.getStudent;
-        },
-        getLine() {
-            return this.$store.getters.getLine;
-        },
-    },
-}
+
+// const studentID = ref([])
+// const studentPassword = ref([])
+// const lineID = ref([])
+
+// function isDone() {
+    
+// }
+
+liff.init({
+    liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
+})
+liff.ready.then(() => {
+    if(!liff.isLoggedIn()) {
+        liff.login(); //Test PC
+    }
+    liff.getProfile().then(profile => {
+        console.log(profile)
+        store.dispatch('setLine', profile);
+        //this.isDone();
+    })
+});
 </script>
+
