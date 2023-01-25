@@ -123,7 +123,7 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                this.lineID = profile.lineID;
+                //this.lineID = profile.lineID; 
                 this.$store.dispatch('setLine', profile); //try
                 //this.isDone();
             })
