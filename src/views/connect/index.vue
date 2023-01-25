@@ -47,6 +47,7 @@
 import { computed, ref } from 'vue';
 import liff from '@line/liff';
 import { useStore } from 'vuex'
+import store from '@/store/index.js';
 export default {
     data() {
         return {
