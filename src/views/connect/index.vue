@@ -83,7 +83,7 @@ export default {
             fetch("https://apricot-binturong-kit.cyclic.app/studentconnectcheck", requestOptions)
             .then(response => response.json())
             .then(result => {
-                if(result.status === 'ok') {
+                if(result.message === 'already connected') {
                     alert('update')//update
                 } else if(result.message === 'not yet connected') {
                     alert('insert')//insert
