@@ -66,9 +66,32 @@ export default {
         const lineID = ref('')
 
         const connectx = () => {
-            alert(studentID.value);
-            alert(studentPassword.value);
-            alert(lineID.value);
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "lineID": lineID.value
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/studentconnectcheck", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === 'ok') {
+                    alert('update')//update
+                } else if(result.message === 'not yet connected') {
+                    alert('insert')//insert
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
         }
 
         const connect = () => {
@@ -94,7 +117,10 @@ export default {
             .then(result => {
                 if(result.status === 'ok') {
                     //this.$router.push('/connect-done')
+                    connectx();
                     router.push({ path: '/connect-done' })
+                } else if(result.message === 'connected failed') {
+                    alert('Username หรือ Password ไม่ถูกต้อง')
                 } else {
                     alert(JSON.stringify(result))
                 }
