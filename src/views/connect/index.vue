@@ -65,6 +65,62 @@ export default {
         const studentPassword = ref('')
         const lineID = ref('')
 
+        const lineinsert = () => {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "studentID": studentID.value,
+                "lineID": lineID.value
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/lineinsert", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.message === 'insert complete') {
+                    router.push({ path: '/connect-done' })
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
+        }
+
+        const lineupdate = () => {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "studentID": studentID.value,
+                "lineID": lineID.value
+            });
+
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/lineupdate", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.message === 'update complete') {
+                    router.push({ path: '/connect-done' })
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
+        }
+
         const connectx = () => {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -84,9 +140,9 @@ export default {
             .then(response => response.json())
             .then(result => {
                 if(result.message === 'already connected') {
-                    alert('update')//update
+                    lineupdate();
                 } else if(result.message === 'not yet connected') {
-                    alert('insert')//insert
+                    lineinsert();
                 } else {
                     alert(JSON.stringify(result))
                 }
@@ -118,7 +174,7 @@ export default {
                 if(result.status === 'ok') {
                     //this.$router.push('/connect-done')
                     connectx();
-                    router.push({ path: '/connect-done' })
+                    //router.push({ path: '/connect-done' })
                 } else if(result.message === 'connected failed') {
                     alert('Username หรือ Password ไม่ถูกต้อง')
                 } else {
@@ -131,7 +187,7 @@ export default {
         return {
             store, router, route,
             studentID, studentPassword, lineID,
-            connect, connectx
+            connect, connectx, lineinsert, lineupdate
         }
     },
     data() {
