@@ -71,7 +71,7 @@ export default {
 
             var raw = JSON.stringify({
                 "studentID": studentID.value,
-                "lineID": lineID.value
+                "lineID": getLine.pictureUrl
             });
 
             var requestOptions = {
@@ -99,7 +99,7 @@ export default {
 
             var raw = JSON.stringify({
                 "studentID": studentID.value,
-                "lineID": lineID.value
+                "lineID": getLine.pictureUrl
             });
 
             var requestOptions = {
@@ -126,7 +126,7 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "lineID": lineID.value
+                "lineID": getLine.pictureUrl
             });
 
             var requestOptions = {
@@ -158,7 +158,7 @@ export default {
             var raw = JSON.stringify({
                 "studentID": studentID.value,
                 "studentPassword": studentPassword.value,
-                "lineID": lineID.value
+                "lineID": getLine.pictureUrl
             });
 
             var requestOptions = {
@@ -216,7 +216,7 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                this.lineID = profile.lineID; //
+                //this.lineID = profile.lineID;
                 this.$store.dispatch('setLine', profile); //try
                 //this.isDone();
             })
@@ -231,9 +231,9 @@ export default {
         // getStudent() {
         //     return this.$store.getters.getStudent;
         // },
-        // getLine() {
-        //     return this.$store.getters.getLine;
-        // },
+        getLine() {
+            return this.$store.getters.getLine;
+        },
     },
 }
 </script>
