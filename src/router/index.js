@@ -28,6 +28,11 @@ const routes = [
         path: 'connect-done',
         name: 'connect-done',
         component: () => import(/* webpackChunkName: "home" */ '@/views/connect/done.vue'),
+      },
+      {
+        path: 'test',
+        name: 'test',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/connect/test.vue'),
       }
     ],
   },

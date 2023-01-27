@@ -125,20 +125,6 @@ export default {
         }
     },
     mounted() {
-        liff.init({
-            liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
-        })
-        liff.ready.then(() => {
-            if(!liff.isLoggedIn()) {
-                liff.login(); //Test PC
-            }       
-            liff.getProfile().then(profile => {
-                console.log(profile)
-                //this.lineID = profile.lineID; 
-                this.$store.dispatch('setLine', profile); //try
-                //this.isDone();
-            })
-        });
     },
     methods: {
         // back() {
