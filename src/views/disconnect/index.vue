@@ -58,7 +58,7 @@ import { useRouter, useRoute } from 'vue-router'
 export default {
     setup() {
         const store = useStore();
-        const lineID = computed(() => store.getters.getLine.userId);
+        // const lineID = computed(() => store.getters.getLine.userId);
         const items = ref([])
 
         // const getconnect = () => {
@@ -91,7 +91,8 @@ export default {
         // }
 
         return {
-            store, lineID,
+            store, 
+            // lineID,
             items,
             // getconnect
         }
@@ -122,7 +123,7 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "lineID": lineID.value
+                "lineID": this.$store.getters.getLine.userId
             });
 
             var requestOptions = {
