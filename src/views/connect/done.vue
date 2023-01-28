@@ -45,8 +45,8 @@ const lineID = ref([])
 export default {
     methods: {
         close() {
-            this.$router.push('/connect')
-            //liff.closeWindow();
+            //this.$router.push('/connect')
+            liff.closeWindow();
         }
     },
     computed: {
