@@ -17,7 +17,7 @@
                         {{ items.studentID }}
                     </div>
                     <div class="mt-1" style="font-size: 18px;">
-                        {{ items.fname }} {{ item.lname }}
+                        {{ items.fname }} {{ items.lname }}
                     </div>
                     <div class="mt-1" style="font-size: 18px;">
                         {{ items.faculty }}
@@ -141,6 +141,7 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     items.value = result.line
+                    console.log(result)//Test
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
