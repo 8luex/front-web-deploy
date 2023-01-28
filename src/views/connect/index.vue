@@ -64,7 +64,7 @@ export default {
         const studentID = ref('')
         const studentPassword = ref('')
         //const lineID = ref('')
-        const line = computed(() => store.getters.getLine);
+        const line = computed(() => store.getters.getLine.lineID);
 
 
         const lineinsert = () => {
@@ -73,7 +73,7 @@ export default {
 
             var raw = JSON.stringify({
                 "studentID": studentID.value,
-                "lineID": line.lineID.value
+                "lineID": line
             });
 
             var requestOptions = {
@@ -101,7 +101,7 @@ export default {
 
             var raw = JSON.stringify({
                 "studentID": studentID.value,
-                "lineID": line.lineID.value
+                "lineID": line
             });
 
             var requestOptions = {
@@ -128,7 +128,7 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "lineID": line.lineID.value
+                "lineID": line
             });
 
             var requestOptions = {
@@ -160,7 +160,7 @@ export default {
             var raw = JSON.stringify({
                 "studentID": studentID.value,
                 "studentPassword": studentPassword.value,
-                "lineID": line.lineID.value
+                "lineID": line
             });
 
             var requestOptions = {
