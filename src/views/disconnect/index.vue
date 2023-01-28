@@ -14,13 +14,13 @@
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-1" style="font-size: 18px;">
-                        6300000
+                        {{ item.studentID }}
                     </div>
                     <div class="mt-1" style="font-size: 18px;">
-                        ชื่อ นามสกุล
+                        {{ item.fname }} {{ item.lname }}
                     </div>
                     <div class="mt-1" style="font-size: 18px;">
-                        วิทยาลัย
+                        {{ item.faculty }}
                     </div>
                 </v-col>
                 <v-col cols="12" class="text-center pl-10 pr-10">
@@ -39,12 +39,28 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
+const items = ref([])
+
+fetch('https://apricot-binturong-kit.cyclic.app/studentgetconnectcheck/'+getLine.userId.value)
+.then(res => res.json())
+.then((result) => {
+  items.value = result
+  console.log(result)
+})
+
+//<router-link to="/"></router-link>
 </script>
 
 <script>
 export default {
-    setup() {
-    },
+    // setup() {
+    //     const line = ref([])
+    //     return {
+    //         line
+    //     }
+    // },
     mounted() {
         liff.init({
             liffId: '1657670230-mPD2o50K', //BLUEZO Event Disconnect
@@ -62,6 +78,9 @@ export default {
         });
     },
     methods: {
+        close() {
+            liff.closeWindow();
+        }
     },
     computed: {
         getLine() {
