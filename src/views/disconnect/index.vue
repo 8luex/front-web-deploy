@@ -55,11 +55,14 @@ import liff from '@line/liff';
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 
+//const store = useStore();
+const items = ref([])
+
 export default {
     setup() {
-        const store = useStore();
+        // const store = useStore();
         // const lineID = computed(() => store.getters.getLine.userId);
-        const items = ref([])
+        // const items = ref([])
 
         // const getconnect = () => {
         //     var myHeaders = new Headers();
@@ -91,9 +94,9 @@ export default {
         // }
 
         return {
-            store, 
+            // store, 
             // lineID,
-            items,
+            // items,
             // getconnect
         }
     },
