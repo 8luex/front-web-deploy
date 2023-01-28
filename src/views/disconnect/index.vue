@@ -9,7 +9,7 @@
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <v-avatar size="155px" class="mt-5">
-                        <img :src="line.pictureUrl" alt="" width="155">
+                        <img :src="getLine.pictureUrl" alt="" width="155">
                     </v-avatar>
                 </v-col>
                 <v-col cols="12" class="text-center">
@@ -44,19 +44,6 @@
 <script>
 export default {
     setup() {
-        const store = useStore();
-        const router = useRouter()
-        const route = useRoute()
-
-        const studentID = ref('')
-        const studentPassword = ref('')
-        const line = computed(() => store.getters.getLine);
-        //const lineID = computed(() => store.getters.getLine.userId);
-
-        return {
-            store, router, route,
-            studentID, studentPassword, line,
-        }
     },
     mounted() {
         liff.init({
@@ -77,6 +64,9 @@ export default {
     methods: {
     },
     computed: {
+        getLine() {
+            return this.$store.getters.getLine;
+        },
     },
 }
 </script>
