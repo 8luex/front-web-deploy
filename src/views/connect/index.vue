@@ -64,7 +64,7 @@ export default {
         const studentID = ref('')
         const studentPassword = ref('')
         //const lineID = ref('')
-        const line = computed(() => store.getters.getLine.lineID);
+        const line = computed(() => store.getters.getLine.userId);
 
 
         const lineinsert = () => {
