@@ -30,6 +30,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/connect/done.vue'),
       },
       {
+        path: 'disconnect',
+        name: 'disconnect',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/disconnect/index.vue'),
+      },
+      {
         path: 'test',
         name: 'test',
         component: () => import(/* webpackChunkName: "home" */ '@/views/connect/test.vue'),
