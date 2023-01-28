@@ -63,7 +63,9 @@ export default {
 
         const studentID = ref('')
         const studentPassword = ref('')
-        const lineID = ref('')
+        //const lineID = ref('')
+        const line = computed(() => store.getters.getLine);
+
 
         const lineinsert = () => {
             var myHeaders = new Headers();
@@ -71,7 +73,7 @@ export default {
 
             var raw = JSON.stringify({
                 "studentID": studentID.value,
-                "lineID": getLine.pictureUrl
+                "lineID": line.lineID
             });
 
             var requestOptions = {
@@ -99,7 +101,7 @@ export default {
 
             var raw = JSON.stringify({
                 "studentID": studentID.value,
-                "lineID": getLine.pictureUrl
+                "lineID": line.lineID
             });
 
             var requestOptions = {
@@ -126,7 +128,7 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "lineID": getLine.pictureUrl
+                "lineID": line.lineID
             });
 
             var requestOptions = {
@@ -158,7 +160,7 @@ export default {
             var raw = JSON.stringify({
                 "studentID": studentID.value,
                 "studentPassword": studentPassword.value,
-                "lineID": getLine.pictureUrl
+                "lineID": line.lineID
             });
 
             var requestOptions = {
@@ -186,7 +188,7 @@ export default {
 
         return {
             store, router, route,
-            studentID, studentPassword, lineID,
+            studentID, studentPassword, line,
             connect, connectx, lineinsert, lineupdate
         }
     },
@@ -231,9 +233,9 @@ export default {
         // getStudent() {
         //     return this.$store.getters.getStudent;
         // },
-        getLine() {
-            return this.$store.getters.getLine;
-        },
+        // getLine() {
+        //     return this.$store.getters.getLine;
+        // },
     },
 }
 </script>
