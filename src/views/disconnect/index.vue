@@ -108,7 +108,7 @@ export default {
                 console.log(profile)
                 //this.lineID = profile.lineID;
                 this.$store.dispatch('setLine', profile); //try
-                getconnect()
+                this.getconnect();
                 //this.isDone();
             })
         });
