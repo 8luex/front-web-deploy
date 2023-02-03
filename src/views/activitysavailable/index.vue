@@ -50,9 +50,8 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex'
-import { ref } from 'vue';
-const store = useStore();
-const lineID = computed(() => store.getters.getLine.userId;
+const store = useStore()
+const lineID = computed(() => store.getters.getLine.userId);
 const items = ref([])
 const getconnect=(lineID)=> {
     var myHeaders = new Headers();
