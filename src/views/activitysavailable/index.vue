@@ -48,16 +48,18 @@
 </template>
 
 <script setup>
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex'
 import { ref } from 'vue';
-
+const store = useStore();
+const lineID = computed(() => store.getters.getLine.userId);
 const items = ref([])
-const itemsline = ref([])
 const getconnect=(lineID)=> {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-        "lineID": lineID
+        "lineID": lineID.value
     });
 
     var requestOptions = {
@@ -71,9 +73,8 @@ const getconnect=(lineID)=> {
     .then(response => response.json())
     .then(result => {
         if(result.message === 'already connected') {
-            itemsline.value = result.line[0] //nomatter
             console.log(result)//Test
-            this.getactivitysavailable(result.line[0].studentID);
+            getactivitysavailable(result.line[0].studentID);
         } else if(result.message === 'not yet connected') {
             alert('ยังไม่ได้เชื่อมโยงบัญชี')
         } else {
@@ -98,14 +99,14 @@ const getactivitysavailable=(studentID)=> {
         }
     })
 }
-getconnect(this.$store.getters.getLine.userId);
+getconnect(lineID);
 </script>
 
 <script>
 import Card from '@/components/Card.vue'
-import { computed, ref } from 'vue';
+
 import liff from '@line/liff';
-import { useStore } from 'vuex'
+
 import { useRouter, useRoute } from 'vue-router'
 
 //const items = ref([])
