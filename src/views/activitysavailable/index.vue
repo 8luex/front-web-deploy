@@ -142,15 +142,15 @@ export default {
         getactivitysavailable(studentID) {
             fetch('https://apricot-binturong-kit.cyclic.app/activitysavailable/'+studentID)
             .then(res => res.json())
-            .then((result) => {
-                if(result.status === 'error') {
-                    alert(JSON.stringify(result))
-                } else if(result.message === 'no activitys available') {
-                    console.log(result)
+            .then((resultact) => {
+                if(resultact.status === 'error') {
+                    alert(JSON.stringify(resultact))
+                } else if(resultact.message === 'no activitys available') {
+                    console.log(resultact)
                 } else {
-                    //alert(JSON.stringify(result))
-                    items.value = result
-                    console.log(result)
+                    //alert(JSON.stringify(resultact))
+                    this.items.value = resultact
+                    console.log(resultact)
                 }
             })
         }
