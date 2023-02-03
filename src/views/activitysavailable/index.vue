@@ -8,6 +8,7 @@
                 <v-col cols="12">
                     <div
                     v-for="item in items"
+                    v-bind="item"
                     :key="item.id">
                     {{ item.id }}
                     </div>
