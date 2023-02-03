@@ -1,43 +1,17 @@
 <template>
     <div>
+        <v-app-bar color="teal-accent-3" dense flat dark>
+            <v-toolbar-title style="text-align: center;color: white;">กิจกรรม</v-toolbar-title>
+        </v-app-bar>
         <v-container class="pt-0 pb-0">
             <v-row>
-                <v-col cols="12" class="text-center pb-0 pt-10">
-                    <v-avatar size="155px" class="mt-12">
-                        <img src="@/assets/gur.png" alt="" width="155">
-                    </v-avatar>
-                </v-col>
-                <v-col cols="12" class="text-center">
-                    <div class="mt-5" style="color: #1DE9B6;font-size: 20px;font-weight: bold;">
-                        Please sign in
-                    </div>
-                </v-col>
-                <v-col cols="12" class="text-center pl-10 pr-10">
-                    <v-form>
-                        <v-text-field
-                            v-model="studentID"
-                            dense
-                            :rules="[rules.required]"
-                            label="Username"
-                            color="teal-accent-3"                   
-                        >
-                        </v-text-field>
-                        <v-text-field
-                            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                            :type="show ? 'text' : 'password'"
-                            @click:append="show = !show"
-                            v-model="studentPassword"
-                            dense
-                            :rules="[rules.required]"
-                            label="Password"
-                            color="teal-accent-3"
-                            class="set-eye"
-                        >
-                        </v-text-field>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="connect">
-                            Sign in
-                        </v-btn>
-                    </v-form>
+                <v-col cols="12">
+                    <Card
+                    v-for="item in items"
+                    :key="item.id"
+                    :act="item"
+                    v-on:moreDetail="moreDetail(item)"
+                    />
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -45,172 +19,72 @@
                     </div>
                 </v-col>
             </v-row>
+            <v-dialog v-model="isShowDialog" max-width="290">
+                <v-card class="dialog-card">
+                    <v-img cover class="white--text align-end" height="200px" :src="dialog.image"></v-img>
+                    <v-card-title class="text-h6">
+                        {{ dialog.name }}
+                    </v-card-title>
+                    <v-card-text>
+                        <p class="text-caption text-disabled">{{ dialog.createdAt }}</p>
+                        <p>ผู้สร้างกิจกรรม: {{ dialog.teacherfname }} {{ dialog.teacherlname }}</p>
+                        <p>{{ dialog.faculty }}</p>
+                        <p class="detail">รายละเอียดกิจกรรม: {{ dialog.detail }}</p>
+                        <p>วันที่: {{ dialog.eventDate.substring(0,10) }}</p>
+                        <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
+                        <p>สถานที่: {{ dialog.location }}</p>
+                        <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
+                        <p>จำนวนผู้ลงทะเบียน: x/{{ dialog.max }}</p>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="isShowDialog = false">ยกเลิก</v-btn>
+                        <v-btn color="teal-accent-3" text @click="isShowDialog = false">ลงทะเบียน</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-container>
     </div>
 </template>
 
+
+
 <script>
+import Card from '@/components/Card.vue'
 import { computed, ref } from 'vue';
 import liff from '@line/liff';
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 
+const items = ref([])
+const itemsline = ref([])
+
 export default {
-    setup() {
-        const store = useStore();
-        const router = useRouter()
-        const route = useRoute()
-
-        const studentID = ref('')
-        const studentPassword = ref('')
-        //const lineID = ref('')
-        const line = computed(() => store.getters.getLine.userId);
-
-
-        const lineinsert = () => {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var raw = JSON.stringify({
-                "studentID": studentID.value,
-                "lineID": line.value
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch("https://apricot-binturong-kit.cyclic.app/lineinsert", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.message === 'insert complete') {
-                    router.push({ path: '/connect-done' })
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
-        }
-
-        const lineupdate = () => {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var raw = JSON.stringify({
-                "studentID": studentID.value,
-                "lineID": line.value
-            });
-
-            var requestOptions = {
-                method: 'PUT',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch("https://apricot-binturong-kit.cyclic.app/lineupdate", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.message === 'update complete') {
-                    router.push({ path: '/connect-done' })
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
-        }
-
-        const connectx = () => {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var raw = JSON.stringify({
-                "lineID": line.value
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch("https://apricot-binturong-kit.cyclic.app/studentconnectcheck", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.message === 'already connected') {
-                    lineupdate();
-                } else if(result.message === 'not yet connected') {
-                    lineinsert();
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
-        }
-
-        const connect = () => {
-            //useStore().dispatch('setStudent', this.student);
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var raw = JSON.stringify({
-                "studentID": studentID.value,
-                "studentPassword": studentPassword.value,
-                "lineID": line.value
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch("https://apricot-binturong-kit.cyclic.app/login", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.status === 'ok') {
-                    //this.$router.push('/connect-done')
-                    connectx();
-                    //router.push({ path: '/connect-done' })
-                } else if(result.message === 'connected failed') {
-                    alert('Username หรือ Password ไม่ถูกต้อง')
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
-        }
-
-        return {
-            store, router, route,
-            studentID, studentPassword, line,
-            connect, connectx, lineinsert, lineupdate
-        }
+    name: 'activity',
+    components: {
+        Card
     },
-    data() {
+    data () {
         return {
-            // student: {
-            //     id: null,
-            //     fname: null,
-            //     lname: null,
-            //     pass: null,
-            //     faculty: null,
-            // },
-            rules: {
-                required: value => !!value || 'required.',
-            },
-            show: false,
-            password: 'Password',
+            isShowDialog: false,
+            dialog : {
+                name: '',
+                createdAt: '',
+                location: '',
+                creator: '',
+                //faculty: '',
+                detail: '',
+                eventDate: '',
+                timeStart: '',
+                timeEnd: '',
+                hoursToReceive: '',
+                image: ''
+            }
         }
     },
     mounted() {
         liff.init({
-            liffId: '1657670230-Jo7GP1Mv', //BLUEZO Event Connect
+            liffId: '1657670230-kRRQZ1nN', //BLUEZO Event Activitys Available
         })
         liff.ready.then(() => {
             if(!liff.isLoggedIn()) {
@@ -220,36 +94,82 @@ export default {
                 console.log(profile)
                 //this.lineID = profile.lineID;
                 this.$store.dispatch('setLine', profile); //try
+                this.getconnect();
                 //this.isDone();
             })
         });
     },
-    methods: {
-        // back() {
-
-        // },
-    },
     computed: {
-        // getStudent() {
-        //     return this.$store.getters.getStudent;
-        // },
-        // getLine() {
-        //     return this.$store.getters.getLine;
-        // },
+        getLine() {
+            return this.$store.getters.getLine;
+        },
     },
+    methods: {
+        moreDetail(item) {
+            this.isShowDialog = true
+            this.dialog= item
+        },
+        getconnect() {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "lineID": this.$store.getters.getLine.userId
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.message === 'already connected') {
+                    itemsline.value = result.line[0] //nomatter
+                    console.log(result)//Test
+                    this.getactivitysavailable(result.line[0].studentID);
+                } else if(result.message === 'not yet connected') {
+                    alert('ยังไม่ได้เชื่อมโยงบัญชี')
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
+        },
+        getactivitysavailable(studentID) {
+            fetch('https://apricot-binturong-kit.cyclic.app/activitysavailable/'+studentID)
+            .then(res => res.json())
+            .then((resultact) => {
+                if(resultact.status === 'error') {
+                    alert(JSON.stringify(resultact))
+                } else if(resultact.message === 'no activitys available') {
+                    console.log(resultact)
+                } else {
+                    //alert(JSON.stringify(resultact))
+                    this.items = resultact
+                    //items.value = resultact
+                    console.log(resultact)
+                }
+            })
+        }
+    }
 }
 </script>
 
-<style lang="scss" scoped>
-::v-deep .v-messages__message {
-    text-align: left;
-}
 
-.set-eye {
-    position: relative;
-    ::v-deep .v-input__append {
-    position: absolute;
-    right: 10px;
-}
+<style lang="scss" scoped>
+.dialog-card {
+    p {
+        margin-bottom: 0;
+    }
+    .v-card__text {
+        padding-bottom: 0;
+    }
+    .detail {
+        margin: 10px 0;
+    }
 }
 </style>

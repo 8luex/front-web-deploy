@@ -128,7 +128,7 @@ export default {
             .then(response => response.json())
             .then(result => {
                 if(result.message === 'already connected') {
-                    itemsline.value = result.line[0]
+                    itemsline.value = result.line[0] //nomatter
                     console.log(result)//Test
                     this.getactivitysavailable(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
@@ -149,8 +149,8 @@ export default {
                     console.log(resultact)
                 } else {
                     //alert(JSON.stringify(resultact))
-                    this.items = resultact
-                    //items.value = resultact
+                    //this.items = resultact
+                    items.value = resultact
                     console.log(resultact)
                 }
             })
