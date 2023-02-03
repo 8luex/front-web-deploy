@@ -144,7 +144,7 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                this.lineID = profile.userId;
+                this.lineID.value = profile.userId;
                 this.$store.dispatch('setLine', profile); //try
                 //this.getconnect();
                 //this.isDone();
