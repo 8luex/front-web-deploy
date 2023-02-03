@@ -25,7 +25,8 @@ import Card from '@/components/Card.vue'
 import { ref } from 'vue';
 import liff from '@line/liff';
 
-const items = ref([])
+//const items = ref([])
+const items = []
 
 export default {
     name: 'activity',
