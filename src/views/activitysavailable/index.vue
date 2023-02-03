@@ -130,7 +130,7 @@ export default {
                 if(result.message === 'already connected') {
                     itemsline.value = result.line[0]
                     console.log(result)//Test
-                    this.getactivitysavailable();
+                    this.getactivitysavailable(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
@@ -139,8 +139,8 @@ export default {
             })
             .catch(error => console.log('error', error));
         },
-        getactivitysavailable() {
-            fetch('https://apricot-binturong-kit.cyclic.app/activitysavailable/'+itemsline.studentID)
+        getactivitysavailable(studentID) {
+            fetch('https://apricot-binturong-kit.cyclic.app/activitysavailable/'+studentID)
             .then(res => res.json())
             .then((result) => {
                 if(result.status === 'error') {
