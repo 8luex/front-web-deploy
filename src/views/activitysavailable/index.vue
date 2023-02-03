@@ -75,7 +75,7 @@ const getconnect=(lineID)=> {
             console.log(result)//Test
             getactivitysavailable(result.line[0].studentID);
         } else if(result.message === 'not yet connected') {
-            alert('ยังไม่ได้เชื่อมโยงบัญชี')
+            alert('ยังไม่ได้เชื่อมโยงบัญชี'+lineID.value)//
         } else {
             alert(JSON.stringify(result))
         }
