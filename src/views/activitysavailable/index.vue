@@ -149,7 +149,8 @@ export default {
                     console.log(resultact)
                 } else {
                     //alert(JSON.stringify(resultact))
-                    this.items.value = resultact
+                    this.items = resultact
+                    //items.value = resultact
                     console.log(resultact)
                 }
             })
