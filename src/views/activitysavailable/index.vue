@@ -10,7 +10,7 @@
                     v-for="item in items"
                     v-bind="item"
                     :key="item.id">
-                    {{ item.id }}
+                    {{ item.id }} {{ item.name }} สวัสดี ลอง
                     </div>
                 </v-col>
             </v-row>
@@ -118,7 +118,7 @@ export default {
                     //alert(JSON.stringify(resultact))
                     //this.items = resultact
                     items.value = resultact
-                    console.log(items)
+                    console.log(resultact)
                 }
             })
         }
