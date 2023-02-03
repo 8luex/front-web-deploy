@@ -94,23 +94,7 @@ export default {
                 console.log(profile)
                 //this.lineID = profile.lineID;
                 this.$store.dispatch('setLine', profile); //try
-                this.getconnect();
-                //this.isDone();
-            })
-        });
-    },
-    computed: {
-        getLine() {
-            return this.$store.getters.getLine;
-        },
-    },
-    methods: {
-        moreDetail(item) {
-            this.isShowDialog = true
-            this.dialog= item
-        },
-        getconnect() {
-            var myHeaders = new Headers();
+                var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
@@ -130,7 +114,21 @@ export default {
                 if(result.message === 'already connected') {
                     itemsline.value = result.line[0] //nomatter
                     console.log(result)//Test
-                    this.getactivitysavailable(result.line[0].studentID);
+                    //this.getactivitysavailable(result.line[0].studentID);
+                    fetch('https://apricot-binturong-kit.cyclic.app/activitysavailable/'+result.line[0].studentID)
+            .then(res => res.json())
+            .then((resultact) => {
+                if(resultact.status === 'error') {
+                    alert(JSON.stringify(resultact))
+                } else if(resultact.message === 'no activitys available') {
+                    console.log(resultact)
+                } else {
+                    //alert(JSON.stringify(resultact))
+                    //this.items = resultact
+                    items.value = resultact
+                    console.log(resultact)
+                }
+            })
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
@@ -138,6 +136,22 @@ export default {
                 }
             })
             .catch(error => console.log('error', error));
+                //this.isDone();
+            })
+        });
+    },
+    computed: {
+        getLine() {
+            return this.$store.getters.getLine;
+        },
+    },
+    methods: {
+        moreDetail(item) {
+            this.isShowDialog = true
+            this.dialog= item
+        },
+        getconnect() {
+            
         },
         getactivitysavailable(studentID) {
             fetch('https://apricot-binturong-kit.cyclic.app/activitysavailable/'+studentID)
