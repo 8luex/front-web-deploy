@@ -146,7 +146,7 @@ export default {
                 console.log(profile)
                 //this.lineID.value = profile.userId;
                 this.$store.dispatch('setLine', profile); //try
-                getconnect(profile.userId);
+                this.getconnect(profile.userId);
                 //this.getconnect();
                 //this.isDone();
             })
