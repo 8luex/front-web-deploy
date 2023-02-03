@@ -117,7 +117,7 @@ export default {
                     //alert(JSON.stringify(resultact))
                     //this.items = resultact
                     items.value = resultact
-                    console.log(items.value)
+                    console.log(items)
                 }
             })
         }
