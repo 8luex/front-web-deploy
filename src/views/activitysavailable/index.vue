@@ -58,7 +58,7 @@ const getconnect=(lineID)=> {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-        "lineID": lineID.value
+        "lineID": lineID
     });
 
     var requestOptions = {
@@ -75,7 +75,7 @@ const getconnect=(lineID)=> {
             console.log(result)//Test
             getactivitysavailable(result.line[0].studentID);
         } else if(result.message === 'not yet connected') {
-            alert('ยังไม่ได้เชื่อมโยงบัญชี'+lineID.value)//
+            alert('ยังไม่ได้เชื่อมโยงบัญชี'+lineID)//
         } else {
             alert(JSON.stringify(result))
         }
