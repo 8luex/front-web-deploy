@@ -51,7 +51,7 @@
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex'
 const store = useStore()
-const lineID = ref("")
+const lineID = ref('')
 const items = ref([])
 const getconnect=(lineID)=> {
     var myHeaders = new Headers();
@@ -98,7 +98,7 @@ const getactivitysavailable=(studentID)=> {
         }
     })
 }
-getconnect(lineID);
+//getconnect(lineID);
 </script>
 
 <script>
@@ -144,8 +144,9 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                this.lineID.value = profile.userId;
+                this.lineID.value = profile.userId;//no
                 this.$store.dispatch('setLine', profile); //try
+                getconnect(profile.userId);
                 //this.getconnect();
                 //this.isDone();
             })
