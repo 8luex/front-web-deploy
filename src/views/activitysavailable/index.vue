@@ -39,7 +39,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="grey" text @click="isShowDialog = false">ยกเลิก</v-btn>
-                        <v-btn color="teal-accent-3" text @click="isShowDialog = false">ลงทะเบียน</v-btn>
+                        <v-btn color="teal-accent-3" text @click="activityEnroll(dialog.id,dialog.name,stID)">ลงทะเบียน</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -81,6 +81,7 @@ export default {
     },
     setup() {
         const items = ref([])
+        const stID = ref('')
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -103,6 +104,7 @@ export default {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
                     //this.getactivitysavailable(result.line[0].studentID);
+                    stID.value = result.line[0].studentID // add on
                     getactivitysavailable(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
@@ -147,7 +149,7 @@ export default {
         });
 
         return {
-            items
+            items, stID
         }
         
     },
@@ -163,6 +165,9 @@ export default {
         moreDetail(item) {
             this.isShowDialog = true
             this.dialog= item
+        },
+        activityEnroll(activityID,name,studentID) {
+            console.log(activityID,name,studentID)
         },
         // getconnect() {
             
