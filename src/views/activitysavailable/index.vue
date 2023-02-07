@@ -8,9 +8,8 @@
                 <v-col cols="12">
                     <div
                     v-for="item in items"
-                    v-bind="item"
                     :key="item.id">
-                    {{ item.id }} {{ item.name }} สวัสดี ลอง
+                    {{ item.id }} {{ item.name }}
                     </div>
                 </v-col>
             </v-row>
@@ -25,8 +24,7 @@ import Card from '@/components/Card.vue'
 import { ref } from 'vue';
 import liff from '@line/liff';
 
-//const items = ref([])
-const items = []
+const items = ref([])
 
 export default {
     name: 'activity',
