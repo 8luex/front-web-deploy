@@ -24,7 +24,7 @@ import Card from '@/components/Card.vue'
 import { ref } from 'vue';
 import liff from '@line/liff';
 
-const items = ref([])
+// const items = ref([])
 
 export default {
     name: 'activity',
@@ -49,39 +49,15 @@ export default {
             }
         }
     },
-    mounted() {
-        liff.init({
-            liffId: '1657670230-kRRQZ1nN', //BLUEZO Event Activitys Available
-        })
-        liff.ready.then(() => {
-            if(!liff.isLoggedIn()) {
-                liff.login(); //Test PC
-            }       
-            liff.getProfile().then(profile => {
-                console.log(profile)
-                //this.lineID = profile.lineID;
-                this.$store.dispatch('setLine', profile); //try
-                this.getconnect();
-                //this.isDone();
-            })
-        });
-    },
-    computed: {
-        getLine() {
-            return this.$store.getters.getLine;
-        },
-    },
-    methods: {
-        moreDetail(item) {
-            this.isShowDialog = true
-            this.dialog= item
-        },
-        getconnect() {
+    setup() {
+        const items = ref([])
+
+        const getconnect = (lineID) => {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "lineID": this.$store.getters.getLine.userId
+                "lineID": lineID
             });
 
             var requestOptions = {
@@ -96,7 +72,8 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    this.getactivitysavailable(result.line[0].studentID);
+                    //this.getactivitysavailable(result.line[0].studentID);
+                    getactivitysavailable(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
@@ -104,8 +81,8 @@ export default {
                 }
             })
             .catch(error => console.log('error', error));
-        },
-        getactivitysavailable(studentID) {
+        };
+        const getactivitysavailable = (studentID) => {
             fetch('https://apricot-binturong-kit.cyclic.app/activitysavailable/'+studentID)
             .then(res => res.json())
             .then((resultact) => {
@@ -120,7 +97,49 @@ export default {
                     console.log(resultact)
                 }
             })
+        };
+        
+        liff.init({
+            liffId: '1657670230-kRRQZ1nN', //BLUEZO Event Activitys Available
+        })
+        liff.ready.then(() => {
+            if(!liff.isLoggedIn()) {
+                liff.login(); //Test PC
+            }       
+            liff.getProfile().then(profile => {
+                console.log(profile)
+                //this.lineID = profile.lineID;
+                //this.$store.dispatch('setLine', profile);
+                //this.getconnect();
+                getconnect(profile.userId);
+                //this.isDone();
+            })
+        });
+
+        return {
+            items
         }
+        
+    },
+    mounted() {
+        
+    },
+    computed: {
+        getLine() {
+            return this.$store.getters.getLine;
+        },
+    },
+    methods: {
+        moreDetail(item) {
+            this.isShowDialog = true
+            this.dialog= item
+        },
+        // getconnect() {
+            
+        // },
+        // getactivitysavailable(studentID) {
+            
+        // }
     }
 }
 </script>
