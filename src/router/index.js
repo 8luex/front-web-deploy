@@ -40,6 +40,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/activitysavailable/index.vue'),
       },
       {
+        path: 'activitysavailable-done',
+        name: 'activitysavailable-done',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/activitysavailable/done.vue'),
+      },
+      {
         path: 'test',
         name: 'test',
         component: () => import(/* webpackChunkName: "home" */ '@/views/connect/test.vue'),

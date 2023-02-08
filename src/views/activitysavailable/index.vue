@@ -190,8 +190,8 @@ export default {
                     //router.push({ path: '/connect-done' })
                     console.log('activity enroll successfully')
                     this.isShowDialog = false
-                    //this.$router.push('activitysavailable');
-                    window.location.reload()
+                    this.$router.push('activitysavailable-done');
+                    //window.location.reload()
                 } else {
                     alert(JSON.stringify(result))
                 }
