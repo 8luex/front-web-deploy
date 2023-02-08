@@ -190,7 +190,7 @@ export default {
                     //router.push({ path: '/connect-done' })
                     console.log('activity enroll successfully')
                     this.isShowDialog = false
-                    this.setup()
+                    router.push({ path: '/activitysavailable' }) //just test ja55
                 } else {
                     alert(JSON.stringify(result))
                 }
