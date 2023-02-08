@@ -168,6 +168,33 @@ export default {
         },
         activityEnroll(activityID,name,studentID) {
             console.log(activityID,name,studentID)
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+            "activityID": activityID,
+            "studentID": studentID
+            });
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/activityenroll", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === 'ok') {
+                    //router.push({ path: '/connect-done' })
+                    console.log('activity enroll successfully')
+                    this.isShowDialog = false
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
         },
         // getconnect() {
             
