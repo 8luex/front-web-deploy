@@ -190,6 +190,7 @@ export default {
                     //router.push({ path: '/connect-done' })
                     console.log('activity enroll successfully')
                     this.isShowDialog = false
+                    setup()
                 } else {
                     alert(JSON.stringify(result))
                 }
