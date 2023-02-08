@@ -39,7 +39,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="grey" text @click="isShowDialog = false">ยกเลิก</v-btn>
-                        <v-btn color="teal-accent-3" text @click="activityEnroll($event,dialog.id,dialog.name,stID)">ลงทะเบียน</v-btn>
+                        <v-btn color="teal-accent-3" text @click="activityEnroll(dialog.id,dialog.name,stID)">ลงทะเบียน</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -166,7 +166,7 @@ export default {
             this.isShowDialog = true
             this.dialog= item
         },
-        activityEnroll(event,activityID,name,studentID) {
+        activityEnroll(activityID,name,studentID) {
             console.log(activityID,name,studentID)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -190,7 +190,7 @@ export default {
                     //router.push({ path: '/connect-done' })
                     console.log('activity enroll successfully')
                     this.isShowDialog = false
-                    event.preventDefault();
+                    this.setup()
                 } else {
                     alert(JSON.stringify(result))
                 }
