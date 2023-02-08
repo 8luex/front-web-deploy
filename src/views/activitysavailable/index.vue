@@ -53,6 +53,7 @@
 import Card from '@/components/Card.vue'
 import { ref } from 'vue';
 import liff from '@line/liff';
+import { useRouter, useRoute } from 'vue-router'
 
 // const items = ref([])
 
@@ -82,6 +83,9 @@ export default {
     setup() {
         const items = ref([])
         const stID = ref('')
+
+        const router = useRouter()
+        const route = useRoute()
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -149,7 +153,7 @@ export default {
         });
 
         return {
-            items, stID
+            items, stID, router, route,
         }
         
     },
