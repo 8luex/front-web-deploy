@@ -189,8 +189,9 @@ export default {
                 if(result.status === 'ok') {
                     //router.push({ path: '/connect-done' })
                     console.log('activity enroll successfully')
-                    this.isShowDialog = false
-                    this.$router.push('activitysavailable');
+                    //this.isShowDialog = false
+                    //this.$router.push('activitysavailable');
+                    window.location.reload()
                 } else {
                     alert(JSON.stringify(result))
                 }
