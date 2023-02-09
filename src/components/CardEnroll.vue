@@ -2,8 +2,9 @@
     <v-card >
         <div class="d-flex flex-no-wrap justify-space-between">
             <div>
-                <v-card-title class="text-h5" v-if="act.name.length<28">{{ act.name }}</v-card-title>
-                <v-card-title class="text-h5" v-else>{{ act.name.substring(0,28)+".." }}</v-card-title>
+                <h3 v-if="act.name.length<20">{{ act.name }}</h3>
+                <h3 v-else>{{ act.name.substring(0,20)+".." }}</h3>
+
                 <v-card-subtitle></v-card-subtitle>
                     วันที่: {{ act.eventDate.substring(0,10) }}
                 <v-card-actions>
