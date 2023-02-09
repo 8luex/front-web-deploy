@@ -57,7 +57,7 @@ import liff from '@line/liff';
 // const items = ref([])
 
 export default {
-    name: 'activity',
+    name: 'activitysavailable',
     components: {
         Card
     },

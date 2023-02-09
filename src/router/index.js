@@ -45,6 +45,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/activitysavailable/done.vue'),
       },
       {
+        path: 'myactivityenroll',
+        name: 'myactivityenroll',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/myactivityenroll/index.vue'),
+      },
+      {
         path: 'test',
         name: 'test',
         component: () => import(/* webpackChunkName: "home" */ '@/views/connect/test.vue'),
