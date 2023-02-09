@@ -10,7 +10,7 @@
         <div class="d-flex flex-no-wrap justify-space-between">
             <div>
                 <v-card-title class="text-h6">
-                    4sddodododododododod...
+                    Cyber Team Heroes
                 </v-card-title>
                 <v-card-subtitle>วันที่: 2023-01-09</v-card-subtitle>
                     
@@ -20,7 +20,7 @@
                     </v-btn>
                 </v-card-actions>
             </div>
-            <v-avatar class="ma-3" size="125" rounded="0">
+            <v-avatar class="ma-3" size="50" rounded="0">
                 <v-img cover src="https://www2.rsu.ac.th/Success/images/15072562160038_Success_SarnrangsitOnline_Photo-Head_Template.jpg"></v-img>
             </v-avatar>
         </div>
