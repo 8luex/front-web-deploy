@@ -2,13 +2,11 @@
     <v-card >
         <div class="d-flex flex-no-wrap justify-space-between">
             <div>
-                <h3 v-if="act.name.length<20">{{ act.name }}</h3>
-                <h3 v-else>{{ act.name.substring(0,20)+".." }}</h3>
-
-                <v-card-subtitle></v-card-subtitle>
-                    วันที่: {{ act.eventDate.substring(0,10) }}
+                <v-card-title v-if="act.name.length<18" class="text-h6">{{ act.name }}</v-card-title>
+                <v-card-title v-else class="text-h6">{{ act.name.substring(0,18)+".." }}</v-card-title>
+                <v-card-subtitle>วันที่: {{ act.eventDate.substring(0,10) }}</v-card-subtitle>
                 <v-card-actions>
-                    <v-btn class="ms-2" variant="outlined" size="small">
+                    <v-btn class="ms-2" color="teal-accent-3" variant="outlined" size="small" @click="$emit('viewTicket')">
                         View Ticket
                     </v-btn>
                 </v-card-actions>
