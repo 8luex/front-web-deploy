@@ -76,7 +76,7 @@ export default {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
                     stID.value = result.line[0].studentID // add on
-                    getactivitysavailable(result.line[0].studentID);
+                    getactivitysalreadyenroll(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
