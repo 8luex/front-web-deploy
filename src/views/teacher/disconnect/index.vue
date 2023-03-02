@@ -38,13 +38,15 @@
     </div>
 </template>
 
+<script setup>
+</script>
+
 <script>
 import { computed, ref } from 'vue';
 import liff from '@line/liff';
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 
-//const store = useStore();
 const items = ref([])
 
 export default {

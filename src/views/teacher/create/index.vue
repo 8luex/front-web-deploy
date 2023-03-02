@@ -8,58 +8,15 @@
                 <v-col cols="12">
                     <v-card class="mx-auto" max-width="344" title="กิจกรรม">
                       <v-container>
-                        <v-text-field
-                          color="teal-accent-3"
-                          label="ชื่อกิจกรรม"
-                          variant="underlined"
-                        ></v-text-field>
-                        <v-textarea
-                          color="teal-accent-3"
-                          label="รายละเอียดกิจกรรม"
-                        ></v-textarea>
-                        <v-text-field
-                          color="teal-accent-3"
-                          label="สถานที่"
-                          variant="underlined"
-                        ></v-text-field>
-                        <v-text-field
-                          color="teal-accent-3"
-                          label="วันที่"
-                          placeholder="2022-12-08"
-                          variant="underlined"
-                        ></v-text-field>
-                        <v-text-field
-                          color="teal-accent-3"
-                          label="เวลาเริ่ม"
-                          placeholder="08:30:00"
-                          variant="underlined"
-                        ></v-text-field>
-                        <v-text-field
-                          color="teal-accent-3"
-                          label="เวลาสิ้นสุด"
-                          placeholder="12:30:00"
-                          variant="underlined"
-                        ></v-text-field>
-                        <v-text-field
-                          :min=1
-                          type="number"
-                          color="teal-accent-3"
-                          label="จำนวนชั่วโมงที่จะได้รับ"
-                          variant="underlined"
-                        ></v-text-field>
-                        <v-text-field
-                          :min=1
-                          type="number"
-                          color="teal-accent-3"
-                          label="จำนวนคนที่รับ"
-                          variant="underlined"
-                        ></v-text-field>
-                        <v-file-input
-                          color="teal-accent-3"
-                          label="รูปภาพ"
-                          variant="filled"
-                          prepend-icon="mdi-camera"
-                        ></v-file-input>
+                        <v-text-field v-model="names" color="teal-accent-3" label="ชื่อกิจกรรม" variant="underlined"></v-text-field>
+                        <v-textarea v-model="detail" color="teal-accent-3" label="รายละเอียดกิจกรรม"></v-textarea>
+                        <v-text-field v-model="location" color="teal-accent-3" label="สถานที่" variant="underlined"></v-text-field>
+                        <v-text-field v-model="eventDate" :min="new Date().toISOString().substr(0, 10)" type="date" color="teal-accent-3" label="วันที่" variant="underlined"></v-text-field>
+                        <v-text-field v-model="timeStart" type="time" color="teal-accent-3" label="เวลาเริ่ม" variant="underlined"></v-text-field>
+                        <v-text-field v-model="timeEnd" type="time" color="teal-accent-3" label="เวลาสิ้นสุด" variant="underlined"></v-text-field>
+                        <v-text-field v-model="hoursToReceive" :min=1 type="number" color="teal-accent-3" label="จำนวนชั่วโมงที่จะได้รับ" variant="underlined"></v-text-field>
+                        <v-text-field v-model="max" :min=1 type="number" color="teal-accent-3" label="จำนวนคนที่รับ" variant="underlined"></v-text-field>
+                        <v-file-input v-model="image" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                       </v-container>
                       <v-card-actions>
                         <v-spacer></v-spacer>
@@ -68,7 +25,7 @@
                           <v-icon icon="mdi-chevron-right" end></v-icon>
                         </v-btn>
                       </v-card-actions>
-  </v-card>
+                    </v-card>
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -81,6 +38,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 export default {
     name: 'activitycreate',
     components: {
@@ -88,23 +46,33 @@ export default {
     data () {
         return {
             dialog : {
-                name: '',
-                createdAt: '',
+                names: '',
+                //createdAt: '',
                 location: '',
-                creator: '',
+                //creator: '',
                 //faculty: '',
                 detail: '',
                 eventDate: '',
                 timeStart: '',
                 timeEnd: '',
                 hoursToReceive: '',
+                max: '',
                 image: ''
             }
         }
     },
     setup() {
-        const items = ref([])
-        const stID = ref('')
+        // const items = ref([])
+        const tcID = ref('')
+        const names = ref('')
+        const location = ref('')
+        const detail = ref('')
+        const eventDate = ref('')
+        const timeStart = ref('')
+        const timeEnd = ref('')
+        const hoursToReceive = ref('')
+        const max = ref('')
+        const image = ref('')
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -126,8 +94,8 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    stID.value = result.line[0].studentID // add on
-                    getactivitysavailable(result.line[0].studentID);
+                    tcID.value = result.line[0].teacherID // add on
+                    //getactivitysavailable(result.line[0].teacherID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
@@ -165,7 +133,9 @@ export default {
         });
 
         return {
-            items, stID,
+            //items, stID,
+            tcID,
+            names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image
         }
         
     },
@@ -174,7 +144,34 @@ export default {
           this.dialog = item
       },
       createActivity() {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({
+          "creator": tcID.value,
+          "name": names.value,
+          "detail": detail.value,
+          "location": location.value,
+          "eventDate": eventDate.value,
+          "timeStart": timeStart.value,
+          "timeEnd": timeEnd.value,
+          "hoursToReceive": hoursToReceive.value,
+          "image": image.value,
+          "year": "2566",
+          "semester": "2",
+          "max": max.value
+        });
 
+        var requestOptions = {
+           method: 'POST',
+           headers: myHeaders,
+           body: raw,
+           redirect: 'follow'
+          };
+          
+          fetch("https://apricot-binturong-kit.cyclic.app/activitycreate", requestOptions)
+          .then(response => response.json())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
       }
     }
 }
