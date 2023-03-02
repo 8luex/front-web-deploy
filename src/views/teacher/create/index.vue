@@ -152,7 +152,7 @@ export default {
           "detail": detail,
           "location": location,
           "eventDate": eventDate,
-          "timeStart": timeStart.value,
+          "timeStart": timeStart,
           "timeEnd": timeEnd,
           "hoursToReceive": hoursToReceive,
           "image": image,
