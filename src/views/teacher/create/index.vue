@@ -20,7 +20,7 @@
                       </v-container>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="teal-accent-3"  @click="createActivity">
+                        <v-btn color="teal-accent-3"  @click="createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image)">
                           สร้าง
                           <v-icon icon="mdi-chevron-right" end></v-icon>
                         </v-btn>
@@ -94,7 +94,7 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    tcID.value = result.line[0].teacherID // add on
+                    tcID.value = result.line[0].teacherID
                     //getactivitysavailable(result.line[0].teacherID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
@@ -143,22 +143,22 @@ export default {
       moreDetail(item) {
           this.dialog = item
       },
-      createActivity() {
+      createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image) {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var raw = JSON.stringify({
-          "creator": tcID.value,
-          "name": names.value,
-          "detail": detail.value,
-          "location": location.value,
-          "eventDate": eventDate.value,
+          "creator": tcID,
+          "name": names,
+          "detail": detail,
+          "location": location,
+          "eventDate": eventDate,
           "timeStart": timeStart.value,
-          "timeEnd": timeEnd.value,
-          "hoursToReceive": hoursToReceive.value,
-          "image": image.value,
+          "timeEnd": timeEnd,
+          "hoursToReceive": hoursToReceive,
+          "image": image,
           "year": "2566",
           "semester": "2",
-          "max": max.value
+          "max": max
         });
 
         var requestOptions = {
