@@ -102,7 +102,7 @@ export default {
     },
     mounted() {
         liff.init({
-            liffId: '1657670230-mPD2o50K', //BLUEZO Event Disconnect
+            liffId: '1657670230-gEk5QdxY', //BLUEZO Event Disconnect Teacher
         })
         liff.ready.then(() => {
             if(!liff.isLoggedIn()) {
