@@ -14,8 +14,7 @@
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-1" style="font-size: 18px;">
-                        {{ getLine.displayName }}
-                        <!-- {{ items.teacherID }} -->
+                        {{ items.studentID }}
                     </div>
                     <div class="mt-1" style="font-size: 18px;">
                         {{ items.fname }} {{ items.lname }}
@@ -40,6 +39,14 @@
 </template>
 
 <script setup>
+// const items = ref([])
+
+// fetch('https://apricot-binturong-kit.cyclic.app/studentgetconnectcheck/'+getLine.userId.value)
+// .then(res => res.json())
+// .then((result) => {
+//   items.value = result
+//   console.log(result)
+// })
 </script>
 
 <script>
@@ -48,16 +55,54 @@ import liff from '@line/liff';
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 
+//const store = useStore();
 const items = ref([])
 
 export default {
     setup() {
+        // const store = useStore();
+        // const lineID = computed(() => store.getters.getLine.userId);
+        // const items = ref([])
+
+        // const getconnect = () => {
+        //     var myHeaders = new Headers();
+        //     myHeaders.append("Content-Type", "application/json");
+
+        //     var raw = JSON.stringify({
+        //         "lineID": lineID.value
+        //     });
+
+        //     var requestOptions = {
+        //         method: 'POST',
+        //         headers: myHeaders,
+        //         body: raw,
+        //         redirect: 'follow'
+        //     };
+
+        //     fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         if(result.message === 'already connected') {
+        //             items.value = result.line
+        //         } else if(result.message === 'not yet connected') {
+        //             alert('ยังไม่ได้เชื่อมโยงบัญชี')
+        //         } else {
+        //             alert(JSON.stringify(result))
+        //         }
+        //     })
+        //     .catch(error => console.log('error', error));
+        // }
+
         return {
+            // store, 
+            // lineID,
+            // items,
+            // getconnect
         }
     },
     mounted() {
         liff.init({
-            liffId: '1657670230-gEk5QdxY', //BLUEZO Event Disconnect Teacher
+            liffId: '1657670230-mPD2o50K', //BLUEZO Event Disconnect
         })
         liff.ready.then(() => {
             if(!liff.isLoggedIn()) {
@@ -65,8 +110,10 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
+                //this.lineID = profile.lineID;
                 this.$store.dispatch('setLine', profile); //try
                 this.getconnect();
+                //this.isDone();
             })
         });
     },
@@ -89,7 +136,7 @@ export default {
                 redirect: 'follow'
             };
 
-            fetch("https://apricot-binturong-kit.cyclic.app/teacherdisconnectcheck", requestOptions)
+            fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if(result.message === 'already connected') {
