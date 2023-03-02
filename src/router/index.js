@@ -25,14 +25,29 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/connect/index.vue'),
       },
       {
+        path: 'connect-teacher',
+        name: 'connect-teacher',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/teacher/connect/index.vue'),
+      },
+      {
         path: 'connect-done',
         name: 'connect-done',
         component: () => import(/* webpackChunkName: "home" */ '@/views/connect/done.vue'),
       },
       {
+        path: 'connect-done-teacher',
+        name: 'connect-done-teacher',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/teacher/connect/done.vue'),
+      },
+      {
         path: 'disconnect',
         name: 'disconnect',
         component: () => import(/* webpackChunkName: "home" */ '@/views/disconnect/index.vue'),
+      },
+      {
+        path: 'disconnect-teacher',
+        name: 'disconnect-teacher',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/teacher/disconnect/index.vue'),
       },
       {
         path: 'activitysavailable',
@@ -48,6 +63,11 @@ const routes = [
         path: 'myactivityenroll',
         name: 'myactivityenroll',
         component: () => import(/* webpackChunkName: "home" */ '@/views/myactivityenroll/index.vue'),
+      },
+      {
+        path: 'create',
+        name: 'create',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/teacher/create/index.vue'),
       },
       {
         path: 'test',
