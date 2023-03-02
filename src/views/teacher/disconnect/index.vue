@@ -14,7 +14,7 @@
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-1" style="font-size: 18px;">
-                        {{ items.studentID }}
+                        {{ items.teacherID }}
                     </div>
                     <div class="mt-1" style="font-size: 18px;">
                         {{ items.fname }} {{ items.lname }}
@@ -136,7 +136,7 @@ export default {
                 redirect: 'follow'
             };
 
-            fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
+            fetch("https://apricot-binturong-kit.cyclic.app/teacherdisconnectcheck", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if(result.message === 'already connected') {
