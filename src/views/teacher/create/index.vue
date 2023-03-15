@@ -167,41 +167,39 @@ export default {
         const fileRef = this.storageRef.child(`images/${this.file.name}`);
         fileRef.put(this.file)
           .then((snapshot) => {
-            this.imageurl = snapshot.ref.getDownloadURL();
-            //console.log(imageurl); // Promise { <pending> }
-            console.log(typeof imageurl);
-            this.imageurl.then(function(result) {
-            console.log(result) // "Some User token"
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            var raw = JSON.stringify({
-                "creator": tcID,
-                "name": names,
-                "detail": detail,
-                "location": location,
-                "eventDate": eventDate,
-                "timeStart": timeStart,
-                "timeEnd": timeEnd,
-                "hoursToReceive": hoursToReceive,
-                "image": result,
-                "year": "2566",
-                "semester": "2",
-                "max": max
-            });
+            this.imageurl = snapshot.ref.getDownloadURL()
+            .then((result) => {
+                console.log(result) // "Some User token"
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                var raw = JSON.stringify({
+                    "creator": tcID,
+                    "name": names,
+                    "detail": detail,
+                    "location": location,
+                    "eventDate": eventDate,
+                    "timeStart": timeStart,
+                    "timeEnd": timeEnd,
+                    "hoursToReceive": hoursToReceive,
+                    "image": result,
+                    "year": "2566",
+                    "semester": "2",
+                    "max": max
+                });
 
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
+                var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                };
             
-            fetch("https://apricot-binturong-kit.cyclic.app/activitycreate", requestOptions)
-            .then(response => response.json())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-            
-          })
+                fetch("https://apricot-binturong-kit.cyclic.app/activitycreate", requestOptions)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+                
+            })
             console.log('File uploaded successfully!');
           })
           .catch((error) => {
