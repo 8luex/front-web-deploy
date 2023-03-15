@@ -174,7 +174,9 @@ export default {
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
             console.log(result) // "Some User token"
-            this.imageurl.value = result.value;
+            let x = result.value;
+            return x;
+            // this.imageurl.value = result.value;
           })
             console.log('File uploaded successfully!');
           })
