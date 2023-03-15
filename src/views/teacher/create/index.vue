@@ -43,7 +43,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 // "firebase": "^7.16.1",
 
-let imgurl = "";
+const imgurl = "";
 
 export default {
     name: 'activitycreate',
@@ -174,11 +174,11 @@ export default {
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
             console.log(result) // "Some User token"
-            let x = result.value;
-            return x;
+            this.imgurl = result.value;
             // this.imageurl.value = result.value;
           })
             console.log('File uploaded successfully!');
+            console.log(this.imgurl.value);
           })
           .catch((error) => {
             console.error('Error uploading file:', error);
@@ -199,7 +199,7 @@ export default {
           "timeStart": timeStart,
           "timeEnd": timeEnd,
           "hoursToReceive": hoursToReceive,
-          "image": this.imageurl.value,
+          "image": this.imgurl.value,
           "year": "2566",
           "semester": "2",
           "max": max
