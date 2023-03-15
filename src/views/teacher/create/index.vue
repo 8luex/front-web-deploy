@@ -49,6 +49,9 @@ export default {
     },
     data () {
         return {
+            file: null,
+            storageRef: null,
+            imageurl: null,
             dialog : {
                 names: '',
                 //createdAt: '',
@@ -168,7 +171,7 @@ export default {
             // console.log(imageurl); // Promise { <pending> }
             this.imageurl.then(function(result) {
               console.log(result) // "Some User token"
-              this.dialog.image.value = result+""; // add new
+              this.dialog.image = result; // add new
             })
             console.log('File uploaded successfully!');
           })
