@@ -180,7 +180,7 @@ export default {
             //   console.log(imgurl) // "Some User token"
             })
             console.log('File uploaded successfully!');
-            console.log(imageurl);
+            console.log(this.imageurl);
           })
           .catch((error) => {
             console.error('Error uploading file:', error);
