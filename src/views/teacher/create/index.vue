@@ -168,7 +168,7 @@ export default {
             // console.log(imageurl); // Promise { <pending> }
             this.imageurl.then(function(result) {
               console.log(result) // "Some User token"
-              this.image.value = result; // add new
+              this.dialog.image.value = result+""; // add new
             })
             console.log('File uploaded successfully!');
           })
@@ -191,7 +191,7 @@ export default {
           "timeStart": timeStart,
           "timeEnd": timeEnd,
           "hoursToReceive": hoursToReceive,
-          "image": this.image.value,
+          "image": this.dialog.image.value,
           "year": "2566",
           "semester": "2",
           "max": max
