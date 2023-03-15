@@ -174,10 +174,11 @@ export default {
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
             console.log(result) // "Some User token"
-            this.imgurl = result.value;
+            this.imgurl = result.concat("");
             // this.imageurl.value = result.value;
           })
             console.log('File uploaded successfully!');
+            console.log(this.imgurl.value.concat("xxxxxxxxxx"));
             console.log(this.imgurl.value);
           })
           .catch((error) => {
