@@ -8,8 +8,15 @@
               <v-col cols="12">
                   <v-card class="mx-auto" max-width="344" title="กิจกรรม">
                     <v-container>
-                      <v-file-input @change="onUpload" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                      <v-file-input @change="setFile" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                     </v-container>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="teal-accent-3" @click="upload">
+                          สร้าง
+                          <v-icon icon="mdi-chevron-right" end></v-icon>
+                        </v-btn>
+                      </v-card-actions>
                   </v-card>
               </v-col>
               <v-col cols="12" class="text-center">
@@ -23,22 +30,19 @@
 </template>
 
 <script>
-import { ref, watchEffect } from 'vue'
-import * as firebase from "firebase/app";
+import firebase from 'firebase/app';
 import 'firebase/storage';
-import 'firebase/firestore';
+// "firebase": "^7.16.1",
 
 export default {
-  name: 'activitycreate',
-  components: {
+  data() {
+    return {
+      file: null,
+      storageRef: null,
+      imageurl: null,
+    };
   },
-  data () {
-      return {
-        imageDate: null,
-        picture: null,
-      }
-  },
-  mounted() {
+  created() {
     firebase.initializeApp({
       apiKey: "AIzaSyDhHIPsVfjKLwfYDkqhBldj4hWwyum6bW4",
       authDomain: "firegram-blue.firebaseapp.com",
@@ -46,29 +50,30 @@ export default {
       storageBucket: "firegram-blue.appspot.com",
       messagingSenderId: "105035319032",
       appId: "1:105035319032:web:05e49b004c5d161f111d0d"
-    })
-  },
-  setup() {
-      return {
-      }
+    });
+    this.storageRef = firebase.storage().ref();
   },
   methods: {
-    onUpload(e) {
-      this.picture = null;
-      this.imageDate = e.target.files[0];
-      const storageRef = firebase.storage().ref(`${this.imageDate.name}`).put(this.imageDate);
-      storageRef.on(`state_changed`, snapshot => {
-      }, error => {
-        console.log(error.message)
-      }, () => {
-        storageRef.snapshot.ref.getDownloadURL().then((url) => {
-          this.picture = url;
-          console.log(picture);
+    setFile(event) {
+      this.file = event.target.files[0];
+    },
+    upload() {
+      const fileRef = this.storageRef.child(`images/${this.file.name}`);
+      fileRef.put(this.file)
+        .then((snapshot) => {
+          this.imageurl = snapshot.ref.getDownloadURL();
+          // console.log(imageurl); // Promise { <pending> }
+          this.imageurl.then(function(result) {
+            console.log(result) // "Some User token"
+          })
+          console.log('File uploaded successfully!');
         })
-      })
-    }
-  }
-}
+        .catch((error) => {
+          console.error('Error uploading file:', error);
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -16,11 +16,11 @@
                         <v-text-field v-model="timeEnd" type="time" color="teal-accent-3" label="เวลาสิ้นสุด" variant="underlined"></v-text-field>
                         <v-text-field v-model="hoursToReceive" :min=1 type="number" color="teal-accent-3" label="จำนวนชั่วโมงที่จะได้รับ" variant="underlined"></v-text-field>
                         <v-text-field v-model="max" :min=1 type="number" color="teal-accent-3" label="จำนวนคนที่รับ" variant="underlined"></v-text-field>
-                        <v-file-input @change="setFile" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                        <v-file-input v-model="image" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                       </v-container>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="teal-accent-3"  @click="createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max)">
+                        <v-btn color="teal-accent-3"  @click="createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image)">
                           สร้าง
                           <v-icon icon="mdi-chevron-right" end></v-icon>
                         </v-btn>
@@ -39,10 +39,6 @@
 
 <script>
 import { ref } from 'vue'
-import firebase from 'firebase/app';
-import 'firebase/storage';
-// "firebase": "^7.16.1",
-
 export default {
     name: 'activitycreate',
     components: {
@@ -144,30 +140,10 @@ export default {
         
     },
     methods: {
-      setFile(event) {
-          this.file = event.target.files[0];
-          this.upload();
-      },
-      upload() {
-        const fileRef = this.storageRef.child(`images/${this.file.name}`);
-        fileRef.put(this.file)
-          .then((snapshot) => {
-            this.imageurl = snapshot.ref.getDownloadURL();
-            // console.log(imageurl); // Promise { <pending> }
-            this.imageurl.then(function(result) {
-              console.log(result) // "Some User token"
-              this.image.value = result; // add new
-            })
-            console.log('File uploaded successfully!');
-          })
-          .catch((error) => {
-            console.error('Error uploading file:', error);
-          });
-      },
       moreDetail(item) {
           this.dialog = item
       },
-      createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
+      createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image) {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var raw = JSON.stringify({
@@ -179,7 +155,7 @@ export default {
           "timeStart": timeStart,
           "timeEnd": timeEnd,
           "hoursToReceive": hoursToReceive,
-          "image": this.image.value,
+          "image": image,
           "year": "2566",
           "semester": "2",
           "max": max
