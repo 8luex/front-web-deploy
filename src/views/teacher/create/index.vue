@@ -51,7 +51,7 @@ export default {
         return {
             file: null,
             storageRef: null,
-            imageurl: null,
+            imageurl: '',
             dialog : {
                 names: '',
                 //createdAt: '',
