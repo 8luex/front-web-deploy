@@ -16,7 +16,7 @@
                         <v-text-field v-model="timeEnd" type="time" color="teal-accent-3" label="เวลาสิ้นสุด" variant="underlined"></v-text-field>
                         <v-text-field v-model="hoursToReceive" :min=1 type="number" color="teal-accent-3" label="จำนวนชั่วโมงที่จะได้รับ" variant="underlined"></v-text-field>
                         <v-text-field v-model="max" :min=1 type="number" color="teal-accent-3" label="จำนวนคนที่รับ" variant="underlined"></v-text-field>
-                        <v-file-input v-model="image" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                        <v-file-input v-model="image" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                       </v-container>
                       <v-card-actions>
                         <v-spacer></v-spacer>
