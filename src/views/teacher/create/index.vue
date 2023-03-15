@@ -172,11 +172,10 @@ export default {
             this.imageurl = snapshot.ref.getDownloadURL();
             //console.log(imageurl); // Promise { <pending> }
             console.log(typeof imageurl);
-            this.imageurl.then((result) => result.json())
-            .then((pic) => {
-                return pic;
-            })
-            console.log(imageurl);
+            this.imageurl.then(function(result) {
+            console.log(result) // "Some User token"
+            this.imageurl.value = result.value;
+          })
             console.log('File uploaded successfully!');
           })
           .catch((error) => {
