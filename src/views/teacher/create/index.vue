@@ -170,8 +170,8 @@ export default {
             this.imageurl = snapshot.ref.getDownloadURL();
             // console.log(imageurl); // Promise { <pending> }
             this.imageurl.then(function(result) {
+                this.imageurl = result; // add new
               console.log(result) // "Some User token"
-              this.dialog.image = result; // add new
             })
             console.log('File uploaded successfully!');
           })
@@ -194,7 +194,7 @@ export default {
           "timeStart": timeStart,
           "timeEnd": timeEnd,
           "hoursToReceive": hoursToReceive,
-          "image": this.dialog.image.value,
+          "image": this.imageurl.value,
           "year": "2566",
           "semester": "2",
           "max": max
