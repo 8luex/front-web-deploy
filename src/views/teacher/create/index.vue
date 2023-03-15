@@ -8,7 +8,7 @@
                 <v-col cols="12">
                     <v-card class="mx-auto" max-width="344" title="กิจกรรม">
                       <v-container>
-                        <v-text-field v-model="names" color="teal-accent-3" label="ชื่อกิจกรรม" variant="underlined"></v-text-field>
+                        <v-text-field v-model="nameact" color="teal-accent-3" label="ชื่อกิจกรรม" variant="underlined"></v-text-field>
                         <v-textarea v-model="detail" color="teal-accent-3" label="รายละเอียดกิจกรรม"></v-textarea>
                         <v-text-field v-model="location" color="teal-accent-3" label="สถานที่" variant="underlined"></v-text-field>
                         <v-text-field v-model="eventDate" :min="new Date().toISOString().substr(0, 10)" type="date" color="teal-accent-3" label="วันที่" variant="underlined"></v-text-field>
@@ -20,7 +20,7 @@
                       </v-container>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="teal-accent-3"  @click="createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max)">
+                        <v-btn color="teal-accent-3"  @click="createActivity(tcID, nameact, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max)">
                           สร้าง
                           <v-icon icon="mdi-chevron-right" end></v-icon>
                         </v-btn>
@@ -55,7 +55,7 @@ export default {
             storageRef: null,
             // imageurl: '',
             dialog : {
-                names: '',
+                nameact: '',
                 //createdAt: '',
                 location: '',
                 //creator: '',
@@ -84,7 +84,7 @@ export default {
     setup() {
         // const items = ref([])
         const tcID = ref('')
-        const names = ref('')
+        const nameact = ref('')
         const location = ref('')
         const detail = ref('')
         const eventDate = ref('')
@@ -155,7 +155,7 @@ export default {
         return {
             //items, stID,
             tcID,
-            names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image
+            nameact, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image
         }
         
     },
@@ -163,7 +163,7 @@ export default {
       setFile(event) {
         this.file = event.target.files[0];
       },
-      createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
+      createActivity(tcID, nameact, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
         const fileRef = this.storageRef.child(`images/${this.file.name}`);
         fileRef.put(this.file)
           .then((snapshot) => {
@@ -174,7 +174,7 @@ export default {
                 myHeaders.append("Content-Type", "application/json");
                 var raw = JSON.stringify({
                     "creator": tcID,
-                    "name": names,
+                    "name": nameact,
                     "detail": detail,
                     "location": location,
                     "eventDate": eventDate,
@@ -209,12 +209,12 @@ export default {
       moreDetail(item) {
           this.dialog = item
       },
-      old(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
+      old(tcID, nameact, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var raw = JSON.stringify({
           "creator": tcID,
-          "name": names,
+          "name": nameact,
           "detail": detail,
           "location": location,
           "eventDate": eventDate,
