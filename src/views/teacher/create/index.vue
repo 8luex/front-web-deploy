@@ -16,7 +16,7 @@
                         <v-text-field v-model="timeEnd" type="time" color="teal-accent-3" label="เวลาสิ้นสุด" variant="underlined"></v-text-field>
                         <v-text-field v-model="hoursToReceive" :min=1 type="number" color="teal-accent-3" label="จำนวนชั่วโมงที่จะได้รับ" variant="underlined"></v-text-field>
                         <v-text-field v-model="max" :min=1 type="number" color="teal-accent-3" label="จำนวนคนที่รับ" variant="underlined"></v-text-field>
-                        <v-file-input @change="setFile" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                        <v-file-input @change="upload" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                       </v-container>
                       <v-card-actions>
                         <v-spacer></v-spacer>
@@ -65,6 +65,17 @@ export default {
             }
         }
     },
+    created() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyDhHIPsVfjKLwfYDkqhBldj4hWwyum6bW4",
+      authDomain: "firegram-blue.firebaseapp.com",
+      projectId: "firegram-blue",
+      storageBucket: "firegram-blue.appspot.com",
+      messagingSenderId: "105035319032",
+      appId: "1:105035319032:web:05e49b004c5d161f111d0d"
+    });
+    this.storageRef = firebase.storage().ref();
+  },
     setup() {
         // const items = ref([])
         const tcID = ref('')
@@ -144,11 +155,12 @@ export default {
         
     },
     methods: {
-      setFile(event) {
-          this.file = event.target.files[0];
-          this.upload();
-      },
-      upload() {
+    //   setFile(event) {
+    //       this.file = event.target.files[0];
+    //       this.upload();
+    //   },
+      upload(event) {
+        this.file = event.target.files[0];
         const fileRef = this.storageRef.child(`images/${this.file.name}`);
         fileRef.put(this.file)
           .then((snapshot) => {
