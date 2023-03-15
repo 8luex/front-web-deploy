@@ -173,7 +173,9 @@ export default {
             //console.log(imageurl); // Promise { <pending> }
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
-                return result
+                var res = JSON.parse(result);
+      console.log(res);
+                return res
             //     console.log(typeof result);
             //     this.imgurl.value = result; // add new
             //   console.log(result) // "Some User token"
