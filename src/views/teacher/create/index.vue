@@ -173,12 +173,14 @@ export default {
             //console.log(imageurl); // Promise { <pending> }
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
-                console.log(typeof result);
-                this.imgurl.value = result; // add new
-              console.log(result) // "Some User token"
-              console.log(imgurl) // "Some User token"
+                return result
+            //     console.log(typeof result);
+            //     this.imgurl.value = result; // add new
+            //   console.log(result) // "Some User token"
+            //   console.log(imgurl) // "Some User token"
             })
             console.log('File uploaded successfully!');
+            console.log(imageurl);
           })
           .catch((error) => {
             console.error('Error uploading file:', error);
