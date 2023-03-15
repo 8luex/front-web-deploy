@@ -43,6 +43,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 // "firebase": "^7.16.1",
 
+
 export default {
     name: 'activitycreate',
     components: {
@@ -51,7 +52,7 @@ export default {
         return {
             file: null,
             storageRef: null,
-            imageurl: '',
+            // imageurl: '',
             dialog : {
                 names: '',
                 //createdAt: '',
@@ -171,7 +172,8 @@ export default {
             //console.log(imageurl); // Promise { <pending> }
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
-            this.imageurl = result; // add new
+                console.log(typeof result);
+                this.imageurl = result; // add new
               console.log(result) // "Some User token"
             })
             console.log('File uploaded successfully!');
