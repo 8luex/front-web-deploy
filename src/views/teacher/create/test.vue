@@ -56,6 +56,19 @@ export default {
   methods: {
     setFile(event) {
       this.file = event.target.files[0];
+      const fileRef = this.storageRef.child(`images/${this.file.name}`);
+      fileRef.put(this.file)
+        .then((snapshot) => {
+          this.imageurl = snapshot.ref.getDownloadURL().then((result) => {
+            //console.log(result) // "Some User token"
+            return result;
+          })
+          console.log(this.imageurl);
+          console.log('File uploaded successfully!');
+        })
+        .catch((error) => {
+          console.error('Error uploading file:', error);
+        });
     },
     upload() {
       const fileRef = this.storageRef.child(`images/${this.file.name}`);

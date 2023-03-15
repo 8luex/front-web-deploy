@@ -160,12 +160,10 @@ export default {
         
     },
     methods: {
-    //   setFile(event) {
-    //       this.file = event.target.files[0];
-    //       this.upload();
-    //   },
-      upload(event) {
+      setFile(event) {
         this.file = event.target.files[0];
+      },
+      createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
         const fileRef = this.storageRef.child(`images/${this.file.name}`);
         fileRef.put(this.file)
           .then((snapshot) => {
@@ -174,12 +172,37 @@ export default {
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
             console.log(result) // "Some User token"
-            this.imgurl = result.concat("");
-            // this.imageurl.value = result.value;
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+                "creator": tcID,
+                "name": names,
+                "detail": detail,
+                "location": location,
+                "eventDate": eventDate,
+                "timeStart": timeStart,
+                "timeEnd": timeEnd,
+                "hoursToReceive": hoursToReceive,
+                "image": result,
+                "year": "2566",
+                "semester": "2",
+                "max": max
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            
+            fetch("https://apricot-binturong-kit.cyclic.app/activitycreate", requestOptions)
+            .then(response => response.json())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+            
           })
             console.log('File uploaded successfully!');
-            console.log(this.imgurl.value.concat("xxxxxxxxxx"));
-            console.log(this.imgurl.value);
           })
           .catch((error) => {
             console.error('Error uploading file:', error);
@@ -188,7 +211,7 @@ export default {
       moreDetail(item) {
           this.dialog = item
       },
-      createActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
+      old(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var raw = JSON.stringify({
