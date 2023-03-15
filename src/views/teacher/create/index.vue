@@ -172,17 +172,12 @@ export default {
             this.imageurl = snapshot.ref.getDownloadURL();
             //console.log(imageurl); // Promise { <pending> }
             console.log(typeof imageurl);
-            this.imageurl.then(function(result) {
-                console.log(result);
-                console.log(result.json());
-                return result.json()
-            //     console.log(typeof result);
-            //     this.imgurl.value = result; // add new
-            //   console.log(result) // "Some User token"
-            //   console.log(imgurl) // "Some User token"
+            this.imageurl.then((result) => result.json())
+            .then((pic) => {
+                return pic;
             })
+            console.log(imageurl);
             console.log('File uploaded successfully!');
-            console.log(this.imageurl);
           })
           .catch((error) => {
             console.error('Error uploading file:', error);
