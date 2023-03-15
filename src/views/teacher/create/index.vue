@@ -168,10 +168,10 @@ export default {
         fileRef.put(this.file)
           .then((snapshot) => {
             this.imageurl = snapshot.ref.getDownloadURL();
-            console.log(imageurl); // Promise { <pending> }
+            //console.log(imageurl); // Promise { <pending> }
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
-                //this.imageurl = result; // add new
+            this.imageurl = result; // add new
               console.log(result) // "Some User token"
             })
             console.log('File uploaded successfully!');
