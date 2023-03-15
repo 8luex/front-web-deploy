@@ -43,6 +43,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 // "firebase": "^7.16.1",
 
+let imgurl = "";
 
 export default {
     name: 'activitycreate',
@@ -173,8 +174,9 @@ export default {
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
                 console.log(typeof result);
-                this.imageurl = result; // add new
+                this.imgurl = result; // add new
               console.log(result) // "Some User token"
+              console.log(imgurl) // "Some User token"
             })
             console.log('File uploaded successfully!');
           })
