@@ -174,7 +174,7 @@ export default {
             console.log(typeof imageurl);
             this.imageurl.then(function(result) {
                 console.log(typeof result);
-                this.imgurl = result; // add new
+                this.imgurl.value = result; // add new
               console.log(result) // "Some User token"
               console.log(imgurl) // "Some User token"
             })
