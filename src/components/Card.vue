@@ -11,7 +11,7 @@
                     <h3 v-if="act.name.length<28">{{ act.name }}</h3>
                     <h3 v-else>{{ act.name.substring(0,28)+".." }}</h3>
                     <div style="color: #1DE9B6;">ชั่วโมงที่ได้รับ {{ act.hoursToReceive }} ชม.</div>
-                    <div>จำนวนผู้ลงทะเบียน: x/{{ act.max }}</div>
+                    <div>จำนวนผู้ลงทะเบียน: {{ act.countenroll }}/{{ act.max }}</div>
                 </v-card-text>
                 <v-card-subtitle class="pt-0">
                     วันที่: {{ act.eventDate.substring(0,10) }}
