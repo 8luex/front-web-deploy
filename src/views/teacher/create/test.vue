@@ -8,7 +8,7 @@
               <v-col cols="12">
                   <v-card class="mx-auto" max-width="344" title="กิจกรรม">
                     <v-container>
-                      <v-file-input @change="setFile" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                      <v-file-input @change="upload" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                     </v-container>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -30,9 +30,12 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import firebase from 'firebase/app';
 import 'firebase/storage';
 // "firebase": "^7.16.1",
+
+let iimmgg = ref('');
 
 export default {
   data() {
@@ -57,16 +60,19 @@ export default {
     setFile(event) {
       this.file = event.target.files[0];
     },
-    upload() {
-      const fileRef = this.storageRef.child(`images/${this.file.name}`);
+    upload(event) {
+      const d = new Date();
+      let time = d.getTime();
+      this.file = event.target.files[0];
+      const fileRef = this.storageRef.child(`images/${time}${this.file.name}`);
       fileRef.put(this.file)
         .then((snapshot) => {
           this.imageurl = snapshot.ref.getDownloadURL();
-          // console.log(imageurl); // Promise { <pending> }
-          this.imageurl.then(function(result) {
-            console.log(result) // "Some User token"
+            this.imageurl.then(function(result) {
+            console.log(result)
+            iimmgg = result;
+            console.log('File uploaded successfully! '+iimmgg);
           })
-          console.log('File uploaded successfully!');
         })
         .catch((error) => {
           console.error('Error uploading file:', error);
