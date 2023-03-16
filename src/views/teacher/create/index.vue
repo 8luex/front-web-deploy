@@ -206,7 +206,10 @@ export default {
           
           fetch("https://apricot-binturong-kit.cyclic.app/activitycreate", requestOptions)
           .then(response => response.json())
-          .then(result => console.log(result))
+          .then(result => {
+            console.log(result)
+            this.$router.push('create-done');
+          })
           .catch(error => console.log('error', error));
       }
     }
