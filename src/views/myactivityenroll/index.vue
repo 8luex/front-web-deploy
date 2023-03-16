@@ -34,7 +34,6 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <p>จำนวนผู้ลงทะเบียน: {{ dialog.countenroll }}/{{ dialog.max }}</p>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
