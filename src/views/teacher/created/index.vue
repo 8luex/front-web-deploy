@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-app-bar color="teal-accent-3" dense flat dark>
-            <v-toolbar-title style="text-align: center;color: white;">กิจกรรมที่ลงทะเบียนไว้</v-toolbar-title>
+            <v-toolbar-title style="text-align: center;color: white;">กิจกรรมที่สร้าง</v-toolbar-title>
         </v-app-bar>
         <v-container class="pt-0 pb-0">
             <v-row>
@@ -78,7 +78,7 @@ export default {
     },
     setup() {
         const items = ref([])
-        const stID = ref('')
+        const tcID = ref('')
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -95,13 +95,13 @@ export default {
                 redirect: 'follow'
             };
 
-            fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
+            fetch("https://apricot-binturong-kit.cyclic.app/teacherdisconnectcheck", requestOptions)
             .then(response => response.json())
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    stID.value = result.line[0].studentID // add on
-                    getactivitysalreadyenroll(result.line[0].studentID);
+                    tcID.value = result.line[0].teacherID // add on
+                    getactivitysalreadyenroll(result.line[0].teacherID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
@@ -110,13 +110,13 @@ export default {
             })
             .catch(error => console.log('error', error));
         };
-        const getactivitysalreadyenroll = (studentID) => {
-            fetch('https://apricot-binturong-kit.cyclic.app/activitysalreadyenroll/'+studentID)
+        const getactivitysalreadyenroll = (teacherID) => {
+            fetch('https://apricot-binturong-kit.cyclic.app/teachercreated/'+teacherID)
             .then(res => res.json())
             .then((resultact) => {
                 if(resultact.status === 'error') {
                     alert(JSON.stringify(resultact))
-                } else if(resultact.message === 'no activitys enroll') {
+                } else if(resultact.message === 'no activitys created') {
                     console.log(resultact)
                 } else {
                     items.value = resultact
@@ -126,7 +126,7 @@ export default {
         };
         
         liff.init({
-            liffId: '1657670230-Mp0gNae5', //BLUEZO Event Activitys Enroll
+            liffId: '1657670230-PG7QLNZ4', //BLUEZO Event Activitys Created
         })
         liff.ready.then(() => {
             if(!liff.isLoggedIn()) {
@@ -139,7 +139,7 @@ export default {
         });
 
         return {
-            items, stID,
+            items, tcID,
         }
         
     },
