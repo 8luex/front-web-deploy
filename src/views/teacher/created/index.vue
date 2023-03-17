@@ -6,7 +6,7 @@
         <v-container class="pt-0 pb-0">
             <v-row>
                 <v-col cols="12">
-                    <CardEnroll
+                    <CardCreated
                     v-for="item in items"
                     :key="item.id"
                     :act="item"
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import CardEnroll from '@/components/CardEnroll.vue'
+import CardCreated from '@/components/CardCreated.vue'
 import { ref } from 'vue';
 import liff from '@line/liff';
 
@@ -56,7 +56,7 @@ import liff from '@line/liff';
 export default {
     name: 'myactivityenroll',
     components: {
-        CardEnroll
+        CardCreated
     },
     data () {
         return {
