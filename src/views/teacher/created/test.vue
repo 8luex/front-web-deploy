@@ -61,7 +61,7 @@ export default {
     },
     setup() {
         const items = ref('')
-        items.value = "dgfgdfg"
+        items.value = "dgfgdfg"+"1111gfhdfhdf"
         return {
             items,
         }

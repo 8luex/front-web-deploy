@@ -34,7 +34,6 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <vue-qrcode v-bind:value="qrValue"/>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -47,12 +46,9 @@
 </template>
 
 <script>
-import CardEnroll from '@/components/CardEnroll.vue'
+import CardEnroll from '@/components/CardEnroll.vue';
 import { ref } from 'vue';
 import liff from '@line/liff';
-import VueQrcode from 'vue-qrcode'
-
-// const items = ref([])
 
 export default {
     name: 'myactivityenroll',
@@ -76,7 +72,6 @@ export default {
                 hoursToReceive: '',
                 image: ''
             },
-            qrValue : "",
         }
     },
     setup() {

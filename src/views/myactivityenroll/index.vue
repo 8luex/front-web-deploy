@@ -47,16 +47,16 @@
 </template>
 
 <script>
-import CardEnroll from '@/components/CardEnroll.vue'
+import CardEnroll from '@/components/CardEnroll.vue';
 import { ref } from 'vue';
 import liff from '@line/liff';
-import VueQrcode from 'vue-qrcode'
+import VueQrcode from 'vue-qrcode';
 
 export default {
     name: 'myactivityenroll',
     components: {
         CardEnroll,
-        VueQrcode
+        VueQrcode,
     },
     data () {
         return {
@@ -139,7 +139,7 @@ export default {
         });
 
         return {
-            items, stID, 
+            items, stID,
         }
         
     },
