@@ -34,7 +34,7 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <vue-qrcode v-bind:value="dialog.id+qrValue"/>
+                        <vue-qrcode v-bind:value="qrValue"/>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -64,7 +64,6 @@ export default {
         return {
             isShowDialog: false,
             dialog : {
-                id: '',
                 name: '',
                 createdAt: '',
                 location: '',
@@ -77,12 +76,12 @@ export default {
                 hoursToReceive: '',
                 image: ''
             },
+            qrValue : "",
         }
     },
     setup() {
         const items = ref([])
         const stID = ref('')
-        const qrValue = ref('')
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -142,10 +141,8 @@ export default {
             })
         });
 
-        qrValue.value = ' studentID '+stID.value
-
         return {
-            items, stID, qrValue
+            items, stID,
         }
         
     },
