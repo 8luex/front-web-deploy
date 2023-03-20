@@ -24,7 +24,7 @@
                         <p class="text-caption text-disabled">cvbn</p>
                         <p>ผู้สร้างกิจกรรม: cvbnvbn</p>
                         <p>bncvbn</p>
-                        <p class="detail">รายละเอียดกิจกรรม: vbcnvbncfffffffffffffffffff fgggggggg fgfgf gfgf gf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fgggfgf gf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fgggf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fggf g fgfgfgfgfg gf</p>
+                        <p class="detail">รายละเอียดกิจกรรม: vbcnvbncffggggffffffffffff fgggggggg fgfgf gfgf gf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fgggfgf gf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fgggf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fggf g fgfgfgfgfg gf</p>
                         <p>วันที่: cbncvb</p>
                         <p>เวลา: cbnv</p>
                         <p>สถานที่: cbncvb</p>
