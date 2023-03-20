@@ -34,7 +34,7 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <vue-qrcode v-bind:value="dialog.id+qrValue"/>
+                        <vue-qrcode v-bind:value="qrValue"/>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -142,7 +142,7 @@ export default {
             })
         });
 
-        qrValue.value = ' studentID '+stID.value
+        qrValue.value = dialog.id.concat(" studentID ", stID.value)
 
         return {
             items, stID, qrValue
