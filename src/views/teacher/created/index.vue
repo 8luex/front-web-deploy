@@ -161,12 +161,7 @@ export default {
         },
         scan() {
             liff.scanCodeV2().then(result => { //ios
-                // alert(result.value);
-                if(result.value=="test") {
-                    this.$router.push('create-done');
-                } else {
-                    alert(result.value);
-                }
+                alert(result.value);
             }).catch(e => alert(e))
         },
     }
