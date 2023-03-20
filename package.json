@@ -15,7 +15,6 @@
     "firebase": "^9.18.0",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
-    "vue-qrcode": "^2.2.0",
     "vue-router": "^4.0.0",
     "vuetify": "^3.0.0",
     "vuex": "^4.0.2",
