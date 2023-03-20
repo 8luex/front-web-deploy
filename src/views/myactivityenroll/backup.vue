@@ -54,7 +54,6 @@ export default {
     name: 'myactivityenroll',
     components: {
         CardEnroll,
-        VueQrcode
     },
     data () {
         return {
