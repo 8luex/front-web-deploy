@@ -34,6 +34,9 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="scan">
+                            <v-icon size="large">mdi-line-scan</v-icon>Scan to check
+                        </v-btn>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -155,7 +158,12 @@ export default {
         viewTicket(item) {
             this.isShowDialog = true
             this.dialog= item
-        }
+        },
+        scan() {
+            liff.scanCodeV2().then(result => { //ios
+                alert(result.value);
+            }).catch(e => alert(e))
+        },
     }
 }
 </script>
