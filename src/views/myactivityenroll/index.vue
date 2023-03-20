@@ -34,7 +34,7 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <vue-qrcode v-bind:value="qrValue"/>
+                        <vue-qrcode v-bind:value="stID"/>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -52,8 +52,6 @@ import { ref } from 'vue';
 import liff from '@line/liff';
 import VueQrcode from 'vue-qrcode'
 
-// const items = ref([])
-
 export default {
     name: 'myactivityenroll',
     components: {
@@ -64,7 +62,6 @@ export default {
         return {
             isShowDialog: false,
             dialog : {
-                id: '',
                 name: '',
                 createdAt: '',
                 location: '',
@@ -82,7 +79,6 @@ export default {
     setup() {
         const items = ref([])
         const stID = ref('')
-        const qrValue = ref('')
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -142,10 +138,8 @@ export default {
             })
         });
 
-        qrValue.value = dialog.id.concat(" studentID ", stID.value)
-
         return {
-            items, stID, qrValue
+            items, stID, 
         }
         
     },
