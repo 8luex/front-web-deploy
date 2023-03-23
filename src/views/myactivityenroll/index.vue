@@ -90,7 +90,7 @@ export default {
     },
     setup() {
         const items = ref([])
-        const stID = ref('');
+        let stID = ref('');
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -112,7 +112,7 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    stID = result.line[0].studentID;
+                    stID.value = result.line[0].studentID;
                     getactivitysalreadyenroll(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
