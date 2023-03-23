@@ -57,15 +57,13 @@ import CardEnroll from '@/components/CardEnroll.vue';
 import { ref } from 'vue';
 import liff from '@line/liff';
 
-let stID = ref('');
-
 export default {
     name: 'myactivityenroll',
     components: {
         CardEnroll,
         VueQrcode,
     },
-    data () {
+    data() {
         return {
             isShowDialog: false,
             dialog : {
@@ -92,6 +90,7 @@ export default {
     },
     setup() {
         const items = ref([])
+        const stID = ref('');
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -113,6 +112,7 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
+                    stID = result.line[0].studentID;
                     getactivitysalreadyenroll(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
@@ -132,7 +132,6 @@ export default {
                     console.log(resultact)
                 } else {
                     items.value = resultact
-                    stID.value = studentID
                     console.log(resultact)
                 }
             })
@@ -152,7 +151,7 @@ export default {
         });
 
         return {
-            items,
+            items, stID
         }
         
     },
@@ -168,8 +167,8 @@ export default {
         viewTicket(item) {
             this.isShowDialog = true
             this.dialog= item
-            // qr 
-            this.qrValue = stID.concat(item.id);
+            // qr
+            this.qrValue = this.stID.value.concat(item.id);
             console.log("text: "+qrValue);
         },
     }
