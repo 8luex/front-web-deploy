@@ -34,6 +34,12 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
+                        <VueQrcode
+                            v-bind:value="qrValue"
+                            v-bind:color="qrColor"
+                            v-bind:type="qrType"
+                            v-bind:errorCorrectionLevel="correctionLevel"
+                        />
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -46,6 +52,7 @@
 </template>
 
 <script>
+import VueQrcode from 'vue-qrcode'
 import CardEnroll from '@/components/CardEnroll.vue';
 import { ref } from 'vue';
 import liff from '@line/liff';
@@ -54,6 +61,7 @@ export default {
     name: 'myactivityenroll',
     components: {
         CardEnroll,
+        VueQrcode,
     },
     data () {
         return {
@@ -71,6 +79,13 @@ export default {
                 hoursToReceive: '',
                 image: ''
             },
+            qrValue: '',
+            qrColor: {
+                dark:"#1DE9B6",
+                light:"#FFFFFF"
+            },
+            qrType: "image/png",
+            correctionLevel: "H",
         }
     },
     setup() {
@@ -152,7 +167,10 @@ export default {
         viewTicket(item) {
             this.isShowDialog = true
             this.dialog= item
-        }
+            // qr 
+            this.qrValue = stID.value.concat(item.id);
+            console.log("text: "+qrValue);
+        },
     }
 }
 </script>
