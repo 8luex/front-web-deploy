@@ -29,6 +29,12 @@
                         <p>เวลา: cbnv</p>
                         <p>สถานที่: cbncvb</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: cbvnvb</p>
+                        <VueQrcode
+                        v-bind:value="items"
+                        v-bind:color="qrColor"
+                        v-bind:type="qrType"
+                        v-bind:errorCorrectionLevel="correctionLevel"
+                        />
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="viewTicket()">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
@@ -45,13 +51,22 @@
 </template>
 
 <script>
+import VueQrcode from 'vue-qrcode'
 import { ref } from 'vue';
 export default {
     name: 'myactivityenroll',
     components: {
+        VueQrcode
     },
     data () {
         return {
+            qrValue : "Mysecretvalue",
+            qrColor: {
+                dark:"#1DE9B6",
+                light:"#FFFFFF"
+            },
+            qrType: "image/png",
+            correctionLevel: "H",
             isShowDialog: false,
         }
     },
