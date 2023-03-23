@@ -113,7 +113,7 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    this.sevenid = result.line[0].studentID;
+                    this.sevenid.value = result.line[0].studentID;
                     stID = result.line[0].studentID; // add on
                     getactivitysalreadyenroll(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
@@ -170,7 +170,7 @@ export default {
             this.isShowDialog = true
             this.dialog= item
             // qr 
-            this.qrValue = stID.value.concat(item.id);
+            this.qrValue = sevenid.value.concat(item.id);
             console.log("text: "+qrValue);
         },
     }
