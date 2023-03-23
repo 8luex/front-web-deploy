@@ -79,6 +79,7 @@ export default {
                 hoursToReceive: '',
                 image: ''
             },
+            sevenid: '',
             qrValue: '',
             qrColor: {
                 dark:"#1DE9B6",
@@ -112,7 +113,8 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    stID.value = result.line[0].studentID // add on
+                    this.sevenid = result.line[0].studentID;
+                    stID = result.line[0].studentID; // add on
                     getactivitysalreadyenroll(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
