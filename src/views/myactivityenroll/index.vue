@@ -57,6 +57,8 @@ import CardEnroll from '@/components/CardEnroll.vue';
 import { ref } from 'vue';
 import liff from '@line/liff';
 
+let sevenid = ref('');
+
 export default {
     name: 'myactivityenroll',
     components: {
@@ -79,7 +81,6 @@ export default {
                 hoursToReceive: '',
                 image: ''
             },
-            sevenid: '',
             qrValue: '',
             qrColor: {
                 dark:"#1DE9B6",
@@ -113,7 +114,7 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    this.sevenid.value = result.line[0].studentID;
+                    sevenid = result.line[0].studentID;
                     stID = result.line[0].studentID; // add on
                     getactivitysalreadyenroll(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
@@ -170,7 +171,7 @@ export default {
             this.isShowDialog = true
             this.dialog= item
             // qr 
-            this.qrValue = sevenid.value.concat(item.id);
+            this.qrValue = sevenid.concat(item.id);
             console.log("text: "+qrValue);
         },
     }
