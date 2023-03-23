@@ -168,7 +168,7 @@ export default {
             this.isShowDialog = true
             this.dialog= item
             // qr
-            this.qrValue = this.stID+item.id;
+            this.qrValue = ''+this.stID+item.id;
             console.log("this.stID: "+this.stID);
             console.log("item.id: "+item.id);
             console.log("text: "+this.qrValue);
