@@ -57,7 +57,7 @@ import CardEnroll from '@/components/CardEnroll.vue';
 import { ref } from 'vue';
 import liff from '@line/liff';
 
-let sevenid = ref('');
+let stID = ref('');
 
 export default {
     name: 'myactivityenroll',
@@ -92,7 +92,6 @@ export default {
     },
     setup() {
         const items = ref([])
-        const stID = ref('')
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -114,8 +113,6 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    sevenid = result.line[0].studentID;
-                    stID = result.line[0].studentID; // add on
                     getactivitysalreadyenroll(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
@@ -135,6 +132,7 @@ export default {
                     console.log(resultact)
                 } else {
                     items.value = resultact
+                    stID.value = studentID
                     console.log(resultact)
                 }
             })
@@ -154,7 +152,7 @@ export default {
         });
 
         return {
-            items, stID,
+            items,
         }
         
     },
@@ -171,7 +169,7 @@ export default {
             this.isShowDialog = true
             this.dialog= item
             // qr 
-            this.qrValue = sevenid.concat(item.id);
+            this.qrValue = stID.concat(item.id);
             console.log("text: "+qrValue);
         },
     }
