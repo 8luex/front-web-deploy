@@ -169,6 +169,8 @@ export default {
             this.dialog= item
             // qr
             this.qrValue = this.stID.value+item.id;
+            console.log("this.stID.value: "+this.stID.value);
+            console.log("item.id: "+item.id);
             console.log("text: "+this.qrValue);
         },
     }
