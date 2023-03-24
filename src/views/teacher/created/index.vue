@@ -159,17 +159,18 @@ export default {
             this.dialog= item
         },
         scan(id) {
+            alert("id:", id)
                 // let stID = result.substr(0,7);
                 // let actID = result.substr(7);
                 // if(actID === id) {
                 // } else {
                 //     alert("error!, pls try again");
                 // }  
-            liff.scanCodeV2().then((result) => { //ios
-                alert("id", id);
-            }).catch((error) => {
-                alert("error", error);
-            });
+            // liff.scanCodeV2().then((result) => { //ios
+            //     alert(result.value);
+            // }).catch((error) => {
+            //     alert("error", error);
+            // });
         },
         setactivitystatustrue(activityID, studentID) {
             var myHeaders = new Headers();
