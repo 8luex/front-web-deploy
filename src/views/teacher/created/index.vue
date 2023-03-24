@@ -166,9 +166,7 @@ export default {
                 //     alert("error!, pls try again");
                 // }  
             liff.scanCodeV2().then((result) => { //ios
-                result.then(function(res) {
-                    alert(res);
-                })
+                alert(result+'');
             }).catch((error) => {
                 alert("error", error);
             });
