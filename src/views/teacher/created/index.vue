@@ -168,13 +168,11 @@ export default {
             liff.scanCodeV2().then((result) => { //ios
                 let stID = result.substr(0,7);
                 let actID = result.substr(7);
-                if(actID === id) {
-                    this.$router.push('create-done');
-                }
+                alert.log(result)
                 //alert(result);
             }).catch((error) => {
                 // alert("error", error);
-                this.$router.push('');
+                alert.log(error)
             });
         },
         setactivitystatustrue(activityID, studentID) {
