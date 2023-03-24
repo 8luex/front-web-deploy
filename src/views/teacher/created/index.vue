@@ -160,16 +160,13 @@ export default {
         },
         scan(id) {
             liff.scanCodeV2().then(result => { //ios
-                let stID = result.substr(0,7);
-                let actID = result.substr(7);
-                alert("id:"+id.value+"actID:"+actID.value+"stID:"+stID.value);
-                if(actID.value === id.value) {
-                    //alert("id:"+id.value+"actID:"+actID.value+"stID:"+stID.value);
-                    //setactivitystatustrue(actID, stID)
-                } else {
-                    alert("error!, pls try again");
-                }
-                // alert(result.value);
+                alert(result);
+                // let stID = result.substr(0,7);
+                // let actID = result.substr(7);
+                // if(actID === id) {
+                // } else {
+                //     alert("error!, pls try again");
+                // }  
             }).catch(e => alert(e))
         },
         setactivitystatustrue(activityID, studentID) {
