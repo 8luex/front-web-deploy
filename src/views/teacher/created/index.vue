@@ -34,7 +34,7 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="scan">
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="scan(dialog.id)">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
                     </v-card-text>
@@ -158,11 +158,46 @@ export default {
             this.isShowDialog = true
             this.dialog= item
         },
-        scan() {
+        scan(id) {
             liff.scanCodeV2().then(result => { //ios
-                alert(result.value);
+                let stID = result.substr(0,7);
+                let actID = result.substr(7);
+                if(actID == id) {
+                    setactivitystatustrue(actID, stID)
+                } else {
+                    alert("error!, pls try again");
+                }
+                // alert(result.value);
             }).catch(e => alert(e))
         },
+        setactivitystatustrue(activityID, studentID) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "activityID": activityID,
+                "studentID": studentID
+            });
+
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/setactivitystatustrue", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.message === 'update activity true complete') {
+                    //router.push({ path: '/connect-done' })
+                    alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
+        }
     }
 }
 </script>
