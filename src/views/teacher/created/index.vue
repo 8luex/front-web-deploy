@@ -166,13 +166,9 @@ export default {
                 //     alert("error!, pls try again");
                 // }  
             liff.scanCodeV2().then((result) => { //ios
-                let stID = result.substr(0,7);
-                let actID = result.substr(7);
-                alert.log(result)
-                //alert(result);
+                alert(result.value);
             }).catch((error) => {
-                // alert("error", error);
-                alert.log(error)
+                alert("error", error);
             });
         },
         setactivitystatustrue(activityID, studentID) {
