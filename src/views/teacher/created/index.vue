@@ -159,7 +159,7 @@ export default {
             this.dialog= item
         },
         scan(id) {
-            alert("id:", id)
+            alert("id:", id.value)
                 // let stID = result.substr(0,7);
                 // let actID = result.substr(7);
                 // if(actID === id) {
