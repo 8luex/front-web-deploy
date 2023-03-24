@@ -34,7 +34,7 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="scan(dialog.id)">
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @change="scan(dialog.id)">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
                     </v-card-text>
@@ -64,6 +64,7 @@ export default {
         return {
             isShowDialog: false,
             dialog : {
+                id: '',
                 name: '',
                 createdAt: '',
                 location: '',
@@ -159,7 +160,7 @@ export default {
             this.dialog= item
         },
         scan(id) {
-            alert("id:", id.value)
+            alert("id:", id)
                 // let stID = result.substr(0,7);
                 // let actID = result.substr(7);
                 // if(actID === id) {
