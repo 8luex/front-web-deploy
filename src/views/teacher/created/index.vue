@@ -162,8 +162,8 @@ export default {
             liff.scanCodeV2().then(result => { //ios
                 let stID = result.substr(0,7);
                 let actID = result.substr(7);
-                if(actID == id) {
-                    alert("id:"+id+"actID:"+actID+"stID:"+stID);
+                if(actID.value === id.value) {
+                    alert("id:"+id.value+"actID:"+actID.value+"stID:"+stID.value);
                     //setactivitystatustrue(actID, stID)
                 } else {
                     alert("error!, pls try again");
