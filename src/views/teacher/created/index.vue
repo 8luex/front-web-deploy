@@ -166,9 +166,15 @@ export default {
                 //     alert("error!, pls try again");
                 // }  
             liff.scanCodeV2().then((result) => { //ios
-                alert(result);
+                let stID = result.substr(0,7);
+                let actID = result.substr(7);
+                if(actID === id) {
+                    this.$router.push('create-done');
+                }
+                //alert(result);
             }).catch((error) => {
-                alert("error", error);
+                // alert("error", error);
+                this.$router.push('');
             });
         },
         setactivitystatustrue(activityID, studentID) {
