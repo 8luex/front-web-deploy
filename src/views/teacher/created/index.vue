@@ -163,7 +163,8 @@ export default {
                 let stID = result.substr(0,7);
                 let actID = result.substr(7);
                 if(actID == id) {
-                    setactivitystatustrue(actID, stID)
+                    alert("id:"+id+"actID:"+actID+"stID:"+stID);
+                    //setactivitystatustrue(actID, stID)
                 } else {
                     alert("error!, pls try again");
                 }
