@@ -160,7 +160,7 @@ export default {
             this.dialog= item
         },
         scan() {
-            let id = 'id'+this.dialog.id;
+            let id = +this.dialog.id;
             alert(id)
             console.log("blueeeeeeeethis.dialog.id: ", this.dialog.id)
             console.log("blueeeeeeeeid: ", id)
