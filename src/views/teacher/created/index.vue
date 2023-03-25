@@ -160,7 +160,10 @@ export default {
             this.dialog= item
         },
         scan() {
-            alert("blueeeeeeee: ", this.dialog.id)
+            alert("blueeeeeeeethis.dialog.id: ", this.dialog.id)
+            console.log("blueeeeeeeethis.dialog.id: ", this.dialog.id)
+            alert("blueeeeeeeethis.dialog.id.value: ", this.dialog.id.value)
+            console.log("blueeeeeeeethis.dialog.id.value: ", this.dialog.id.value)
                 // let stID = result.substr(0,7);
                 // let actID = result.substr(7);
                 // if(actID === id) {
