@@ -37,7 +37,8 @@ export default {
     methods: {
         scan() {
             liff.scanCodeV2().then((result) => {
-                alert(JSON.stringify(result))
+                // alert(JSON.stringify(result.value))
+                alert(result.value);
             })
             .catch(e => alert(e))
         },
