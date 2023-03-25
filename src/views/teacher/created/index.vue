@@ -161,20 +161,22 @@ export default {
         },
         scan() {
             let id = this.dialog.id;
-            alert(this.dialog.id)
-            console.log("blueeeeeeeethis.dialog.id: ", this.dialog.id)
-            console.log("blueeeeeeeeid: ", id)
+            let res = '';
+            //alert(this.dialog.id)
+            console.log("id: ", id)
                 // let stID = result.substr(0,7);
                 // let actID = result.substr(7);
                 // if(actID === id) {
                 // } else {
                 //     alert("error!, pls try again");
                 // }  
-            // liff.scanCodeV2().then((result) => { //ios
-            //     alert(result.value);
-            // }).catch((error) => {
-            //     alert("error", error);
-            // });
+            liff.scanCodeV2().then((result) => { //ios
+                res = result+''
+                alert(res);
+                console.log("res: ", res)
+            }).catch((error) => {
+                alert(error);
+            });
         },
         setactivitystatustrue(activityID, studentID) {
             var myHeaders = new Headers();
