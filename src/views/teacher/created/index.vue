@@ -161,7 +161,7 @@ export default {
         },
         scan() {
             let id = this.dialog.id;
-            alert(id)
+            alert(this.dialog.id)
             console.log("blueeeeeeeethis.dialog.id: ", this.dialog.id)
             console.log("blueeeeeeeeid: ", id)
                 // let stID = result.substr(0,7);
