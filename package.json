@@ -9,7 +9,7 @@
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@line/liff": "^2.21.4",
+    "@line/liff": "^2.22.0",
     "@mdi/font": "7.0.96",
     "core-js": "^3.8.3",
     "firebase": "^7.16.1",
