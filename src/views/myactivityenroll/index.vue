@@ -81,7 +81,7 @@ export default {
             },
             qrValue: '',
             qrColor: {
-                dark:"#1DE9B6",
+                dark:"#000000", //#1DE9B6
                 light:"#FFFFFF"
             },
             qrType: "image/png",
