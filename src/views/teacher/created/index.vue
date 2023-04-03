@@ -168,7 +168,7 @@ export default {
                     let res = JSON.stringify(result.value);
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
-                    alert(res);
+                    alert(stID);
                     if(actID === this.dialog.id) {
                         setactivitystatustrue(actID, stID)
                     } else {
