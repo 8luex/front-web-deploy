@@ -166,8 +166,8 @@ export default {
                     alert('nothing!, pls try again.');
                 } else {
                     let res = JSON.stringify(result.value);
-                    let stID = res.substr(0,7);
-                    let actID = res.substr(7);
+                    let stID = res.substr(0,8);
+                    let actID = res.substr(8);
                     alert(stID);
                     if(actID === this.dialog.id) {
                         setactivitystatustrue(actID, stID)
