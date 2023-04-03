@@ -159,7 +159,7 @@ export default {
             this.isShowDialog = true
             this.dialog= item
         },
-        scan() {
+        scanttt() {
             let id = this.dialog.id;
             let res = '';
             alert(this.dialog.id)

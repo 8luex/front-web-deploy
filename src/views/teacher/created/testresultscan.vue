@@ -38,7 +38,11 @@ export default {
         scan() {
             liff.scanCodeV2().then(result => {
                 // alert(JSON.stringify(result.value))
-                alert(result.value);
+                if(result.value==null) {
+                    alert('nothing');
+                } else {
+                    alert(result.value);
+                }
             })
             .catch(e => alert(e))
         },
