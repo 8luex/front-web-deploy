@@ -169,7 +169,7 @@ export default {
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
                     alert(this.dialog.id);
-                    if(actID === this.dialog.id) {
+                    if(actID == this.dialog.id) {
                         setactivitystatustrue(actID, stID)
                     } else {
                         alert("error!, pls try again");
