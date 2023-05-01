@@ -52,7 +52,6 @@
 import CardCreated from '@/components/CardCreated.vue'
 import { ref } from 'vue';
 import liff from '@line/liff';
-import VueSimpleAlert from "vue-simple-alert";
 
 // const items = ref([])
 
@@ -200,9 +199,7 @@ export default {
             .then(result => {
                 if(result.message === 'update activity true complete') {
                     //router.push({ path: '/connect-done' })
-                    // alert(message, title, type)
-                    this.$alert("ยืนยันการทำกิจกรรม สำเร็จ!");
-                    //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                    alert("ยืนยันการทำกิจกรรม สำเร็จ!")
                 } else {
                     alert(JSON.stringify(result))
                 }
