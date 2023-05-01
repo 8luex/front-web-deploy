@@ -52,6 +52,7 @@
 import CardCreated from '@/components/CardCreated.vue'
 import { ref } from 'vue';
 import liff from '@line/liff';
+import VueSimpleAlert from "vue-simple-alert";
 
 // const items = ref([])
 
@@ -159,9 +160,6 @@ export default {
             this.isShowDialog = true
             this.dialog= item
         },
-        fak() {
-            alert("ไม่จ้ายืนยัน ผิด!จ้า bakabak");
-        },
         scan() {
             liff.scanCodeV2().then(result => {
                 // alert(JSON.stringify(result.value))
@@ -171,10 +169,11 @@ export default {
                     let res = result.value;
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
+                    alert(this.dialog.id);
                     if(actID == this.dialog.id) {
-                        this.isShowDialog = false
+                        this.setactivitystatustrue(actID, stID)
                     } else {
-                        this.fak();
+                        alert("error!, pls try again");
                     }
                 }
             })
@@ -201,7 +200,9 @@ export default {
             .then(result => {
                 if(result.message === 'update activity true complete') {
                     //router.push({ path: '/connect-done' })
-                    alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                    // alert(message, title, type)
+                    this.$alert("ยืนยันการทำกิจกรรม สำเร็จ!");
+                    //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
                 } else {
                     alert(JSON.stringify(result))
                 }
