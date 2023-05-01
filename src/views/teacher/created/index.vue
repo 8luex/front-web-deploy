@@ -159,9 +159,6 @@ export default {
             this.isShowDialog = true
             this.dialog= item
         },
-        bak() {
-            alert("ยืนยันการทำกิจกรรม สำเร็จ!จ้า bakabak");
-        },
         fak() {
             alert("ไม่จ้ายืนยัน ผิด!จ้า bakabak");
         },
@@ -175,10 +172,8 @@ export default {
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
                     if(actID == this.dialog.id) {
-                        this.$router.reload();
-                        this.bak();
+                        this.isShowDialog = false
                     } else {
-                        this.$router.reload();
                         this.fak();
                     }
                 }
