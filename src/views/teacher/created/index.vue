@@ -159,6 +159,12 @@ export default {
             this.isShowDialog = true
             this.dialog= item
         },
+        bak() {
+            alert("ยืนยันการทำกิจกรรม สำเร็จ!จ้า bakabak");
+        },
+        fak() {
+            alert("ไม่จ้ายืนยัน ผิด!จ้า bakabak");
+        },
         scan() {
             liff.scanCodeV2().then(result => {
                 // alert(JSON.stringify(result.value))
@@ -169,9 +175,9 @@ export default {
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
                     if(actID == this.dialog.id) {
-                        alert("ly odfgdg iooidf");
+                        this.bak();
                     } else {
-                        alert("error!, pls try again");
+                        this.fak();
                     }
                 }
             })
