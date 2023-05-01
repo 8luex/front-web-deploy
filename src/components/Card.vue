@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto" :class="1 == 1 ? 'limit': ''" max-width="400">
+    <v-card class="mx-auto" :class="0 == 1 ? 'limit': ''" max-width="400">
         <v-img cover class="white--text align-end" height="200px" :src="act.image">
             <div class="more-detail" @click="$emit('moreDetail')">
                 เพิ่มเติม
