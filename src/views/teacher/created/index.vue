@@ -44,6 +44,21 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
+            
+            <v-dialog v-model="isShowSuccess" max-width="290">
+                <v-card>
+                    <v-card-title class="text-h6">
+                        Success
+                    </v-card-title>
+                    <v-card-text>
+                        ยืนยันการทำกิจกรรม สำเร็จ!
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="isShowSuccess = false">ปิด</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-container>
     </div>
 </template>
@@ -62,6 +77,7 @@ export default {
     },
     data () {
         return {
+            isShowSuccess: false,
             isShowDialog: false,
             dialog : {
                 id: '',
@@ -199,7 +215,8 @@ export default {
             .then(result => {
                 if(result.message === 'update activity true complete') {
                     //router.push({ path: '/connect-done' })
-                    alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                    //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                    this.isShowSuccess = true
                 } else {
                     alert(JSON.stringify(result))
                 }
