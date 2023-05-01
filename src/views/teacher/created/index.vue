@@ -175,8 +175,10 @@ export default {
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
                     if(actID == this.dialog.id) {
+                        this.$router.reload();
                         this.bak();
                     } else {
+                        this.$router.reload();
                         this.fak();
                     }
                 }
