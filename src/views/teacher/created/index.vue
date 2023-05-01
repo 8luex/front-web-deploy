@@ -65,11 +65,25 @@
                         Error
                     </v-card-title>
                     <v-card-text>
-                        ผิดพลาด!, โปรดลองใหม่อีกครั้ง
+                        ผิดพลาด, โปรดลองใหม่อีกครั้ง!
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="grey" text @click="isShowError = false">ปิด</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="isShowWarning" max-width="290">
+                <v-card>
+                    <v-card-title class="text-h6">
+                        Warning
+                    </v-card-title>
+                    <v-card-text>
+                        ไม่พบข้อมูล, โปรดลองใหม่อีกครั้ง!
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="isShowWarning = false">ปิด</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -91,6 +105,7 @@ export default {
     },
     data () {
         return {
+            isShowWarning: false,
             isShowError: false,
             isShowSuccess: false,
             isShowDialog: false,
@@ -194,12 +209,13 @@ export default {
             liff.scanCodeV2().then(result => {
                 // alert(JSON.stringify(result.value))
                 if(result.value == null) {
-                    alert('nothing!, pls try again.');
+                    this.isShowWarning = true
+                    //alert('nothing!, pls try again.');
                 } else {
                     let res = result.value;
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
-                    alert(this.dialog.id);
+                    //alert(this.dialog.id);
                     if(actID == this.dialog.id) {
                         this.setactivitystatustrue(actID, stID)
                     } else {
