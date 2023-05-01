@@ -168,9 +168,8 @@ export default {
                     let res = result.value;
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
-                    alert(this.dialog.id);
                     if(actID == this.dialog.id) {
-                        this.setactivitystatustrue(actID, stID)
+                        alert("ly odfgdg iooidf");
                     } else {
                         alert("error!, pls try again");
                     }

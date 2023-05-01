@@ -159,24 +159,24 @@ export default {
             this.isShowDialog = true
             this.dialog= item
         },
-        scanttt() {
-            let id = this.dialog.id;
-            let res = '';
-            alert(this.dialog.id)
-            console.log("id: ", id)
-                // let stID = result.substr(0,7);
-                // let actID = result.substr(7);
-                // if(actID === id) {
-                // } else {
-                //     alert("error!, pls try again");
-                // }  
-            liff.scanCodeV2().then((result) => { //ios
-                res = result+''
-                alert(res);
-                console.log("res: ", res)
-            }).catch((error) => {
-                alert(error);
-            });
+        scan() {
+            liff.scanCodeV2().then(result => {
+                // alert(JSON.stringify(result.value))
+                if(result.value == null) {
+                    alert('nothing!, pls try again.');
+                } else {
+                    let res = result.value;
+                    let stID = res.substr(0,7);
+                    let actID = res.substr(7);
+                    alert(this.dialog.id);
+                    if(actID == this.dialog.id) {
+                        this.setactivitystatustrue(actID, stID)
+                    } else {
+                        alert("error!, pls try again");
+                    }
+                }
+            })
+            .catch(e => alert(e))
         },
         setactivitystatustrue(activityID, studentID) {
             var myHeaders = new Headers();
