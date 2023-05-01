@@ -51,7 +51,7 @@
                         Success
                     </v-card-title>
                     <v-card-text>
-                        ยืนยันการทำกิจกรรม สำเร็จ!
+                        ยืนยันการทำกิจกรรม, สำเร็จ!
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -65,7 +65,7 @@
                         Error
                     </v-card-title>
                     <v-card-text>
-                        ผิดพลาด, โปรดลองใหม่อีกครั้ง!
+                        รหัสกิจกรรมไม่ถูกต้อง, โปรดลองใหม่อีกครั้ง!
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
