@@ -59,6 +59,20 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
+            <v-dialog v-model="isShowError" max-width="290">
+                <v-card>
+                    <v-card-title class="text-h6">
+                        Error
+                    </v-card-title>
+                    <v-card-text>
+                        ผิดพลาด!, โปรดลองใหม่อีกครั้ง
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="isShowError = false">ปิด</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-container>
     </div>
 </template>
@@ -77,6 +91,7 @@ export default {
     },
     data () {
         return {
+            isShowError: false,
             isShowSuccess: false,
             isShowDialog: false,
             dialog : {
@@ -188,7 +203,8 @@ export default {
                     if(actID == this.dialog.id) {
                         this.setactivitystatustrue(actID, stID)
                     } else {
-                        alert("error!, pls try again");
+                        this.isShowError = true
+                        //alert("error!, pls try again");
                     }
                 }
             })
