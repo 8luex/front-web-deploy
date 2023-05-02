@@ -57,7 +57,7 @@
                             <tbody>
                                 <tr v-for="i in who" :key="i.activityID">
                                     <td>{{ i.studentID }}</td>
-                                    <td>{{ i.fname }} {{ i.lname }}</td>
+                                    <td class="text-caption">{{ i.fname }} {{ i.lname }}</td>
                                     <td>{{ i.faculty }}</td>
                                     <td>{{ i.status }}</td>
                                 </tr>
