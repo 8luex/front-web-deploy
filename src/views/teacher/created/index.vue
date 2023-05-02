@@ -50,16 +50,16 @@
                                     คณะ
                                     </th>
                                     <th class="text-left text-caption">
-                                    สถานะเข้าร่วม
+                                    สถานะ
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="i in who" :key="i.activityID">
-                                    <td>{{ i.studentID }}</td>
+                                    <td class="text-caption">{{ i.studentID }}</td>
                                     <td class="text-caption">{{ i.fname }} {{ i.lname }}</td>
-                                    <td>{{ i.faculty }}</td>
-                                    <td>{{ i.status }}</td>
+                                    <td class="text-caption">{{ i.faculty }}</td>
+                                    <td class="text-caption">{{ i.status }}</td>
                                 </tr>
                             </tbody>
                         </v-table>
