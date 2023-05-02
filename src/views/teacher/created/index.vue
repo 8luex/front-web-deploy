@@ -231,7 +231,7 @@ export default {
         viewTicket(item) {
             this.isShowDialog = true
             this.dialog= item
-            console.log(this.dialog)
+            console.log(this.dialog.id)
             //this.getwhoenroll(dialog.activityID)
         },
         scan() {
