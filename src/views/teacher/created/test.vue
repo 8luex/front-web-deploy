@@ -1,94 +1,120 @@
+
 <template>
     <div>
         <v-app-bar color="teal-accent-3" dense flat dark>
-            <v-toolbar-title style="text-align: center;color: white;">กิจกรรมที่สร้าง</v-toolbar-title>
+            <v-toolbar-title style="text-align: center;color: white;">กิจกรรมที่ลงทะเบียนไว้</v-toolbar-title>
         </v-app-bar>
         <v-container class="pt-0 pb-0">
             <v-row>
-                <v-col cols="12">
-                    <v-btn color="teal-accent-3" text @click="viewTicket()">ลงทะเบียน</v-btn>
-                </v-col>
-                <v-col cols="12" class="text-center">
-                    <div class="mt-2 text-caption text-disabled">
-                        &copy;Scholarship Activity 2023
-                    </div>
-                </v-col>
-            </v-row>
-            <v-dialog v-model="isShowDialog" max-width="290">
-                <v-card class="dialog-card">
-                    <v-img cover class="white--text align-end" height="200px"></v-img>
-                    <v-card-title class="text-h6">
-                        cbnvbnc
-                    </v-card-title>
-                    <v-card-text>
-                        <p class="text-caption text-disabled">cvbn</p>
-                        <p>ผู้สร้างกิจกรรม: cvbnvbn</p>
-                        <p>bncvbn</p>
-                        <p class="detail">รายละเอียดกิจกรรม: vbcnvbncffggggffffffffffff fgggggggg fgfgf gfgf gf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fgggfgf gf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fgggf gf fgfgf gffgfgf gfg f gfg gfgfgfgfgfgfg fggfgfgfg fggfgfgfg gf gfg fggf g fgfgfgfgfg gf</p>
-                        <p>วันที่: cbncvb</p>
-                        <p>เวลา: cbnv</p>
-                        <p>สถานที่: cbncvb</p>
-                        <p>ชั่วโมงกิจกรรมที่จะได้รับ: cbvnvb</p>
-                        <VueQrcode
-                        v-bind:value="items"
-                        v-bind:color="qrColor"
-                        v-bind:type="qrType"
-                        v-bind:errorCorrectionLevel="correctionLevel"
-                        />
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="viewTicket()">
-                            <v-icon size="large">mdi-line-scan</v-icon>Scan to check
-                        </v-btn>
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="grey" text @click="isShowDialog = false">ยกเลิก</v-btn>
-                        <v-btn color="teal-accent-3" text @click="isShowDialog = false">ลงทะเบียน</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </v-container>
+                <v-col cols="12"> 
+                    <v-card >
+        <div class="d-flex flex-no-wrap justify-space-between">
+            <div>
+                <v-card-title class="text-h6">sdgdfgsdfgsdfgsfdgdg</v-card-title>
+                <v-card-subtitle>วันที่: fgsdfgdsgdsgdfgsg</v-card-subtitle>
+                <v-card-actions>
+                    <v-btn class="ms-2" color="teal-accent-3" variant="outlined" size="small">
+                        View Ticket
+                    </v-btn>
+                </v-card-actions>
+            </div>
+            <v-avatar class="ma-3" size="105" rounded="0">
+                <v-img cover src="https://i.ytimg.com/vi/Gd28NXFndQc/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLDdlYMsbhsR2g4zr9t-YXNHtvAV2w"></v-img>
+            </v-avatar>
+        </div>
+    </v-card>
+    <v-card >
+        <div class="d-flex flex-no-wrap justify-space-between">
+            <div>
+                <v-card-title class="text-h6">sdgdfgsdfgsdfgsfdgdg</v-card-title>
+                <v-card-subtitle>วันที่: fgsdfgdsgdsgdfgsg</v-card-subtitle>
+                <v-card-actions>
+                    <v-btn class="ms-2" color="teal-accent-3" variant="outlined" size="small">
+                        View Ticket
+                    </v-btn>
+                </v-card-actions>
+            </div>
+            <v-avatar class="ma-3" size="105" rounded="0">
+                <v-img cover src="https://i.ytimg.com/vi/Gd28NXFndQc/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLDdlYMsbhsR2g4zr9t-YXNHtvAV2w"></v-img>
+            </v-avatar>
+        </div>
+    </v-card>
+    <v-card >
+        <div class="d-flex flex-no-wrap justify-space-between">
+            <div>
+                <v-card-title class="text-h6">sdgdfgsdfgsdfgsfdgdg</v-card-title>
+                <v-card-subtitle>วันที่: fgsdfgdsgdsgdfgsg</v-card-subtitle>
+                <v-card-actions>
+                    <v-btn class="ms-2" color="teal-accent-3" variant="outlined" size="small">
+                        View Ticket
+                    </v-btn>
+                </v-card-actions>
+            </div>
+            <v-avatar class="ma-3" size="105" rounded="0">
+                <v-img cover src="https://i.ytimg.com/vi/Gd28NXFndQc/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLDdlYMsbhsR2g4zr9t-YXNHtvAV2w"></v-img>
+            </v-avatar>
+        </div>
+    </v-card>
+    <v-card disabled>
+        <div class="d-flex flex-no-wrap justify-space-between">
+            <div>
+                <v-card-title class="text-h6">sdgdfgsdfgsdfgsfdgdg</v-card-title>
+                <v-card-subtitle>วันที่: fgsdfgdsgdsgdfgsg</v-card-subtitle>
+                <v-card-actions>
+                    <v-btn class="ms-2" color="teal-accent-3" variant="outlined" size="small">
+                        View Ticket
+                    </v-btn>
+                </v-card-actions>
+            </div>
+            <v-avatar class="ma-3" size="105" rounded="0">
+                <v-img cover src="https://i.ytimg.com/vi/Gd28NXFndQc/oar2.jpg?sqp=-oaymwEaCJUDENAFSFXyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLDdlYMsbhsR2g4zr9t-YXNHtvAV2w"></v-img>
+            </v-avatar>
+        </div>
+    </v-card>
+                    </v-col>
+                    </v-row>
+                    
+    <v-table>
+    <thead>
+      <tr>
+        <th class="text-left">
+          รหัสนักศึกษา
+        </th>
+        <th class="text-left">
+          ชื่อ-นามสกุล
+        </th>
+        <th class="text-left">
+          คณะ
+        </th>
+        <th class="text-left">
+          สถานะเข้าร่วม
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="item in desserts"
+        :key="item.name"
+      >
+        <td>{{ item.name }}</td>
+        <td>{{ item.calories }}</td>
+      </tr>
+    </tbody>
+  </v-table>
+                    </v-container>
+   
     </div>
-</template>
-
-<script>
-import VueQrcode from 'vue-qrcode'
-import { ref } from 'vue';
-export default {
-    name: 'myactivityenroll',
-    components: {
-        VueQrcode
-    },
-    data () {
-        return {
-            qrValue : "Mysecretvalue",
-            qrColor: {
-                dark:"#1DE9B6",
-                light:"#FFFFFF"
-            },
-            qrType: "image/png",
-            correctionLevel: "H",
-            isShowDialog: false,
-        }
-    },
-    setup() {
-        const items = ref('')
-        items.value = "dgfgdfg"+"1111gfhdfhdf"
-        return {
-            items,
-        }
-    },
-    mounted() {
-    },
-    computed: {
-    },
-    methods: {
-        viewTicket() {
-            this.isShowDialog = true
-
-        }
-    }
+  </template>
+  
+  <script>
+export default{
+    name: 'test',
 }
 </script>
 
 <style lang="scss" scoped>
+.v-card {
+    margin-top: 20px;
+}
 </style>
+  

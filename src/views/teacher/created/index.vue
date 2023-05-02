@@ -37,6 +37,32 @@
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="scan()">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
+                        <v-table>
+                            <thead>
+                                <tr>
+                                    <th class="text-left">
+                                    รหัสนักศึกษา
+                                    </th>
+                                    <th class="text-left">
+                                    ชื่อ-นามสกุล
+                                    </th>
+                                    <th class="text-left">
+                                    คณะ
+                                    </th>
+                                    <th class="text-left">
+                                    สถานะเข้าร่วม
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="i in who" :key="i.activityID">
+                                    <td>{{ i.studentID }}</td>
+                                    <td>{{ i.fname }} {{ i.lname }}</td>
+                                    <td>{{ i.faculty }}</td>
+                                    <td>{{ i.status }}</td>
+                                </tr>
+                            </tbody>
+                        </v-table>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -122,7 +148,8 @@ export default {
                 timeEnd: '',
                 hoursToReceive: '',
                 image: ''
-            }
+            },
+            who : []
         }
     },
     setup() {
@@ -204,6 +231,7 @@ export default {
         viewTicket(item) {
             this.isShowDialog = true
             this.dialog= item
+            this.getwhoenroll(this.dialog.activityID.value)
         },
         scan() {
             liff.scanCodeV2().then(result => {
@@ -254,6 +282,20 @@ export default {
                 }
             })
             .catch(error => console.log('error', error));
+        },
+        getwhoenroll(activityID) {
+            fetch('https://apricot-binturong-kit.cyclic.app/whoenroll/'+activityID)
+            .then(res => res.json())
+            .then((resultwhoenroll) => {
+                if(resultwhoenroll.status === 'error') {
+                    alert(JSON.stringify(resultwhoenroll))
+                } else if(resultwhoenroll.message === 'no one enroll') {
+                    console.log(resultwhoenroll)
+                } else {
+                    this.who = resultwhoenroll
+                    console.log(resultwhoenroll)
+                }
+            })
         }
     }
 }
