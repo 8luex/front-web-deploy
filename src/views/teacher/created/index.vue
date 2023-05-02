@@ -40,16 +40,16 @@
                         <v-table>
                             <thead>
                                 <tr>
-                                    <th class="text-left">
+                                    <th class="text-left text-caption">
                                     รหัสนักศึกษา
                                     </th>
-                                    <th class="text-left">
+                                    <th class="text-left text-caption">
                                     ชื่อ-นามสกุล
                                     </th>
-                                    <th class="text-left">
+                                    <th class="text-left text-caption">
                                     คณะ
                                     </th>
-                                    <th class="text-left">
+                                    <th class="text-left text-caption">
                                     สถานะเข้าร่วม
                                     </th>
                                 </tr>
