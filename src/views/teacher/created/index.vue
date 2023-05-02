@@ -231,8 +231,8 @@ export default {
         viewTicket(item) {
             this.isShowDialog = true
             this.dialog= item
-            console.log(dialog.activityID)
-            this.getwhoenroll(dialog.activityID)
+            console.log(this.dialog)
+            //this.getwhoenroll(dialog.activityID)
         },
         scan() {
             liff.scanCodeV2().then(result => {
