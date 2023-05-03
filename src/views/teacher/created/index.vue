@@ -126,6 +126,7 @@ import { ref } from 'vue';
 import liff from '@line/liff';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { font } from '@/assets/THSarabunNew'
 
 // const items = ref([])
 
@@ -312,6 +313,11 @@ export default {
         ];
         var pdf = new jsPDF();
 
+        // add the font to jsPDF
+        pdf.addFileToVFS("THSarabunNew.ttf", font);
+        pdf.addFont("THSarabunNew.ttf", "THSarabunNew", "normal");
+        pdf.setFont("THSarabunNew");
+
         //pdf.setFont("courier");
         pdf.text(`${this.dialog.name}`, 10, 15);
         pdf.setLineWidth(0.1).line(10, 20, 200, 20); // horizontal line
@@ -321,7 +327,7 @@ export default {
             body: this.who,
             margin: { left: 10, top: 25 },
             theme: 'grid',
-            styles: {font: "Roboto"}
+            //styles: {font: "Roboto"}
         });
         pdf.save('Report.pdf');
       },
