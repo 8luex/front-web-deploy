@@ -312,6 +312,7 @@ export default {
         ];
         var pdf = new jsPDF();
 
+        pdf.setFont("courier");
         pdf.text(`${this.dialog.name}`, 10, 15);
         pdf.setLineWidth(0.1).line(10, 20, 200, 20); // horizontal line
         //pdf.autoTable({ html: '#toPDF', margin: { left: 10, top: 25 } });
