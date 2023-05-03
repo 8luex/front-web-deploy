@@ -327,7 +327,7 @@ export default {
             body: this.who,
             margin: { left: 10, top: 25 },
             theme: 'grid',
-            //styles: {font: "Roboto"}
+            styles: {font: "THSarabunNew"}
         });
         pdf.save('Report.pdf');
       },
