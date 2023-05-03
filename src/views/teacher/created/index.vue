@@ -37,11 +37,8 @@
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2 mb-2" @click="scan()">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2 mb-2" @click="scan()">
-                            <v-icon size="large">mdi-line-scan</v-icon>Scan to check
-                        </v-btn>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mb-2" @click="scan()">
-                            <v-icon size="large">mdi-line-scan</v-icon>Scan to check
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mb-2" @click="downloadPDF()">
+                            <v-icon size="large">mdi-arrow-collapse-down</v-icon>Download Report
                         </v-btn>
                         <v-table>
                             <thead>
@@ -127,6 +124,8 @@
 import CardCreated from '@/components/CardCreated.vue'
 import { ref } from 'vue';
 import liff from '@line/liff';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 // const items = ref([])
 
@@ -303,7 +302,27 @@ export default {
                     console.log(resultwhoenroll)
                 }
             })
-        }
+        },
+        downloadPDF() {
+        let columns = [
+          { title: "รหัสนักศึกษา", dataKey: "studentID" },
+          { title: "ชื่อ-นามสกุล", dataKey: "fname"+" "+"lname" },
+          { title: "คณะ", dataKey: "faculty" },
+          { title: "สถานะ", dataKey: "status" },
+        ];
+        var pdf = new jsPDF();
+
+        pdf.text(`${this.dialog.name}`, 10, 15);
+        pdf.setLineWidth(0.1).line(10, 20, 200, 20); // horizontal line
+        //pdf.autoTable({ html: '#toPDF', margin: { left: 10, top: 25 } });
+        pdf.autoTable({
+            columns,
+            body: this.who,
+            margin: { left: 10, top: 25 },
+            theme: 'grid',
+        });
+        pdf.save('Report.pdf');
+      },
     }
 }
 </script>
