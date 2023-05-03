@@ -307,7 +307,8 @@ export default {
         downloadPDF() {
         let columns = [
           { title: "รหัสนักศึกษา", dataKey: "studentID" },
-          { title: "ชื่อ-นามสกุล", dataKey: "fname"+" "+"lname" },
+          { title: "ชื่อ", dataKey: "fname" },
+          { title: "นามสกุล", dataKey: "lname" },
           { title: "คณะ", dataKey: "faculty" },
           { title: "สถานะ", dataKey: "status" },
         ];
