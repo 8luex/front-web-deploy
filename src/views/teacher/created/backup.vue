@@ -34,13 +34,82 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2" @click="scan()">
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2 mb-2" @click="scan()">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
+                        <v-table>
+                            <thead>
+                                <tr>
+                                    <th class="text-left text-caption">
+                                    รหัสนักศึกษา
+                                    </th>
+                                    <th class="text-left text-caption">
+                                    ชื่อ-นามสกุล
+                                    </th>
+                                    <th class="text-left text-caption">
+                                    คณะ
+                                    </th>
+                                    <th class="text-left text-caption">
+                                    สถานะ
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="i in who" :key="i.activityID">
+                                    <td class="text-caption">{{ i.studentID }}</td>
+                                    <td class="text-caption">{{ i.fname }} {{ i.lname }}</td>
+                                    <td class="text-caption">{{ i.faculty }}</td>
+                                    <td class="text-caption">{{ i.status }}</td>
+                                </tr>
+                            </tbody>
+                        </v-table>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="grey" text @click="isShowDialog = false">ปิด</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            
+            <v-dialog v-model="isShowSuccess" max-width="290">
+                <v-card>
+                    <v-card-title class="text-h6">
+                        Success
+                    </v-card-title>
+                    <v-card-text>
+                        ยืนยันการทำกิจกรรม, สำเร็จ!
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="isShowSuccess = false">ปิด</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="isShowError" max-width="290">
+                <v-card>
+                    <v-card-title class="text-h6">
+                        Error
+                    </v-card-title>
+                    <v-card-text>
+                        รหัสกิจกรรมไม่ถูกต้อง, โปรดลองใหม่อีกครั้ง!
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="isShowError = false">ปิด</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="isShowWarning" max-width="290">
+                <v-card>
+                    <v-card-title class="text-h6">
+                        Warning
+                    </v-card-title>
+                    <v-card-text>
+                        ไม่พบข้อมูล, โปรดลองใหม่อีกครั้ง!
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="grey" text @click="isShowWarning = false">ปิด</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -62,6 +131,9 @@ export default {
     },
     data () {
         return {
+            isShowWarning: false,
+            isShowError: false,
+            isShowSuccess: false,
             isShowDialog: false,
             dialog : {
                 id: '',
@@ -76,7 +148,8 @@ export default {
                 timeEnd: '',
                 hoursToReceive: '',
                 image: ''
-            }
+            },
+            who : []
         }
     },
     setup() {
@@ -156,23 +229,27 @@ export default {
     },
     methods: {
         viewTicket(item) {
-            this.isShowDialog = true
             this.dialog= item
+            console.log(this.dialog.id)
+            this.getwhoenroll(this.dialog.id)
+            this.isShowDialog = true
         },
         scan() {
             liff.scanCodeV2().then(result => {
                 // alert(JSON.stringify(result.value))
                 if(result.value == null) {
-                    alert('nothing!, pls try again.');
+                    this.isShowWarning = true
+                    //alert('nothing!, pls try again.');
                 } else {
                     let res = result.value;
                     let stID = res.substr(0,7);
                     let actID = res.substr(7);
-                    alert(this.dialog.id);
+                    //alert(this.dialog.id);
                     if(actID == this.dialog.id) {
                         this.setactivitystatustrue(actID, stID)
                     } else {
-                        alert("error!, pls try again");
+                        this.isShowError = true
+                        //alert("error!, pls try again");
                     }
                 }
             })
@@ -199,12 +276,27 @@ export default {
             .then(result => {
                 if(result.message === 'update activity true complete') {
                     //router.push({ path: '/connect-done' })
-                    alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                    //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                    this.isShowSuccess = true
                 } else {
                     alert(JSON.stringify(result))
                 }
             })
             .catch(error => console.log('error', error));
+        },
+        getwhoenroll(activityID) {
+            fetch('https://apricot-binturong-kit.cyclic.app/whoenroll/'+activityID)
+            .then(res => res.json())
+            .then((resultwhoenroll) => {
+                if(resultwhoenroll.status === 'error') {
+                    alert(JSON.stringify(resultwhoenroll))
+                } else if(resultwhoenroll.message === 'no one enroll') {
+                    console.log(resultwhoenroll)
+                } else {
+                    this.who = resultwhoenroll
+                    console.log(resultwhoenroll)
+                }
+            })
         }
     }
 }

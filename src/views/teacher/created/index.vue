@@ -37,6 +37,12 @@
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2 mb-2" @click="scan()">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2 mb-2" @click="scan()">
+                            <v-icon size="large">mdi-line-scan</v-icon>Scan to check
+                        </v-btn>
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mb-2" @click="scan()">
+                            <v-icon size="large">mdi-line-scan</v-icon>Scan to check
+                        </v-btn>
                         <v-table>
                             <thead>
                                 <tr>
