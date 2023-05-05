@@ -334,10 +334,8 @@ export default {
       },
       refreshDialog() {
         this.isShowSuccess = false
-        this.isShowDialog = false
-        this.viewTicket(this.dialog)
-        //router.push({ path: '/created' })
-        //this.viewTicket(this.dialog)
+        // this.isShowDialog = false
+        // this.viewTicket(this.dialog)
       },
     }
 }
