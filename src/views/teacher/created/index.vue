@@ -333,9 +333,9 @@ export default {
         pdf.save('Report.pdf');
       },
       refreshDialog() {
-        //this.isShowSuccess = false
+        this.isShowSuccess = false
         //this.viewTicket(this.dialog)
-        router.push({ path: '/created' })
+        //router.push({ path: '/created' })
         //this.viewTicket(this.dialog)
       },
     }
