@@ -37,6 +37,9 @@
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2 mb-2" @click="scan()">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mb-2" @click="edit()">
+                            <v-icon size="large">mdi-square-edit-outline</v-icon>Edit
+                        </v-btn>
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mb-2" @click="downloadPDF()">
                             <v-icon size="large">mdi-arrow-collapse-down</v-icon>Download Report
                         </v-btn>
@@ -336,6 +339,9 @@ export default {
         this.isShowSuccess = false
         this.isShowDialog = false
         this.viewTicket(this.dialog)
+      },
+      edit() {
+        this.$router.push('create');
       },
     }
 }
