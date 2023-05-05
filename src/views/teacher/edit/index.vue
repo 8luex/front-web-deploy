@@ -20,7 +20,8 @@
                       </v-container>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="teal-accent-3"  @click="editActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image)">
+                        <v-btn @click="back">ยกเลิก</v-btn>
+                        <v-btn color="teal-accent-3" @click="editActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image)">
                           แก้ไข
                           <v-icon icon="mdi-chevron-right" end></v-icon>
                         </v-btn>
@@ -101,7 +102,10 @@ export default {
         },
         editActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image) {
         
-        }
+        },
+        back() {
+            this.$router.push('created');
+        },
     },
     computed: {
         getActivity() {
