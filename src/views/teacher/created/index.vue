@@ -84,7 +84,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="grey" text @click="isShowSuccess = false">ปิด</v-btn>
+                        <v-btn color="grey" text @click="refreshDialog">ปิด</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -331,6 +331,12 @@ export default {
             styles: {font: "THSarabunNew"}
         });
         pdf.save('Report.pdf');
+      },
+      refreshDialog() {
+        //this.isShowSuccess = false
+        //this.viewTicket(this.dialog)
+        router.push({ path: '/created' })
+        //this.viewTicket(this.dialog)
       },
     }
 }
