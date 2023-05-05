@@ -34,14 +34,14 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <span class="text-center">
+                        <div style="display: block; margin-left: auto; margin-right: auto;">
                             <VueQrcode
                                 v-bind:value="qrValue"
                                 v-bind:color="qrColor"
                                 v-bind:type="qrType"
                                 v-bind:errorCorrectionLevel="correctionLevel"
                             />
-                        </span>
+                        </div>
                         <p class="text-caption text-disabled text-center">แสดง qr code นี้กับเจ้าของกิจกรรม</p>
                     </v-card-text>
                     <v-card-actions>
