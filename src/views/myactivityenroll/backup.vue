@@ -34,6 +34,12 @@
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
+                        <VueQrcode
+                            v-bind:value="qrValue"
+                            v-bind:color="qrColor"
+                            v-bind:type="qrType"
+                            v-bind:errorCorrectionLevel="correctionLevel"
+                        />
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -46,6 +52,7 @@
 </template>
 
 <script>
+import VueQrcode from 'vue-qrcode'
 import CardEnroll from '@/components/CardEnroll.vue';
 import { ref } from 'vue';
 import liff from '@line/liff';
@@ -54,8 +61,9 @@ export default {
     name: 'myactivityenroll',
     components: {
         CardEnroll,
+        VueQrcode,
     },
-    data () {
+    data() {
         return {
             isShowDialog: false,
             dialog : {
@@ -71,11 +79,18 @@ export default {
                 hoursToReceive: '',
                 image: ''
             },
+            qrValue: '',
+            qrColor: {
+                dark:"#000000", //#1DE9B6
+                light:"#FFFFFF"
+            },
+            qrType: "image/png",
+            correctionLevel: "H",
         }
     },
     setup() {
         const items = ref([])
-        const stID = ref('')
+        let stID = ref('');
 
         const getconnect = (lineID) => {
             var myHeaders = new Headers();
@@ -97,7 +112,7 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     console.log(result)//Test
-                    stID.value = result.line[0].studentID // add on
+                    stID.value = result.line[0].studentID;
                     getactivitysalreadyenroll(result.line[0].studentID);
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
@@ -136,7 +151,7 @@ export default {
         });
 
         return {
-            items, stID,
+            items, stID
         }
         
     },
@@ -152,7 +167,12 @@ export default {
         viewTicket(item) {
             this.isShowDialog = true
             this.dialog= item
-        }
+            // qr
+            this.qrValue = ''+this.stID+item.id;
+            console.log("this.stID: "+this.stID);
+            console.log("item.id: "+item.id);
+            console.log("text: "+this.qrValue);
+        },
     }
 }
 </script>
