@@ -15,6 +15,17 @@ const store = createStore({
             pass: null,
             faculty: null
         },
+        activity: {
+            name: null,
+            detail: null,
+            image: null,
+            location: null,
+            eventDate: null,
+            timeStart: null,
+            timeEnd: null,
+            hoursToReceive: null,
+            max: null,
+        },
     },
     getters: {
         getLine(state) {
@@ -22,6 +33,9 @@ const store = createStore({
         },
         getStudent(state) {
             return state.student
+        },
+        getActivity(state) {
+            return state.activity
         }
     },
     mutations: {
@@ -39,6 +53,12 @@ const store = createStore({
                 ...state.student,
                 ...data
             }
+        },
+        SET_ACTIVITY(state, data) {
+            state.activity = {
+                ...state.activity,
+                ...data
+            }
         }
     },
     actions: {
@@ -47,6 +67,9 @@ const store = createStore({
         },
         setStudent({ commit }, data) {
             commit('SET_STUDENT', data)
+        },
+        setActivity({ commit }, data) {
+            commit('SET_ACTIVITY', data)
         }
     }
 })

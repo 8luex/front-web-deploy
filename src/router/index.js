@@ -80,6 +80,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/teacher/created/index.vue'),
       },
       {
+        path: 'edit',
+        name: 'edit',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/teacher/edit/index.vue'),
+      },
+      {
         path: 'test',
         name: 'test',
         component: () => import(/* webpackChunkName: "home" */ '@/views/teacher/created/test.vue'),

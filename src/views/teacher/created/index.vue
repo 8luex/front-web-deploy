@@ -239,6 +239,7 @@ export default {
     methods: {
         viewTicket(item) {
             this.dialog= item
+            this.$store.dispatch('setActivity', item); // store
             console.log(this.dialog.id)
             this.getwhoenroll(this.dialog.id)
             this.isShowDialog = true
@@ -341,7 +342,7 @@ export default {
         this.viewTicket(this.dialog)
       },
       edit() {
-        this.$router.push('create');
+        this.$router.push('edit');
       },
     }
 }
