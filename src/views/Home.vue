@@ -88,6 +88,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wall {
+  background-image: url('../assets/wallp.png');
+}
 .bluesetcenter {
   display: flex;
   align-items: center;
@@ -98,7 +101,10 @@ export default {
   top: 15%;
   //left: 50%;
 }
-.wall {
-  background-image: url('../assets/wallp.png');
+@media only screen and (max-width: 600px) {
+  .bluesetcenterrrr {
+    position: fixed;
+    top: 5%;
+  }
 }
 </style>
