@@ -26,6 +26,10 @@ const store = createStore({
             hoursToReceive: null,
             max: null,
         },
+        admin: {
+            user: null,
+            pass: null
+        }
     },
     getters: {
         getLine(state) {
@@ -36,6 +40,9 @@ const store = createStore({
         },
         getActivity(state) {
             return state.activity
+        },
+        getAdmin(state) {
+            return state.admin
         }
     },
     mutations: {
@@ -59,6 +66,12 @@ const store = createStore({
                 ...state.activity,
                 ...data
             }
+        },
+        SET_ADMIN(state, data) {
+            state.admin = {
+                ...state.admin,
+                ...data
+            }
         }
     },
     actions: {
@@ -70,6 +83,9 @@ const store = createStore({
         },
         setActivity({ commit }, data) {
             commit('SET_ACTIVITY', data)
+        },
+        setAdmin({ commit }, data) {
+            commit('SET_ADMIN', data)
         }
     }
 })
