@@ -79,7 +79,35 @@ export default {
   },
   methods: {
     login() {
+      this.$store.dispatch('setAdmin', this.admin)
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
+      var raw = JSON.stringify({
+          "user": this.$store.getters.getAdmin.user,
+          "pass": this.$store.getters.getAdmin.pass,
+      });
+
+      var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+      };
+
+      fetch("https://apricot-binturong-kit.cyclic.app/adminlogin", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+          if(result.status === 'ok') {
+            console.log(result)
+            this.$router.push('adminactivity');
+          } else if(result.message === 'login failed') {
+              alert('Username หรือ Password ไม่ถูกต้อง')
+          } else {
+              alert(JSON.stringify(result))
+          }
+      })
+      .catch(error => console.log('error', error));
     }
   },
   computed: {
