@@ -99,6 +99,7 @@ export default {
       .then(response => response.json())
       .then(result => {
           if(result.status === 'ok') {
+            localStorage.setItem('token', result.token)
             console.log(result)
             this.$router.push('adminactivity');
           } else if(result.message === 'login failed') {
