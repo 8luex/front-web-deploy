@@ -90,6 +90,16 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '@/views/admin/adminactivity.vue'),
       },
       {
+        path: 'adminstudent',
+        name: 'adminstudent',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/admin/adminstudent.vue'),
+      },
+      {
+        path: 'adminteacher',
+        name: 'adminteacher',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/admin/adminteacher.vue'),
+      },
+      {
         path: 'test',
         name: 'test',
         component: () => import(/* webpackChunkName: "home" */ '@/views/teacher/created/test.vue'),
