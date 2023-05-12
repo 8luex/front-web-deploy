@@ -12,13 +12,6 @@
             <v-toolbar-title style="color: white !important;">Scholarship Activity</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
-            <!-- <v-toolbar-items>
-                <v-btn variant="text" style="color: white !important;">Activity</v-btn>
-                <v-divider vertical></v-divider>
-                <v-btn variant="text" style="color: white !important;">Student</v-btn>
-                <v-divider vertical></v-divider>
-                <v-btn variant="text" style="color: white !important;">Teacher</v-btn>
-            </v-toolbar-items> -->
             <v-divider vertical></v-divider>
             <v-app-bar-nav-icon class="ms-2" color="white" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </v-toolbar>

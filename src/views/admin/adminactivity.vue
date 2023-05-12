@@ -33,6 +33,56 @@
                     <div class="mt-5" style="color: #1DE9B6;font-size: 20px;font-weight: bold;">
                         Activity
                     </div>
+                    <div>
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4" @click="logout">
+                          Create
+                        </v-btn>
+                      </div>
+                </v-col>
+                <v-col cols="12">
+                    <!-- <input type="text" v-model="input" placeholder="Search activities..." /> -->
+                    <v-text-field
+                    type="text" v-model="input" 
+                    density="compact"
+                    variant="solo"
+                    label="Search activities..."
+                    append-inner-icon="mdi-magnify"
+                    single-line
+                    hide-details
+                    ></v-text-field>
+                    <v-table>
+                        <thead>
+                            <tr>
+                                <th class="text-left text-caption">
+                                กิจกรรม
+                                </th>
+                                <th class="text-left text-caption">
+                                วันที่สร้างกิจกรรม
+                                </th>
+                                <th class="text-left text-caption">
+                                คณะ
+                                </th>
+                                <th class="text-left text-caption">
+                                ชั่วโมงกิจกรรมที่จะได้รับ
+                                </th>
+                                <th class="text-left text-caption">
+                                จำนวนผู้ลงทะเบียน
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="i in filteredItems" :key="i.id">
+                                <td class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openActivity(i)">{{ i.name }}</td>
+                                <td class="text-caption">{{ i.createdAt.substring(0,10) }}</td>
+                                <td class="text-caption">{{ i.faculty }}</td>
+                                <td class="text-caption"><v-chip small color="secondary" class="white--text">{{ i.hoursToReceive }}</v-chip></td>
+                                <td class="text-caption"><v-chip small color="secondary" class="white--text">{{ i.countenroll }}/{{ i.max }}</v-chip></td>
+                            </tr>
+                        </tbody>
+                    </v-table>
+                    <p v-if="input&&!filteredItems.length" class="text-caption text-center mt-2">
+                        <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
+                    </p>
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -45,11 +95,12 @@
 </template>
 
 <script>
-import { watchEffect } from 'vue'; 
+import { watchEffect, ref } from 'vue'; 
 import { useRouter } from 'vue-router'
 export default {
     setup() {
         const router = useRouter();
+        //const activitys = ref([])
         watchEffect(() => {
             const token = localStorage.getItem('token')
             fetch('https://apricot-binturong-kit.cyclic.app/authen', {
@@ -71,11 +122,63 @@ export default {
                     router.push({ path: '/' })
                 }
             })
+
+            // fetch('https://apricot-binturong-kit.cyclic.app/activitys')
+            // .then(res => res.json())
+            // .then((result) => {
+            //     if(result.status === 'error') {
+            //         alert(JSON.stringify(result))
+            //     } else {
+            //         activitys.value = result
+            //         console.log(result)
+            //     }
+            // })
+        })
+
+        return {
+            // activitys
+        }
+    },
+    mounted() {
+        fetch('https://apricot-binturong-kit.cyclic.app/activitys')
+        .then(res => res.json())
+        .then((result) => {
+            if(result.status === 'error') {
+                alert(JSON.stringify(result))
+            } else {
+                this.activitys = result
+                console.log(result)
+            }
         })
     },
-    data () {
+    computed: {
+        filteredItems() {
+            return this.activitys.filter(activity => {
+                return activity.name.toLowerCase().indexOf(this.input.toLowerCase()) > -1
+                    || activity.faculty.toLowerCase().indexOf(this.input.toLowerCase()) > -1
+                    || (activity.hoursToReceive.toString().indexOf(this.input.toString()) > -1)
+            })
+        }
+    },
+    watch: {
+        // activitysget() {
+        //     fetch('https://apricot-binturong-kit.cyclic.app/activitys')
+        //     .then(res => res.json())
+        //     .then((result) => {
+        //         if(result.status === 'error') {
+        //             alert(JSON.stringify(result))
+        //         } else {
+        //             this.activitys = result
+        //             console.log(result)
+        //         }
+        //     })
+        // }
+    },
+    data() {
       return {
         drawer: null,
+        activitys: [],
+        input: ''
       }
     },
     methods: {
@@ -92,6 +195,17 @@ export default {
         toTeacher() {
             this.$router.push('adminteacher');
         },
+        openActivity(activity) {
+            this.$store.dispatch('setActivity', activity); // store
+            this.$router.push('theactivity');
+        }
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.bluehover:hover {
+    text-decoration: underline;
+    color: #000;
+}
+</style>
