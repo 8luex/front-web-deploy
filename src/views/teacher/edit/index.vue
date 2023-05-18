@@ -61,7 +61,9 @@ export default {
             // timeEnd: this.$store.getters.getActivity.timeEnd,
             // hoursToReceive: this.$store.getters.getActivity.hoursToReceive,
             // max: this.$store.getters.getActivity.max,
-            activity: {}
+            activity: {
+                eventDate: ''
+            }
         }
     },
     setup() {
@@ -75,6 +77,7 @@ export default {
                 alert(JSON.stringify(result))
             } else {
                 this.activity = result[0]
+                this.activity.eventDate = result[0].eventDate.substr(0,10)
                 console.log(result)
             }
         })
