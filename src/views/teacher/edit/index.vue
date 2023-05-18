@@ -74,7 +74,7 @@ export default {
             if(result.status === 'error') {
                 alert(JSON.stringify(result))
             } else {
-                this.activity = result
+                this.activity = result.line[0]
                 console.log(result)
             }
         })
