@@ -70,15 +70,30 @@ export default {
 
     },
     created() {
-        firebase.initializeApp({
-            apiKey: "AIzaSyDhHIPsVfjKLwfYDkqhBldj4hWwyum6bW4",
-            authDomain: "firegram-blue.firebaseapp.com",
-            projectId: "firegram-blue",
-            storageBucket: "firegram-blue.appspot.com",
-            messagingSenderId: "105035319032",
-            appId: "1:105035319032:web:05e49b004c5d161f111d0d"
-        });
-        this.storageRef = firebase.storage().ref();
+        // firebase.initializeApp({
+        //     apiKey: "AIzaSyDhHIPsVfjKLwfYDkqhBldj4hWwyum6bW4",
+        //     authDomain: "firegram-blue.firebaseapp.com",
+        //     projectId: "firegram-blue",
+        //     storageBucket: "firegram-blue.appspot.com",
+        //     messagingSenderId: "105035319032",
+        //     appId: "1:105035319032:web:05e49b004c5d161f111d0d"
+        // });
+        // this.storageRef = firebase.storage().ref();
+        try {
+            firebase.initializeApp({
+                apiKey: "AIzaSyDhHIPsVfjKLwfYDkqhBldj4hWwyum6bW4",
+                authDomain: "firegram-blue.firebaseapp.com",
+                projectId: "firegram-blue",
+                storageBucket: "firegram-blue.appspot.com",
+                messagingSenderId: "105035319032",
+                appId: "1:105035319032:web:05e49b004c5d161f111d0d"
+            });
+            this.storageRef = firebase.storage().ref();
+            console.log('firebase here')
+        } catch (error) {
+            console.log(error)
+            this.$router.go()
+        }
     },
     methods: {
         setFile(event) {
