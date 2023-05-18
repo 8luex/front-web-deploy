@@ -92,6 +92,7 @@ export default {
             console.log('firebase here')
         } catch (error) {
             console.log(error)
+            this.$store.dispatch('setActivity', this.$store.getters.getActivity);
             this.$router.go()
         }
     },
