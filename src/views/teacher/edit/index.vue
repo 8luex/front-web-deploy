@@ -56,7 +56,7 @@ export default {
             detail: this.$store.getters.getActivity.detail,
             image: this.$store.getters.getActivity.image,
             location: this.$store.getters.getActivity.location,
-            eventDate: this.$store.getters.getActivity.eventDate+""+substr(0,10),
+            eventDate: this.$store.getters.getActivity.eventDate, //+""+substr(0,10)
             timeStart: this.$store.getters.getActivity.timeStart,
             timeEnd: this.$store.getters.getActivity.timeEnd,
             hoursToReceive: this.$store.getters.getActivity.hoursToReceive,
