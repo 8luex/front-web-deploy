@@ -68,7 +68,7 @@ export default {
 
     },
     mounted() {
-        fetch('https://apricot-binturong-kit.cyclic.app/teacheredit'+localStorage.getItem('activityID'))
+        fetch('https://apricot-binturong-kit.cyclic.app/teacheredit/'+localStorage.getItem('activityID'))
         .then(res => res.json())
         .then((result) => {
             if(result.status === 'error') {
