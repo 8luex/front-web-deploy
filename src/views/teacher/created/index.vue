@@ -238,6 +238,7 @@ export default {
     },
     methods: {
         viewTicket(item) {
+            localStorage.setItem('activityID', this.dialog.id)
             this.dialog= item
             this.$store.dispatch('setActivity', item); // store
             console.log(this.dialog.id)
@@ -342,6 +343,7 @@ export default {
         this.viewTicket(this.dialog)
       },
       edit() {
+        //localStorage.setItem('activityID', this.$store.getters.getActivity)
         this.$router.push('edit');
       },
     }

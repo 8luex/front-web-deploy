@@ -8,20 +8,20 @@
                 <v-col cols="12">
                     <v-card class="mx-auto" max-width="344" title="กิจกรรม">
                       <v-container>
-                        <v-text-field v-model="name" color="teal-accent-3" label="ชื่อกิจกรรม" variant="underlined"></v-text-field>
-                        <v-textarea v-model="detail" color="teal-accent-3" label="รายละเอียดกิจกรรม"></v-textarea>
+                        <v-text-field v-model="activity.name" color="teal-accent-3" label="ชื่อกิจกรรม" variant="underlined"></v-text-field>
+                        <v-textarea v-model="activity.detail" color="teal-accent-3" label="รายละเอียดกิจกรรม"></v-textarea>
                         <v-file-input @change="setFile" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
-                        <v-text-field v-model="location" color="teal-accent-3" label="สถานที่" variant="underlined"></v-text-field>
-                        <v-text-field v-model="eventDate" :min="new Date().toISOString().substr(0, 10)" type="date" color="teal-accent-3" label="วันที่" variant="underlined"></v-text-field>
-                        <v-text-field v-model="timeStart" type="time" color="teal-accent-3" label="เวลาเริ่ม" variant="underlined"></v-text-field>
-                        <v-text-field v-model="timeEnd" type="time" color="teal-accent-3" label="เวลาสิ้นสุด" variant="underlined"></v-text-field>
-                        <v-text-field v-model="hoursToReceive" :min=1 type="number" color="teal-accent-3" label="จำนวนชั่วโมงที่จะได้รับ" variant="underlined"></v-text-field>
-                        <v-text-field v-model="max" :min=1 type="number" color="teal-accent-3" label="จำนวนคนที่รับ" variant="underlined"></v-text-field>
+                        <v-text-field v-model="activity.location" color="teal-accent-3" label="สถานที่" variant="underlined"></v-text-field>
+                        <v-text-field v-model="activity.eventDate" :min="new Date().toISOString().substr(0, 10)" type="date" color="teal-accent-3" label="วันที่" variant="underlined"></v-text-field>
+                        <v-text-field v-model="activity.timeStart" type="time" color="teal-accent-3" label="เวลาเริ่ม" variant="underlined"></v-text-field>
+                        <v-text-field v-model="activity.timeEnd" type="time" color="teal-accent-3" label="เวลาสิ้นสุด" variant="underlined"></v-text-field>
+                        <v-text-field v-model="activity.hoursToReceive" :min=1 type="number" color="teal-accent-3" label="จำนวนชั่วโมงที่จะได้รับ" variant="underlined"></v-text-field>
+                        <v-text-field v-model="activity.max" :min=1 type="number" color="teal-accent-3" label="จำนวนคนที่รับ" variant="underlined"></v-text-field>
                       </v-container>
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn @click="back">ยกเลิก</v-btn>
-                        <v-btn color="teal-accent-3" @click="editActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image)">
+                        <v-btn color="teal-accent-3" @click="editActivity(activity.name, activity.detail, activity.location, activity.eventDate, activity.timeStart, activity.timeEnd, activity.hoursToReceive, activity.max)">
                           แก้ไข
                           <v-icon icon="mdi-chevron-right" end></v-icon>
                         </v-btn>
@@ -52,22 +52,32 @@ export default {
     },
     data () {
         return {
-            name: this.$store.getters.getActivity.name,
-            detail: this.$store.getters.getActivity.detail,
-            image: this.$store.getters.getActivity.image,
-            location: this.$store.getters.getActivity.location,
-            eventDate: this.$store.getters.getActivity.eventDate, //+""+substr(0,10)
-            timeStart: this.$store.getters.getActivity.timeStart,
-            timeEnd: this.$store.getters.getActivity.timeEnd,
-            hoursToReceive: this.$store.getters.getActivity.hoursToReceive,
-            max: this.$store.getters.getActivity.max,
+            // name: this.$store.getters.getActivity.name,
+            // detail: this.$store.getters.getActivity.detail,
+            // image: this.$store.getters.getActivity.image,
+            // location: this.$store.getters.getActivity.location,
+            // eventDate: this.$store.getters.getActivity.eventDate, //+""+substr(0,10)
+            // timeStart: this.$store.getters.getActivity.timeStart,
+            // timeEnd: this.$store.getters.getActivity.timeEnd,
+            // hoursToReceive: this.$store.getters.getActivity.hoursToReceive,
+            // max: this.$store.getters.getActivity.max,
+            activity: {}
         }
     },
     setup() {
 
     },
     mounted() {
-
+        fetch('https://apricot-binturong-kit.cyclic.app/teacheredit'+localStorage.getItem('activityID'))
+        .then(res => res.json())
+        .then((result) => {
+            if(result.status === 'error') {
+                alert(JSON.stringify(result))
+            } else {
+                this.activity = result
+                console.log(result)
+            }
+        })
     },
     created() {
         // firebase.initializeApp({
@@ -92,7 +102,8 @@ export default {
             console.log('firebase here')
         } catch (error) {
             console.log(error)
-            this.$store.dispatch('setActivity', this.$store.getters.getActivity);
+            // localStorage.setItem('activityID', this.$store.getters.getActivity)
+            // console.log(localStorage.getItem('activityID'))
             this.$router.go()
         }
     },
@@ -116,10 +127,11 @@ export default {
                 console.error('Error uploading file:', error);
             });
         },
-        editActivity(tcID, names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max, image) {
+        editActivity(name, detail, location, eventDate, timeStart, timeEnd, hoursToReceive, max) {
         
         },
         back() {
+            localStorage.removeItem('activityID');
             this.$router.push('created');
         },
     },
