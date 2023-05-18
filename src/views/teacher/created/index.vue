@@ -237,10 +237,10 @@ export default {
         },
     },
     methods: {
-        viewTicket(item) {
-            localStorage.setItem('activityID', this.dialog.id)
+        viewTicket(item) {   
             this.dialog= item
             this.$store.dispatch('setActivity', item); // store
+            localStorage.setItem('activityID', this.dialog.id)
             console.log(this.dialog.id)
             this.getwhoenroll(this.dialog.id)
             this.isShowDialog = true
