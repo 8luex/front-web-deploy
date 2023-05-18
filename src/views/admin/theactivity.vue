@@ -36,81 +36,81 @@
                     <p v-if="!getActivity.id" class="text-caption text-center mt-2">
                         <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
                     </p>
-          
-            <div v-else>
-              <v-card class="my-3" data-aos="zoom-in" data-aos-easing="ease">
-                <v-img
-                  height="350px"
-                  v-bind:src="getActivity.image"
-                ></v-img>
-                  <v-container fill-height fluid>
-                    <!-- sdffsdf -->
-                    <v-card-title class="text-h6">
-                        {{ getActivity.name }}
-                    </v-card-title>
-                    <v-card-text>
-                        <p class="text-caption text-disabled">{{ getActivity.createdAt }}</p>
-                        <p>ผู้สร้างกิจกรรม: {{ getActivity.teacherfname }} {{ getActivity.teacherlname }}</p>
-                        <v-chip small color="secondary" class="white--text">{{getActivity.faculty}}</v-chip>
-                        <p class="detail">รายละเอียดกิจกรรม: {{ getActivity.detail }}</p>
-                        <p>วันที่: {{ getActivity.eventDate.substring(0,10) }}</p>
-                        <p>เวลา: {{ getActivity.timeStart }}-{{ getActivity.timeEnd }}</p>
-                        <p>สถานที่: {{ getActivity.location }}</p>
-                        <p>จำนวนผู้ลงทะเบียน: <v-chip small color="secondary" class="white--text">{{ getActivity.countenroll }}/{{ getActivity.max }}</v-chip></p>
-                        <p>ชั่วโมงกิจกรรมที่จะได้รับ: <v-chip small color="secondary" class="white--text">{{getActivity.hoursToReceive}}</v-chip></p>
+                    <div v-else>
+                        <v-card class="my-3" data-aos="zoom-in" data-aos-easing="ease">
+                            <v-img
+                            height="350px"
+                            v-bind:src="getActivity.image"
+                            ></v-img>
+                            <v-container fill-height fluid>
+                                <!-- sdffsdf -->
+                                <v-card-title class="text-h6">
+                                    {{ getActivity.name }}
+                                </v-card-title>
+                                <v-card-text>
+                                    <p class="text-caption text-disabled">{{ getActivity.createdAt }}</p>
+                                    <p v-if="getActivity.teacherfname=='admin'">ผู้สร้างกิจกรรม: ศูนย์นักศึกษาทุนแห่งมหาวิทยาลัยรังสิต</p>
+                                    <p v-else>ผู้สร้างกิจกรรม: {{ getActivity.teacherfname }} {{ getActivity.teacherlname }}</p>
+                                    <v-chip small color="secondary" class="white--text">{{getActivity.faculty}}</v-chip>
+                                    <p class="detail">รายละเอียดกิจกรรม: {{ getActivity.detail }}</p>
+                                    <p>วันที่: {{ getActivity.eventDate.substring(0,10) }}</p>
+                                    <p>เวลา: {{ getActivity.timeStart }}-{{ getActivity.timeEnd }}</p>
+                                    <p>สถานที่: {{ getActivity.location }}</p>
+                                    <p>จำนวนผู้ลงทะเบียน: <v-chip small color="secondary" class="white--text">{{ getActivity.countenroll }}/{{ getActivity.max }}</v-chip></p>
+                                    <p>ชั่วโมงกิจกรรมที่จะได้รับ: <v-chip small color="secondary" class="white--text">{{getActivity.hoursToReceive}}</v-chip></p>
 
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4 mr-1" @click="logout">
-                            <v-icon size="large">mdi-square-edit-outline</v-icon>Edit
-                        </v-btn>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4 mr-1" @click="downloadPDF">
-                            <v-icon size="large">mdi-arrow-collapse-down</v-icon>Download Report
-                        </v-btn>
-                        <v-btn variant="flat" rounded color="deep-orange-accent-4" style="color: white !important;" class="mt-5 mb-4" @click="logout">
-                            <v-icon size="large">mdi-close-octagon-outline</v-icon>Terminate
-                        </v-btn>
-                        <v-text-field
-                        type="text" v-model="input" 
-                        density="compact"
-                        variant="solo"
-                        label="Search students..."
-                        append-inner-icon="mdi-magnify"
-                        single-line
-                        hide-details
-                        ></v-text-field>
-                        <v-table>
-                            <thead>
-                                <tr>
-                                    <th class="text-left text-caption">
-                                    รหัสนักศึกษา
-                                    </th>
-                                    <th class="text-left text-caption">
-                                    ชื่อ-นามสกุล
-                                    </th>
-                                    <th class="text-left text-caption">
-                                    คณะ
-                                    </th>
-                                    <th class="text-left text-caption">
-                                    สถานะ
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="i in filteredItems" :key="i.studentID">
-                                    <td class="text-caption">{{ i.studentID }}</td>
-                                    <td class="text-caption">{{ i.fname }} {{ i.lname }}</td>
-                                    <td class="text-caption">{{ i.faculty }}</td>
-                                    <td class="text-caption">{{ i.status }}</td>
-                                </tr>
-                            </tbody>
-                        </v-table>
-                        <p v-if="input&&!filteredItems.length" class="text-caption text-center mt-2">
-                            <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
-                        </p>
-                    </v-card-text>
-                    <!-- dfsf -->
-                  </v-container>
-            </v-card>
-            </div>
+                                    <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4 mr-1" @click="edit(getActivity)">
+                                        <v-icon size="large">mdi-square-edit-outline</v-icon>Edit
+                                    </v-btn>
+                                    <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4 mr-1" @click="downloadPDF">
+                                        <v-icon size="large">mdi-arrow-collapse-down</v-icon>Download Report
+                                    </v-btn>
+                                    <v-btn variant="flat" rounded color="deep-orange-accent-4" style="color: white !important;" class="mt-5 mb-4" @click="stopActivity">
+                                        <v-icon size="large">mdi-close-octagon-outline</v-icon>
+                                    </v-btn>
+                                    <v-text-field
+                                    type="text" v-model="input" 
+                                    density="compact"
+                                    variant="solo"
+                                    label="Search students..."
+                                    append-inner-icon="mdi-magnify"
+                                    single-line
+                                    hide-details
+                                    ></v-text-field>
+                                    <v-table>
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left text-caption">
+                                                รหัสนักศึกษา
+                                                </th>
+                                                <th class="text-left text-caption">
+                                                ชื่อ-นามสกุล
+                                                </th>
+                                                <th class="text-left text-caption">
+                                                คณะ
+                                                </th>
+                                                <th class="text-left text-caption">
+                                                สถานะ
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="i in filteredItems" :key="i.studentID">
+                                                <td class="text-caption">{{ i.studentID }}</td>
+                                                <td class="text-caption">{{ i.fname }} {{ i.lname }}</td>
+                                                <td class="text-caption">{{ i.faculty }}</td>
+                                                <td class="text-caption">{{ i.status }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </v-table>
+                                    <p v-if="input&&!filteredItems.length" class="text-caption text-center mt-2">
+                                        <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
+                                    </p>
+                                </v-card-text>
+                                <!-- dfsf -->
+                            </v-container>
+                        </v-card>
+                    </div>
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -159,7 +159,7 @@ export default {
     mounted() {
     },
     computed: {
-        getActivity() { 
+        getActivity() {
             console.log(this.$store.getters.getActivity)
             this.getwhoenroll(this.$store.getters.getActivity.id)
             console.log('id :'+this.$store.getters.getActivity.id)
@@ -179,7 +179,6 @@ export default {
     data() {
       return {
         drawer: null,
-        activitys: [],
         input: '',
         who : []
       }
@@ -216,6 +215,7 @@ export default {
             })
         },
         downloadPDF() {
+            const today = new Date();
             let columns = [
             { title: "รหัสนักศึกษา", dataKey: "studentID" },
             { title: "ชื่อ", dataKey: "fname" },
@@ -230,16 +230,72 @@ export default {
             pdf.addFont("THSarabunNew.ttf", "THSarabunNew", "normal");
             pdf.setFont("THSarabunNew");
 
-            pdf.text(`${this.$store.getters.getActivity.name}`, 10, 15);
-            pdf.setLineWidth(0.1).line(10, 20, 200, 20); // horizontal line
+            //pdf.text(`${this.$store.getters.getActivity.name}`, 10, 15);
+            //pdf.text(`ออกเมื่อ: ${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')} ${today.toLocaleTimeString()}`, 10, 20);
+            pdf.autoTable({
+                body: [
+                    [
+                        {
+                            content: `${this.$store.getters.getActivity.name}`,
+                            styles: {
+                                halign: 'left',
+                                fontSize: 20,
+                                textColor: '#5CBBF6',
+                                font: "THSarabunNew"
+                            }
+                        },
+                        {
+                            content: `ออกเมื่อ: ${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')} ${today.toLocaleTimeString()}`,
+                            styles: {
+                                halign: 'right',
+                                fontSize: 12,
+                                textColor: '#5CBBF6',
+                                font: "THSarabunNew"
+                            }
+                        }
+                    ]
+                ],
+                theme: 'plain',
+                styles: {
+                    fillColor: '#EBF7FE'
+                }
+            });
+
+            pdf.autoTable({
+                body: [
+                    [
+                        {
+                            content: `รายชื่อนักศึกษา`,
+                            styles: {
+                                halign: 'center',
+                                fontSize: 14,
+                                textColor: '#000000',
+                                font: "THSarabunNew"
+                            }
+                        }
+                    ]
+                ],
+                theme: 'plain',
+                styles: {
+                    fillColor: '#FFFFFF'
+                }
+            });
+            
+            // pdf.setLineWidth(0.1).line(10, 25, 200, 25); // horizontal line
             pdf.autoTable({
                 columns,
                 body: this.who,
-                margin: { left: 10, top: 25 },
-                theme: 'grid',
+                // margin: { left: 15, top: 30 },
+                theme: 'striped', //grid
                 styles: {font: "THSarabunNew"}
             });
             pdf.save('Report.pdf');
+        },
+        edit(activity) {
+            
+        },
+        stopActivity() {
+
         },
     },
 }

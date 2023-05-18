@@ -34,13 +34,12 @@
                         Activity
                     </div>
                     <div>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4" @click="logout">
-                          Create
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4" @click="create">
+                            Create
                         </v-btn>
                       </div>
                 </v-col>
                 <v-col cols="12">
-                    <!-- <input type="text" v-model="input" placeholder="Search activities..." /> -->
                     <v-text-field
                     type="text" v-model="input" 
                     density="compact"
@@ -83,6 +82,47 @@
                     <p v-if="input&&!filteredItems.length" class="text-caption text-center mt-2">
                         <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
                     </p>
+                    <!-- start dialog -->
+                    <v-dialog v-model="isShowDialog" max-width="500" persistent>
+                        <v-card class="dialog-card">
+                            <v-card-title class="text-h6">
+                                สร้างกิจกรรม
+                            </v-card-title>
+                            <v-card-text>
+                                <v-text-field v-model="toCreate.names" color="teal-accent-3" label="ชื่อกิจกรรม" variant="underlined"></v-text-field>
+                                <v-textarea v-model="toCreate.detail" color="teal-accent-3" label="รายละเอียดกิจกรรม"></v-textarea>
+                                <v-file-input @change="setFile" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                                <v-text-field v-model="toCreate.location" color="teal-accent-3" label="สถานที่" variant="underlined"></v-text-field>
+                                <v-text-field v-model="toCreate.eventDate" :min="new Date().toISOString().substr(0, 10)" type="date" color="teal-accent-3" label="วันที่" variant="underlined"></v-text-field>
+                                <v-text-field v-model="toCreate.timeStart" type="time" color="teal-accent-3" label="เวลาเริ่ม" variant="underlined"></v-text-field>
+                                <v-text-field v-model="toCreate.timeEnd" type="time" color="teal-accent-3" label="เวลาสิ้นสุด" variant="underlined"></v-text-field>
+                                <v-text-field v-model="toCreate.hoursToReceive" :min=1 type="number" color="teal-accent-3" label="จำนวนชั่วโมงที่จะได้รับ" variant="underlined"></v-text-field>
+                                <v-text-field v-model="toCreate.max" :min=1 type="number" color="teal-accent-3" label="จำนวนคนที่รับ" variant="underlined"></v-text-field>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="grey" text @click="isShowDialog = false">ปิด</v-btn>
+                                <v-btn color="teal-accent-3"  @click="createActivity(toCreate.names, toCreate.location, toCreate.detail, toCreate.eventDate, toCreate.timeStart, toCreate.timeEnd, toCreate.hoursToReceive, toCreate.max)">
+                                    สร้าง<v-icon icon="mdi-chevron-right" end></v-icon>
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-dialog v-model="isShowSuccess" max-width="290">
+                        <v-card>
+                            <v-card-title class="text-h6">
+                                Success
+                            </v-card-title>
+                            <v-card-text>
+                                ยืนยันการสร้างกิจกรรม, สำเร็จ!
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="grey" text @click="refreshDialog">ปิด</v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+            <!-- end dialog -->
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -97,10 +137,15 @@
 <script>
 import { watchEffect, ref } from 'vue'; 
 import { useRouter } from 'vue-router'
+import firebase from 'firebase/app';
+import 'firebase/storage';
+// "firebase": "^7.16.1",
+
+let iimmgg = ref('');
+
 export default {
     setup() {
         const router = useRouter();
-        //const activitys = ref([])
         watchEffect(() => {
             const token = localStorage.getItem('token')
             fetch('https://apricot-binturong-kit.cyclic.app/authen', {
@@ -122,21 +167,9 @@ export default {
                     router.push({ path: '/' })
                 }
             })
-
-            // fetch('https://apricot-binturong-kit.cyclic.app/activitys')
-            // .then(res => res.json())
-            // .then((result) => {
-            //     if(result.status === 'error') {
-            //         alert(JSON.stringify(result))
-            //     } else {
-            //         activitys.value = result
-            //         console.log(result)
-            //     }
-            // })
         })
 
         return {
-            // activitys
         }
     },
     mounted() {
@@ -161,24 +194,43 @@ export default {
         }
     },
     watch: {
-        // activitysget() {
-        //     fetch('https://apricot-binturong-kit.cyclic.app/activitys')
-        //     .then(res => res.json())
-        //     .then((result) => {
-        //         if(result.status === 'error') {
-        //             alert(JSON.stringify(result))
-        //         } else {
-        //             this.activitys = result
-        //             console.log(result)
-        //         }
-        //     })
-        // }
+
+    },
+    created() {
+        try {
+            firebase.initializeApp({
+            apiKey: "AIzaSyDhHIPsVfjKLwfYDkqhBldj4hWwyum6bW4",
+            authDomain: "firegram-blue.firebaseapp.com",
+            projectId: "firegram-blue",
+            storageBucket: "firegram-blue.appspot.com",
+            messagingSenderId: "105035319032",
+            appId: "1:105035319032:web:05e49b004c5d161f111d0d"
+            });
+            this.storageRef = firebase.storage().ref();
+            console.log('firebase here')
+        } catch (error) {
+            console.log(error)
+            // this.$router.push('adminactivity');
+            this.$router.go()
+        }
     },
     data() {
       return {
+        isShowDialog: false,
+        isShowSuccess: false,
         drawer: null,
         activitys: [],
-        input: ''
+        input: '',
+        toCreate: {
+            names: null,
+            detail: null,
+            location: null,
+            eventDate: null,
+            timeStart: null,
+            timeEnd: null,
+            hoursToReceive: null,
+            max: null,
+        },
       }
     },
     methods: {
@@ -198,7 +250,77 @@ export default {
         openActivity(activity) {
             this.$store.dispatch('setActivity', activity); // store
             this.$router.push('theactivity');
-        }
+        },
+        setFile(event) {
+            const d = new Date();
+            let time = d.getTime();
+            this.file = event.target.files[0];
+            const fileRef = this.storageRef.child(`images/${time}${this.file.name}`);
+            fileRef.put(this.file)
+            .then((snapshot) => {
+                this.imageurl = snapshot.ref.getDownloadURL();
+                // console.log(imageurl); // Promise { <pending> }
+                this.imageurl.then(function(result) {
+                    // console.log(result) // "Some User token"
+                    iimmgg = result;
+                    console.log('File uploaded successfully! '+iimmgg);
+                })
+            })
+            .catch((error) => {
+                console.error('Error uploading file:', error);
+            });
+        },
+        create() {
+            this.isShowDialog = true
+        },
+        createActivity(names, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+                "creator": "0",
+                "name": names,
+                "detail": detail,
+                "location": location,
+                "eventDate": eventDate,
+                "timeStart": timeStart,
+                "timeEnd": timeEnd,
+                "hoursToReceive": hoursToReceive,
+                "image": iimmgg,
+                "year": "2566",
+                "semester": "2",
+                "max": max
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+          
+            fetch("https://apricot-binturong-kit.cyclic.app/activitycreate", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                this.isShowSuccess = true
+            })
+            .catch(error => console.log('error', error));
+        },
+        refreshDialog() {
+            this.isShowSuccess = false
+            this.isShowDialog = false
+            // reload page
+            fetch('https://apricot-binturong-kit.cyclic.app/activitys')
+            .then(res => res.json())
+            .then((result) => {
+                if(result.status === 'error') {
+                    alert(JSON.stringify(result))
+                } else {
+                    this.activitys = result
+                    console.log(result)
+                }
+            })
+        },
     },
 }
 </script>
