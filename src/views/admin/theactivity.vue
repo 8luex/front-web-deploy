@@ -33,33 +33,33 @@
                     <div class="mt-5" style="color: #1DE9B6;font-size: 20px;font-weight: bold;">
                         Activity
                     </div>
-                    <p v-if="!getActivity.id" class="text-caption text-center mt-2">
+                    <p v-if="!activity.id" class="text-caption text-center mt-2">
                         <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
                     </p>
                     <div v-else>
                         <v-card class="my-3" data-aos="zoom-in" data-aos-easing="ease">
                             <v-img
                             height="350px"
-                            v-bind:src="getActivity.image"
+                            v-bind:src="activity.image"
                             ></v-img>
                             <v-container fill-height fluid>
                                 <!-- sdffsdf -->
                                 <v-card-title class="text-h6">
-                                    {{ getActivity.name }}
+                                    {{ activity.name }}
                                 </v-card-title>
                                 <v-card-text>
-                                    <p class="text-caption text-disabled">{{ getActivity.createdAt }}</p>
-                                    <p v-if="getActivity.teacherfname=='admin'">ผู้สร้างกิจกรรม: ศูนย์นักศึกษาทุนแห่งมหาวิทยาลัยรังสิต</p>
-                                    <p v-else>ผู้สร้างกิจกรรม: {{ getActivity.teacherfname }} {{ getActivity.teacherlname }}</p>
-                                    <v-chip small color="secondary" class="white--text">{{getActivity.faculty}}</v-chip>
-                                    <p class="detail">รายละเอียดกิจกรรม: {{ getActivity.detail }}</p>
-                                    <p>วันที่: {{ getActivity.eventDate.substring(0,10) }}</p>
-                                    <p>เวลา: {{ getActivity.timeStart }}-{{ getActivity.timeEnd }}</p>
-                                    <p>สถานที่: {{ getActivity.location }}</p>
-                                    <p>จำนวนผู้ลงทะเบียน: <v-chip small color="secondary" class="white--text">{{ getActivity.countenroll }}/{{ getActivity.max }}</v-chip></p>
-                                    <p>ชั่วโมงกิจกรรมที่จะได้รับ: <v-chip small color="secondary" class="white--text">{{getActivity.hoursToReceive}}</v-chip></p>
+                                    <p class="text-caption text-disabled">{{ activity.createdAt }}</p>
+                                    <p v-if="activity.teacherfname=='admin'">ผู้สร้างกิจกรรม: ศูนย์นักศึกษาทุนแห่งมหาวิทยาลัยรังสิต</p>
+                                    <p v-else>ผู้สร้างกิจกรรม: {{ activity.teacherfname }} {{ activity.teacherlname }}</p>
+                                    <v-chip small color="secondary" class="white--text">{{activity.faculty}}</v-chip>
+                                    <p class="detail">รายละเอียดกิจกรรม: {{ activity.detail }}</p>
+                                    <p>วันที่: {{ activity.eventDate.substring(0,10) }}</p>
+                                    <p>เวลา: {{ activity.timeStart }}-{{ activity.timeEnd }}</p>
+                                    <p>สถานที่: {{ activity.location }}</p>
+                                    <p>จำนวนผู้ลงทะเบียน: <v-chip small color="secondary" class="white--text">{{ activity.countenroll }}/{{ activity.max }}</v-chip></p>
+                                    <p>ชั่วโมงกิจกรรมที่จะได้รับ: <v-chip small color="secondary" class="white--text">{{activity.hoursToReceive}}</v-chip></p>
 
-                                    <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4 mr-1" @click="edit(getActivity)">
+                                    <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4 mr-1" @click="edit">
                                         <v-icon size="large">mdi-square-edit-outline</v-icon>Edit
                                     </v-btn>
                                     <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4 mr-1" @click="downloadPDF">
@@ -106,6 +106,47 @@
                                     <p v-if="input&&!filteredItems.length" class="text-caption text-center mt-2">
                                         <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
                                     </p>
+                                    <!-- start dialog -->
+                                    <v-dialog v-model="isShowDialog" max-width="500" persistent>
+                                        <v-card class="dialog-card">
+                                            <v-card-title class="text-h6">
+                                                แก้ไขกิจกรรม
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <v-text-field v-model="toEdit.name" color="teal-accent-3" label="ชื่อกิจกรรม" variant="underlined"></v-text-field>
+                                                <v-textarea v-model="toEdit.detail" color="teal-accent-3" label="รายละเอียดกิจกรรม"></v-textarea>
+                                                <v-file-input @change="setFile" accept="image/*" color="teal-accent-3" label="รูปภาพ" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+                                                <v-text-field v-model="toEdit.location" color="teal-accent-3" label="สถานที่" variant="underlined"></v-text-field>
+                                                <v-text-field v-model="toEdit.eventDate" type="date" color="teal-accent-3" label="วันที่" variant="underlined"></v-text-field>
+                                                <v-text-field v-model="toEdit.timeStart" type="time" color="teal-accent-3" label="เวลาเริ่ม" variant="underlined"></v-text-field>
+                                                <v-text-field v-model="toEdit.timeEnd" type="time" color="teal-accent-3" label="เวลาสิ้นสุด" variant="underlined"></v-text-field>
+                                                <v-text-field v-model="toEdit.hoursToReceive" :min=1 type="number" color="teal-accent-3" label="จำนวนชั่วโมงที่จะได้รับ" variant="underlined"></v-text-field>
+                                                <v-text-field v-model="toEdit.max" :min=1 type="number" color="teal-accent-3" label="จำนวนคนที่รับ" variant="underlined"></v-text-field>
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn color="grey" text @click="closeDialog">ปิด</v-btn>
+                                                <v-btn color="teal-accent-3"  @click="editActivity(toEdit.name, toEdit.location, toEdit.detail, toEdit.eventDate, toEdit.timeStart, toEdit.timeEnd, toEdit.hoursToReceive, toEdit.max)">
+                                                    แก้ไข<v-icon icon="mdi-chevron-right" end></v-icon>
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                    <v-dialog v-model="isShowSuccess" max-width="290">
+                                        <v-card>
+                                            <v-card-title class="text-h6">
+                                                Success
+                                            </v-card-title>
+                                            <v-card-text>
+                                                ยืนยันการแก้ไขกิจกรรม, สำเร็จ!
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn color="grey" text @click="refreshDialog">ปิด</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                    <!-- end dialog -->
                                 </v-card-text>
                                 <!-- dfsf -->
                             </v-container>
@@ -128,6 +169,12 @@ import { useRouter } from 'vue-router'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { font } from '@/assets/THSarabunNew'
+import firebase from 'firebase/app';
+import 'firebase/storage';
+// "firebase": "^7.16.1",
+
+let iimmgg = ref('');
+
 export default {
     name: 'theactivity',
     props: ['act'],
@@ -157,14 +204,26 @@ export default {
         }
     },
     mounted() {
+        fetch('https://apricot-binturong-kit.cyclic.app/activitys/'+localStorage.getItem('activityID'))
+        .then(res => res.json())
+        .then((result) => {
+            if(result.status === 'error') {
+                alert(JSON.stringify(result))
+            } else {
+                this.activity = result[0]
+                this.getwhoenroll(result[0].id)
+                this.activity.eventDate = result[0].eventDate.substr(0,10)
+                console.log(result)
+            }
+        })
     },
     computed: {
-        getActivity() {
-            console.log(this.$store.getters.getActivity)
-            this.getwhoenroll(this.$store.getters.getActivity.id)
-            console.log('id :'+this.$store.getters.getActivity.id)
-            return this.$store.getters.getActivity; 
-        },
+        // getActivity() {
+        //     console.log(this.$store.getters.getActivity)
+        //     this.getwhoenroll(this.$store.getters.getActivity.id)
+        //     console.log('id :'+this.$store.getters.getActivity.id)
+        //     return this.$store.getters.getActivity; 
+        // },
         filteredItems() {
             return this.who.filter(i => {
                 return (i.fname.toLowerCase().indexOf(this.input.toLowerCase()) > -1)
@@ -176,11 +235,37 @@ export default {
     },
     watch: {
     },
+    created() {
+        try {
+            firebase.initializeApp({
+                apiKey: "AIzaSyDhHIPsVfjKLwfYDkqhBldj4hWwyum6bW4",
+                authDomain: "firegram-blue.firebaseapp.com",
+                projectId: "firegram-blue",
+                storageBucket: "firegram-blue.appspot.com",
+                messagingSenderId: "105035319032",
+                appId: "1:105035319032:web:05e49b004c5d161f111d0d"
+            });
+            this.storageRef = firebase.storage().ref();
+            console.log('firebase here')
+        } catch (error) {
+            console.log(error)
+            // this.$router.push('adminactivity');
+            this.$router.go()
+        }
+    },
     data() {
       return {
+        isShowDialog: false,
+        isShowSuccess: false,
         drawer: null,
+        activity: {
+            eventDate: '',
+        },
         input: '',
-        who : []
+        who : [],
+        toEdit: {
+            eventDate: '',
+        },
       }
     },
     methods: {
@@ -196,9 +281,6 @@ export default {
         },
         toTeacher() {
             this.$router.push('adminteacher');
-        },
-        openActivity(activity) {
-            
         },
         getwhoenroll(activityID) {
             fetch('https://apricot-binturong-kit.cyclic.app/whoenroll/'+activityID)
@@ -236,7 +318,7 @@ export default {
                 body: [
                     [
                         {
-                            content: `${this.$store.getters.getActivity.name}`,
+                            content: `${this.activity.name}`,
                             styles: {
                                 halign: 'left',
                                 fontSize: 20,
@@ -291,8 +373,112 @@ export default {
             });
             pdf.save('Report.pdf');
         },
-        edit(activity) {
-            
+        setFile(event) {
+            const d = new Date();
+            let time = d.getTime();
+            this.file = event.target.files[0];
+            const fileRef = this.storageRef.child(`images/${time}${this.file.name}`);
+            fileRef.put(this.file)
+            .then((snapshot) => {
+                this.imageurl = snapshot.ref.getDownloadURL();
+                // console.log(imageurl); // Promise { <pending> }
+                this.imageurl.then(function(result) {
+                    // console.log(result) // "Some User token"
+                    iimmgg = result;
+                    console.log('File uploaded successfully! '+iimmgg);
+                })
+            })
+            .catch((error) => {
+                console.error('Error uploading file:', error);
+            });
+        },
+        edit() {
+            fetch('https://apricot-binturong-kit.cyclic.app/activitys/'+localStorage.getItem('activityID'))
+            .then(res => res.json())
+            .then((result) => {
+                if(result.status === 'error') {
+                    alert(JSON.stringify(result))
+                } else {
+                    this.toEdit = result[0]
+                    this.toEdit.eventDate = result[0].eventDate.substr(0,10)
+                    console.log(result)
+                }
+            })
+            this.isShowDialog = true
+        },
+        editActivity(name, location, detail, eventDate, timeStart, timeEnd, hoursToReceive, max) {
+            if(iimmgg.value == '') { //not change image
+                iimmgg = this.toEdit.image
+                console.log('iimmgg is null : '+this.toEdit.image)
+            } else { //change image
+                console.log('iimmgg is not null : '+iimmgg)
+            }
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+            "name": name,
+            "detail": detail,
+            "location": location,
+            "eventDate": eventDate,
+            "timeStart": timeStart,
+            "timeEnd": timeEnd,
+            "hoursToReceive": hoursToReceive,
+            "image": iimmgg,
+            "max": max,
+            "id": localStorage.getItem('activityID')
+            });
+
+            var requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/editactivity", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === 'ok') {
+                    this.isShowSuccess = true
+                } else if(result.message === 'affected Rows is 0') {
+                    alert('affected Rows is 0')
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
+        },
+        closeDialog() {
+            iimmgg = ref('');
+            fetch('https://apricot-binturong-kit.cyclic.app/activitys/'+localStorage.getItem('activityID'))
+            .then(res => res.json())
+            .then((result) => {
+                if(result.status === 'error') {
+                    alert(JSON.stringify(result))
+                } else {
+                    this.toEdit = result[0]
+                    this.toEdit.eventDate = result[0].eventDate.substr(0,10)
+                    console.log(result)
+                }
+            })
+            this.isShowDialog = false
+        },
+        refreshDialog() {
+            // fetch('https://apricot-binturong-kit.cyclic.app/activitys/'+localStorage.getItem('activityID'))
+            // .then(res => res.json())
+            // .then((result) => {
+            //     if(result.status === 'error') {
+            //         alert(JSON.stringify(result))
+            //     } else {
+            //         this.toEdit = result[0]
+            //         this.toEdit.eventDate = result[0].eventDate.substr(0,10)
+            //         console.log(result)
+            //     }
+            // })
+            // this.isShowSuccess = false
+            this.$router.go()
         },
         stopActivity() {
 

@@ -122,7 +122,7 @@
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
-            <!-- end dialog -->
+                    <!-- end dialog -->
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -249,6 +249,7 @@ export default {
         },
         openActivity(activity) {
             this.$store.dispatch('setActivity', activity); // store
+            localStorage.setItem('activityID', activity.id)
             this.$router.push('theactivity');
         },
         setFile(event) {
