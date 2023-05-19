@@ -21,12 +21,28 @@
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn @click="back">ยกเลิก</v-btn>
-                        <v-btn color="teal-accent-3" @click="editActivity(activity.name, activity.detail, activity.location, activity.eventDate, activity.timeStart, activity.timeEnd, activity.hoursToReceive, activity.max)">
+                        <v-btn color="teal-accent-3" @click="editActivity(activity.id, activity.name, activity.detail, activity.location, activity.eventDate, activity.timeStart, activity.timeEnd, activity.hoursToReceive, activity.max)">
                           แก้ไข
                           <v-icon icon="mdi-chevron-right" end></v-icon>
                         </v-btn>
                       </v-card-actions>
                     </v-card>
+                    <!-- start -->
+                    <v-dialog v-model="isShowSuccess" max-width="290">
+                        <v-card>
+                            <v-card-title class="text-h6">
+                                Success
+                            </v-card-title>
+                            <v-card-text>
+                                ยืนยันการแก้ไขกิจกรรม, สำเร็จ!
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="grey" text @click="back">ปิด</v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <!-- end -->
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -52,6 +68,7 @@ export default {
     },
     data () {
         return {
+            isShowSuccess: false,
             // name: this.$store.getters.getActivity.name,
             // detail: this.$store.getters.getActivity.detail,
             // image: this.$store.getters.getActivity.image,
@@ -130,8 +147,49 @@ export default {
                 console.error('Error uploading file:', error);
             });
         },
-        editActivity(name, detail, location, eventDate, timeStart, timeEnd, hoursToReceive, max) {
-        
+        editActivity(id, name, detail, location, eventDate, timeStart, timeEnd, hoursToReceive, max) {
+            if(iimmgg.value == '') { //not change image
+                iimmgg = this.activity.image
+                console.log('iimmgg is null : '+this.activity.image)
+            } else { //change image
+                console.log('iimmgg is not null : '+iimmgg)
+            }
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+            "name": name,
+            "detail": detail,
+            "location": location,
+            "eventDate": eventDate,
+            "timeStart": timeStart,
+            "timeEnd": timeEnd,
+            "hoursToReceive": hoursToReceive,
+            "image": iimmgg,
+            "max": max,
+            "id": id
+            });
+
+            var requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/editactivity", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === 'ok') {
+                    this.isShowSuccess = true
+                } else if(result.message === 'affected Rows is 0') {
+                    alert('affected Rows is 0')
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
         },
         back() {
             localStorage.removeItem('activityID');
