@@ -63,9 +63,9 @@
                         </thead>
                         <tbody>
                             <tr v-for="i in filteredItems" :key="i.id">
-                                <td class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i)">{{ i.id }}</td>
-                                <td v-if="i.fname=='admin'" class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i)">ศูนย์นักศึกษาทุนแห่งมหาวิทยาลัยรังสิต</td>
-                                <td v-else class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i)">{{ i.fname }} {{ i.lname }}</td>
+                                <td class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i.id)">{{ i.id }}</td>
+                                <td v-if="i.fname=='admin'" class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i.id)">ศูนย์นักศึกษาทุนแห่งมหาวิทยาลัยรังสิต</td>
+                                <td v-else class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i.id)">{{ i.fname }} {{ i.lname }}</td>
                                 <td class="text-caption">{{ i.faculty }}</td>
                                 <td class="text-caption"><v-chip small color="secondary" class="white--text">{{ i.countactivity }}</v-chip></td>
                             </tr>
@@ -82,10 +82,45 @@
                             </v-card-title>
                             <v-card-text>
                                 Teacher Show
+                                <v-text-field
+                                type="text" v-model="inputact" 
+                                density="compact"
+                                variant="solo"
+                                label="Search activities..."
+                                append-inner-icon="mdi-magnify"
+                                single-line
+                                hide-details
+                                ></v-text-field>
+                                <v-table>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left text-caption">
+                                            กิจกรรม
+                                            </th>
+                                            <th class="text-left text-caption">
+                                            วันที่สร้างกิจกรรม
+                                            </th>
+                                            <th class="text-left text-caption">
+                                            วันที่
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="i in filteredActivitys" :key="i.id">
+                                            <!-- <td class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openActivity(i)">{{ i.name }}</td> -->
+                                            <td class="text-caption">{{ i.name }}</td>
+                                            <td class="text-caption">{{ i.createdAt.substring(0,10) }}</td>
+                                            <td class="text-caption">{{ i.eventDate.substring(0,10) }}</td>
+                                        </tr>
+                                    </tbody>
+                                </v-table>
+                                <p v-if="inputact&&!filteredActivitys.length" class="text-caption text-center mt-2">
+                                    <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
+                                </p>
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="grey" text @click="isShowDialog = false">ปิด</v-btn>
+                                <v-btn color="grey" text @click="closeTeacher">ปิด</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-dialog>
@@ -148,6 +183,8 @@ export default {
         drawer: null,
         teachers: [],
         input: '',
+        activitys: [],
+        inputact: '',
       }
     },
     computed: {
@@ -158,6 +195,13 @@ export default {
                     || teacher.faculty.toLowerCase().indexOf(this.input.toLowerCase()) > -1
                     || (teacher.id.toString().indexOf(this.input.toString()) > -1)
                     || (teacher.countactivity.toString().indexOf(this.input.toString()) > -1)
+            })
+        },
+        filteredActivitys() {
+            return this.activitys.filter(activity => {
+                return activity.name.toLowerCase().indexOf(this.inputact.toLowerCase()) > -1
+                    || (activity.createdAt.toString().indexOf(this.inputact.toString()) > -1)
+                    || (activity.eventDate.toString().indexOf(this.inputact.toString()) > -1)
             })
         }
     },
@@ -175,12 +219,30 @@ export default {
         toTeacher() {
             this.$router.push('adminteacher');
         },
-        openTeacher(teacher) {
-            this.isShowDialog = true
+        openTeacher(teacherID) {
             // this.$store.dispatch('setActivity', activity); // store
             // localStorage.setItem('activityID', activity.id)
             // this.$router.push('theactivity');
+            fetch('https://apricot-binturong-kit.cyclic.app/teachercreated/'+teacherID)
+            .then(res => res.json())
+            .then((resultact) => {
+                if(resultact.status === 'error') {
+                    alert(JSON.stringify(resultact))
+                } else if(resultact.message === 'no activitys created') {
+                    this.activitys = []
+                    console.log(resultact)
+                } else {
+                    this.activitys = resultact
+                    console.log(resultact)
+                }
+            })
+            this.isShowDialog = true
         },
+        closeTeacher(){
+            this.inputact = ''
+            this.activitys = []
+            this.isShowDialog = false
+        }
     },
 }
 </script>
