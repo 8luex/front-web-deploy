@@ -34,6 +34,63 @@
                         Teacher
                     </div>
                 </v-col>
+                <v-col cols="12">
+                    <v-text-field
+                    type="text" v-model="input" 
+                    density="compact"
+                    variant="solo"
+                    label="Search teachers..."
+                    append-inner-icon="mdi-magnify"
+                    single-line
+                    hide-details
+                    ></v-text-field>
+                    <v-table>
+                        <thead>
+                            <tr>
+                                <th class="text-left text-caption">
+                                ID
+                                </th>
+                                <th class="text-left text-caption">
+                                ชื่อ-นามสกุล
+                                </th>
+                                <th class="text-left text-caption">
+                                คณะ
+                                </th>
+                                <th class="text-left text-caption">
+                                กิจกรรมที่สร้าง
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="i in filteredItems" :key="i.id">
+                                <td class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i)">{{ i.id }}</td>
+                                <td v-if="i.fname=='admin'" class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i)">ศูนย์นักศึกษาทุนแห่งมหาวิทยาลัยรังสิต</td>
+                                <td v-else class="text-caption bluehover" :act="i" style="cursor: pointer;" @click="openTeacher(i)">{{ i.fname }} {{ i.lname }}</td>
+                                <td class="text-caption">{{ i.faculty }}</td>
+                                <td class="text-caption"><v-chip small color="secondary" class="white--text">{{ i.countactivity }}</v-chip></td>
+                            </tr>
+                        </tbody>
+                    </v-table>
+                    <p v-if="input&&!filteredItems.length" class="text-caption text-center mt-2">
+                        <v-icon size="large">mdi-file-search-outline</v-icon>No results found!
+                    </p>
+                    <!-- start dialog -->
+                    <v-dialog v-model="isShowDialog" max-width="500" persistent>
+                        <v-card>
+                            <v-card-title class="text-h6">
+                                Teacher
+                            </v-card-title>
+                            <v-card-text>
+                                Teacher Show
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="grey" text @click="isShowDialog = false">ปิด</v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <!-- end dialog -->
+                </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
                         &copy;Scholarship Activity 2023
@@ -73,10 +130,36 @@ export default {
             })
         })
     },
+    mounted() {
+        fetch('https://apricot-binturong-kit.cyclic.app/teachers')
+        .then(res => res.json())
+        .then((result) => {
+            if(result.status === 'error') {
+                alert(JSON.stringify(result))
+            } else {
+                this.teachers = result
+                console.log(result)
+            }
+        })
+    },
     data () {
       return {
+        isShowDialog: false,
         drawer: null,
+        teachers: [],
+        input: '',
       }
+    },
+    computed: {
+        filteredItems() {
+            return this.teachers.filter(teacher => {
+                return teacher.fname.toLowerCase().indexOf(this.input.toLowerCase()) > -1
+                    || teacher.lname.toLowerCase().indexOf(this.input.toLowerCase()) > -1
+                    || teacher.faculty.toLowerCase().indexOf(this.input.toLowerCase()) > -1
+                    || (teacher.id.toString().indexOf(this.input.toString()) > -1)
+                    || (teacher.countactivity.toString().indexOf(this.input.toString()) > -1)
+            })
+        }
     },
     methods: {
         logout() {
@@ -92,6 +175,19 @@ export default {
         toTeacher() {
             this.$router.push('adminteacher');
         },
+        openTeacher(teacher) {
+            this.isShowDialog = true
+            // this.$store.dispatch('setActivity', activity); // store
+            // localStorage.setItem('activityID', activity.id)
+            // this.$router.push('theactivity');
+        },
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.bluehover:hover {
+    text-decoration: underline;
+    color: #000;
+}
+</style>

@@ -37,7 +37,7 @@
                         <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="mt-5 mb-4" @click="create">
                             Create
                         </v-btn>
-                      </div>
+                    </div>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field
