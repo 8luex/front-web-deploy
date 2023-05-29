@@ -98,7 +98,7 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "lineID": this.line.userId
+                "lineID": this.line.userId.value
             });
 
             var requestOptions = {
@@ -127,35 +127,6 @@ export default {
     },
     methods: {
         close() {console.log("close")},
-        // getconnect() {
-        //     var myHeaders = new Headers();
-        //     myHeaders.append("Content-Type", "application/json");
-
-        //     var raw = JSON.stringify({
-        //         "lineID": this.line.userId
-        //     });
-
-        //     var requestOptions = {
-        //         method: 'POST',
-        //         headers: myHeaders,
-        //         body: raw,
-        //         redirect: 'follow'
-        //     };
-
-        //     fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
-        //     .then(response => response.json())
-        //     .then(result => {
-        //         if(result.message === 'already connected') {
-        //             this.account.value = result.line[0]
-        //             console.log(this.account) // Test
-        //         } else if(result.message === 'not yet connected') {
-        //             alert('ยังไม่ได้เชื่อมโยงบัญชี')
-        //         } else {
-        //             alert(JSON.stringify(result))
-        //         }
-        //     })
-        //     .catch(error => console.log('error', error));
-        // }
     },
 }
 </script>
