@@ -7,7 +7,7 @@
             <v-row>
                 <v-col cols="12" class="text-center">
                     <v-avatar size="155px" class="mt-5">
-                        <img :src="account.pictureUrl" alt="" width="155">
+                        <img :src="line.pictureUrl" alt="" width="155">
                     </v-avatar>
                 </v-col>
                 <v-col cols="12" class="text-center">
