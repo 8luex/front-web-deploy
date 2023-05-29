@@ -134,7 +134,7 @@ export default {
                     // console.log(items.value)
                     this.items = result.line[0]
                     console.log(this.items)
-                    getActivity(this.items.studentID)
+                    this.getActivity(this.items.studentID)
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
