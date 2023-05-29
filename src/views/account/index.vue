@@ -90,6 +90,7 @@ export default {
                 console.log(this.account)
             } else if(result.message === 'not yet connected') {
                 alert('ยังไม่ได้เชื่อมโยงบัญชี')
+                console.log(result)
             } else {
                 alert(JSON.stringify(result))
             }
