@@ -61,6 +61,7 @@ export default {
                 console.log(profile)
                 this.line = profile;
                 console.log(this.line)
+                console.log(this.line.userId)
                 // this.$store.dispatch('setLine', profile);
                 // this.getconnect();
             })
