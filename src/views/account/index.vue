@@ -63,42 +63,47 @@ export default {
                 console.log(this.line)
                 console.log(this.line.userId)
                 // this.$store.dispatch('setLine', profile);
-                // this.getconnect();
+                this.getconnect(this.line.userId);
             })
         });
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-            "lineID": this.line.userId
-        });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            if(result.message === 'already connected') {
-                console.log(result)//Test
-                // this.account = result.line[0].studentID;
-                this.account = result.line[0];
-                console.log(this.account)
-            } else if(result.message === 'not yet connected') {
-                alert('ยังไม่ได้เชื่อมโยงบัญชี')
-                console.log(result)
-            } else {
-                alert(JSON.stringify(result))
-            }
-        })
-        .catch(error => console.log('error', error));
+        
     },
     methods: {
-        close() {console.log("close")},
+        close() {
+            console.log("close")
+        },
+        getconnect(userId) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "lineID": userId
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.message === 'already connected') {
+                    console.log(result)//Test
+                    // this.account = result.line[0].studentID;
+                    this.account = result.line[0];
+                    console.log(this.account)
+                } else if(result.message === 'not yet connected') {
+                    alert('ยังไม่ได้เชื่อมโยงบัญชี')
+                    console.log(result)
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
+        }
     },
 }
 </script>
