@@ -176,8 +176,8 @@ export default {
                     this.studenthour = []
                     console.log(resultact)
                 } else {
-                    this.studenthour = resultact
-                    console.log(resultact)
+                    this.studenthour = resultact.line[0]
+                    console.log(this.studenthour)
                 }
             })
         },
