@@ -22,6 +22,12 @@
                     <div class="mt-1" style="font-size: 18px;">
                         {{ items.faculty }}
                     </div>
+                    <div v-if="studenthour.sumhours==null" class="mt-1" style="font-size: 18px;">
+                        จำนวนชั่วโมงกิจกรรมที่ได้รับทั้งหมด: 0
+                    </div>
+                    <div v-else class="mt-1" style="font-size: 18px;">
+                        จำนวนชั่วโมงกิจกรรมที่ได้รับทั้งหมด: {{ studenthour.sumhours }}
+                    </div>
                 </v-col>
                 <v-col cols="12" >
                     <v-table>
@@ -89,7 +95,8 @@ export default {
     data () {
       return {
         items: [],
-        activitys: []
+        activitys: [],
+        studenthour: []
       }
     },
     mounted() {
@@ -135,6 +142,7 @@ export default {
                     this.items = result.line[0]
                     console.log(this.items)
                     this.getActivity(this.items.studentID)
+                    this.getHour(this.items.studentID)
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
@@ -157,7 +165,22 @@ export default {
                     console.log(resultact)
                 }
             })
-        }
+        },
+        getHour(studentID) {
+            fetch('https://apricot-binturong-kit.cyclic.app/studenthour/'+studentID)
+            .then(res => res.json())
+            .then((resultact) => {
+                if(resultact.status === 'error') {
+                    alert(JSON.stringify(resultact))
+                } else if(resultact.message === 'no activitys enroll') {
+                    this.studenthour = []
+                    console.log(resultact)
+                } else {
+                    this.studenthour = resultact
+                    console.log(resultact)
+                }
+            })
+        },
     },
     computed: {
         getLine() {
