@@ -42,12 +42,17 @@
 import { ref } from 'vue';
 import liff from '@line/liff';
 
-const items = ref([])
+// const items = ref([])
 
 export default {
     setup() {
         return {
         }
+    },
+    data () {
+      return {
+        items: [],
+      }
     },
     mounted() {
         liff.init({
@@ -87,8 +92,10 @@ export default {
             .then(response => response.json())
             .then(result => {
                 if(result.message === 'already connected') {
-                    items.value = result.line[0]
-                    console.log(items.value)//Test
+                    // items.value = result.line[0]
+                    // console.log(items.value)
+                    this.items = result.line[0]
+                    console.log(this.items)
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
