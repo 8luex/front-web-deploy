@@ -1,24 +1,26 @@
 <template>
     <div>
-        <v-app-bar color="teal-accent-3" dense flat dark>
-            <v-toolbar-title style="text-align: center;color: white;">บัญชี</v-toolbar-title>
-        </v-app-bar>
         <v-container class="pt-0 pb-0">
             <v-row>
+                <v-col cols="12" class="text-center pb-0 pt-10">
+                    <div class="mt-12" style="color: #1DE9B6;font-size: 20px;font-weight: bold;">
+                        Your Profile
+                    </div>
+                </v-col>
                 <v-col cols="12" class="text-center">
                     <v-avatar size="155px" class="mt-5">
-                        <img :src="line.pictureUrl" alt="" width="155">
+                        <img :src="getLine.pictureUrl" alt="" width="155">
                     </v-avatar>
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-1" style="font-size: 18px;">
-                        {{ account.studentID }}
+                        {{ items.studentID }}
                     </div>
                     <div class="mt-1" style="font-size: 18px;">
-                        {{ account.fname }} {{ account.lname }}
+                        {{ items.fname }} {{ items.lname }}
                     </div>
                     <div class="mt-1" style="font-size: 18px;">
-                        {{ account.faculty }}
+                        {{ items.faculty }}
                     </div>
                 </v-col>
                 <v-col cols="12" class="text-center pl-10 pr-10">
@@ -36,17 +38,15 @@
     </div>
 </template>
 
-
-
 <script>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import liff from '@line/liff';
+
+const items = ref([])
 
 export default {
     setup() {
         return {
-            line: [],
-            account: [],
         }
     },
     mounted() {
@@ -59,82 +59,49 @@ export default {
             }       
             liff.getProfile().then(profile => {
                 console.log(profile)
-                this.line = profile;
-                console.log(this.line)
-                console.log(this.line.userId)
-                // this.$store.dispatch('setLine', profile);
-                // this.getconnect(this.line.userId);
-                var myHeaders = new Headers();
-                myHeaders.append("Content-Type", "application/json");
-
-                var raw = JSON.stringify({
-                    "lineID": this.line.userId
-                });
-
-                var requestOptions = {
-                    method: 'POST',
-                    headers: myHeaders,
-                    body: raw,
-                    redirect: 'follow'
-                };
-
-                fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if(result.message === 'already connected') {
-                        console.log(result)//Test
-                        // this.account = result.line[0].studentID;
-                        this.account = result.line[0];
-                        console.log(this.account)
-                    } else if(result.message === 'not yet connected') {
-                        alert('ยังไม่ได้เชื่อมโยงบัญชี')
-                        console.log(result)
-                    } else {
-                        alert(JSON.stringify(result))
-                    }
-                })
-                .catch(error => console.log('error', error));
+                this.$store.dispatch('setLine', profile); //try
+                this.getconnect();
             })
         });
-        
     },
     methods: {
         close() {
-            console.log("close")
             liff.closeWindow();
         },
-        // getconnect(userId) {
-        //     var myHeaders = new Headers();
-        //     myHeaders.append("Content-Type", "application/json");
+        getconnect() {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-        //     var raw = JSON.stringify({
-        //         "lineID": userId
-        //     });
+            var raw = JSON.stringify({
+                "lineID": this.$store.getters.getLine.userId
+            });
 
-        //     var requestOptions = {
-        //         method: 'POST',
-        //         headers: myHeaders,
-        //         body: raw,
-        //         redirect: 'follow'
-        //     };
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
 
-        //     fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
-        //     .then(response => response.json())
-        //     .then(result => {
-        //         if(result.message === 'already connected') {
-        //             console.log(result)//Test
-        //             // this.account = result.line[0].studentID;
-        //             this.account = result.line[0];
-        //             console.log(this.account)
-        //         } else if(result.message === 'not yet connected') {
-        //             alert('ยังไม่ได้เชื่อมโยงบัญชี')
-        //             console.log(result)
-        //         } else {
-        //             alert(JSON.stringify(result))
-        //         }
-        //     })
-        //     .catch(error => console.log('error', error));
-        // }
+            fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.message === 'already connected') {
+                    items.value = result.line[0]
+                    console.log(result)//Test
+                } else if(result.message === 'not yet connected') {
+                    alert('ยังไม่ได้เชื่อมโยงบัญชี')
+                } else {
+                    alert(JSON.stringify(result))
+                }
+            })
+            .catch(error => console.log('error', error));
+        }
+    },
+    computed: {
+        getLine() {
+            return this.$store.getters.getLine;
+        },
     },
 }
 </script>
