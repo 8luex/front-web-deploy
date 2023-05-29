@@ -61,7 +61,7 @@ export default {
                 console.log(profile)
                 this.line = profile;
                 console.log(this.line)
-                console.log(this.line.userId)
+                console.log(typeof this.line.userId)
                 // this.$store.dispatch('setLine', profile);
                 // this.getconnect();
             })
@@ -98,7 +98,7 @@ export default {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                "lineID": this.line.userId.value
+                "lineID": this.line.userId
             });
 
             var requestOptions = {
