@@ -61,69 +61,40 @@ export default {
                 console.log(profile)
                 this.line = profile;
                 console.log(this.line)
-                console.log(typeof this.line.userId)
+                console.log(this.line.userId)
                 // this.$store.dispatch('setLine', profile);
                 // this.getconnect();
             })
         });
-
-        // var myHeaders = new Headers();
-        //     myHeaders.append("Content-Type", "application/json");
-
-        //     var raw = JSON.stringify({
-        //         "lineID": this.line.userId
-        //     });
-
-        //     var requestOptions = {
-        //         method: 'POST',
-        //         headers: myHeaders,
-        //         body: raw,
-        //         redirect: 'follow'
-        //     };
-
-        //     fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
-        //     .then(response => response.json())
-        //     .then(result => {
-        //         if(result.message === 'already connected') {
-        //             this.account.value = result.line[0]
-        //             console.log(this.account) // Test
-        //         } else if(result.message === 'not yet connected') {
-        //             alert('ยังไม่ได้เชื่อมโยงบัญชี')
-        //         } else {
-        //             alert(JSON.stringify(result))
-        //         }
-        //     })
-        //     .catch(error => console.log('error', error));
         var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Content-Type", "application/json");
 
-            var raw = JSON.stringify({
-                "lineID": this.line.userId
-            });
+        var raw = JSON.stringify({
+            "lineID": this.line.userId
+        });
 
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
 
-            fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.message === 'already connected') {
-                    console.log(result)//Test
-                    // this.account = result.line[0].studentID;
-                    this.account = result.line[0];
-                    console.log(this.account)
-                    // getactivitysalreadyenroll(result.line[0].studentID);
-                } else if(result.message === 'not yet connected') {
-                    alert('ยังไม่ได้เชื่อมโยงบัญชี')
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
+        fetch("https://apricot-binturong-kit.cyclic.app/studentdisconnectcheck", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            if(result.message === 'already connected') {
+                console.log(result)//Test
+                // this.account = result.line[0].studentID;
+                this.account = result.line[0];
+                console.log(this.account)
+            } else if(result.message === 'not yet connected') {
+                alert('ยังไม่ได้เชื่อมโยงบัญชี')
+            } else {
+                alert(JSON.stringify(result))
+            }
+        })
+        .catch(error => console.log('error', error));
     },
     methods: {
         close() {console.log("close")},
