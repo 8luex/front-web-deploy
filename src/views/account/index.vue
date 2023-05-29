@@ -88,7 +88,7 @@ export default {
             .then(result => {
                 if(result.message === 'already connected') {
                     items.value = result.line[0]
-                    console.log(result)//Test
+                    console.log(items)//Test
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
