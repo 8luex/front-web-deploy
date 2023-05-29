@@ -23,6 +23,43 @@
                         {{ items.faculty }}
                     </div>
                 </v-col>
+                <v-col cols="12" >
+                    <v-table>
+                        <thead>
+                            <tr>
+                                <th class="text-left text-caption">
+                                กิจกรรม
+                                </th>
+                                <th class="text-left text-caption">
+                                วันกิจกรรม
+                                </th>
+                                <th class="text-left text-caption">
+                                คณะ
+                                </th>
+                                <th class="text-left text-caption">
+                                ชั่วโมงกิจกรรมที่ได้รับ
+                                </th>
+                                <th class="text-left text-caption">
+                                Enroll
+                                </th>
+                                <th class="text-left text-caption">
+                                Join
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="i in activitys" :key="i.id">
+                                <td class="text-caption">{{ i.name }}</td>
+                                <td class="text-caption">{{ i.eventDate.substring(0,10) }}</td>
+                                <td class="text-caption">{{ i.faculty }}</td>
+                                <td class="text-caption">{{ i.hoursToReceive }}</td>
+                                <td class="text-caption">{{ i.timeEnroll }}</td>
+                                <td v-if="i.timeJoin==null" class="text-caption">-</td>
+                                <td v-else class="text-caption">{{ i.timeJoin }}</td>
+                            </tr>
+                        </tbody>
+                    </v-table>
+                </v-col>
                 <v-col cols="12" class="text-center pl-10 pr-10">
                     <v-btn variant="flat" rounded color="deep-orange-accent-4" style="color: white !important;" class="w-100 mt-2" @click="close">
                         Close
@@ -52,6 +89,7 @@ export default {
     data () {
       return {
         items: [],
+        activitys: []
       }
     },
     mounted() {
@@ -96,6 +134,7 @@ export default {
                     // console.log(items.value)
                     this.items = result.line[0]
                     console.log(this.items)
+                    getActivity(this.items.studentID)
                 } else if(result.message === 'not yet connected') {
                     alert('ยังไม่ได้เชื่อมโยงบัญชี')
                 } else {
@@ -103,6 +142,21 @@ export default {
                 }
             })
             .catch(error => console.log('error', error));
+        },
+        getActivity(studentID) {
+            fetch('https://apricot-binturong-kit.cyclic.app/activitysalreadyenroll/'+studentID)
+            .then(res => res.json())
+            .then((resultact) => {
+                if(resultact.status === 'error') {
+                    alert(JSON.stringify(resultact))
+                } else if(resultact.message === 'no activitys enroll') {
+                    this.activitys = []
+                    console.log(resultact)
+                } else {
+                    this.activitys = resultact
+                    console.log(resultact)
+                }
+            })
         }
     },
     computed: {
