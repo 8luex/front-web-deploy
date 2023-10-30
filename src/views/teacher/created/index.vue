@@ -6,12 +6,7 @@
         <v-container class="pt-0 pb-0">
             <v-row>
                 <v-col cols="12">
-                    <CardCreated
-                    v-for="item in items"
-                    :key="item.id"
-                    :act="item"
-                    v-on:viewTicket="viewTicket(item)"
-                    />
+                    <CardCreated v-for="item in items" :key="item.id" :act="item" v-on:viewTicket="viewTicket(item)" />
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -30,33 +25,36 @@
                         <p>ผู้สร้างกิจกรรม: {{ dialog.teacherfname }} {{ dialog.teacherlname }}</p>
                         <p>{{ dialog.faculty }}</p>
                         <p class="detail">รายละเอียดกิจกรรม: {{ dialog.detail }}</p>
-                        <p>วันที่: {{ dialog.eventDate.substring(0,10) }}</p>
+                        <p>วันที่: {{ dialog.eventDate.substring(0, 10) }}</p>
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mt-2 mb-2" @click="scan()">
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;"
+                            class="w-100 mt-2 mb-2" @click="scan()">
                             <v-icon size="large">mdi-line-scan</v-icon>Scan to check
                         </v-btn>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mb-2" @click="edit()">
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;"
+                            class="w-100 mb-2" @click="edit()">
                             <v-icon size="large">mdi-square-edit-outline</v-icon>Edit
                         </v-btn>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;" class="w-100 mb-2" @click="downloadPDF()">
+                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;"
+                            class="w-100 mb-2" @click="downloadPDF()">
                             <v-icon size="large">mdi-arrow-collapse-down</v-icon>Download Report
                         </v-btn>
                         <v-table>
                             <thead>
                                 <tr>
                                     <th class="text-left text-caption">
-                                    รหัสนักศึกษา
+                                        รหัสนักศึกษา
                                     </th>
                                     <th class="text-left text-caption">
-                                    ชื่อ-นามสกุล
+                                        ชื่อ-นามสกุล
                                     </th>
                                     <th class="text-left text-caption">
-                                    คณะ
+                                        คณะ
                                     </th>
                                     <th class="text-left text-caption">
-                                    สถานะ
+                                        สถานะ
                                     </th>
                                 </tr>
                             </thead>
@@ -76,7 +74,7 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-            
+
             <v-dialog v-model="isShowSuccess" max-width="290">
                 <v-card>
                     <v-card-title class="text-h6">
@@ -138,13 +136,13 @@ export default {
     components: {
         CardCreated
     },
-    data () {
+    data() {
         return {
             isShowWarning: false,
             isShowError: false,
             isShowSuccess: false,
             isShowDialog: false,
-            dialog : {
+            dialog: {
                 id: '',
                 name: '',
                 createdAt: '',
@@ -158,7 +156,7 @@ export default {
                 hoursToReceive: '',
                 image: ''
             },
-            who : []
+            who: []
         }
     },
     setup() {
@@ -181,42 +179,42 @@ export default {
             };
 
             fetch("https://apricot-binturong-kit.cyclic.app/teacherdisconnectcheck", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.message === 'already connected') {
-                    console.log(result)//Test
-                    tcID.value = result.line[0].teacherID // add on
-                    getactivitysalreadyenroll(result.line[0].teacherID);
-                } else if(result.message === 'not yet connected') {
-                    alert('ยังไม่ได้เชื่อมโยงบัญชี')
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
+                .then(response => response.json())
+                .then(result => {
+                    if (result.message === 'already connected') {
+                        console.log(result)//Test
+                        tcID.value = result.line[0].teacherID // add on
+                        getactivitysalreadyenroll(result.line[0].teacherID);
+                    } else if (result.message === 'not yet connected') {
+                        alert('ยังไม่ได้เชื่อมโยงบัญชี')
+                    } else {
+                        alert(JSON.stringify(result))
+                    }
+                })
+                .catch(error => console.log('error', error));
         };
         const getactivitysalreadyenroll = (teacherID) => {
-            fetch('https://apricot-binturong-kit.cyclic.app/teachercreated/'+teacherID)
-            .then(res => res.json())
-            .then((resultact) => {
-                if(resultact.status === 'error') {
-                    alert(JSON.stringify(resultact))
-                } else if(resultact.message === 'no activitys created') {
-                    console.log(resultact)
-                } else {
-                    items.value = resultact
-                    console.log(resultact)
-                }
-            })
+            fetch('https://apricot-binturong-kit.cyclic.app/teachercreated/' + teacherID)
+                .then(res => res.json())
+                .then((resultact) => {
+                    if (resultact.status === 'error') {
+                        alert(JSON.stringify(resultact))
+                    } else if (resultact.message === 'no activitys created') {
+                        console.log(resultact)
+                    } else {
+                        items.value = resultact
+                        console.log(resultact)
+                    }
+                })
         };
-        
+
         liff.init({
             liffId: '1657670230-PG7QLNZ4', //BLUEZO Event Activitys Created
         })
         liff.ready.then(() => {
-            if(!liff.isLoggedIn()) {
+            if (!liff.isLoggedIn()) {
                 liff.login(); //Test PC
-            }       
+            }
             liff.getProfile().then(profile => {
                 console.log(profile)
                 getconnect(profile.userId);
@@ -226,10 +224,10 @@ export default {
         return {
             items, tcID,
         }
-        
+
     },
     mounted() {
-        
+
     },
     computed: {
         getLine() {
@@ -237,8 +235,8 @@ export default {
         },
     },
     methods: {
-        viewTicket(item) {   
-            this.dialog= item
+        viewTicket(item) {
+            this.dialog = item
             this.$store.dispatch('setActivity', item); // store
             localStorage.setItem('activityID', this.dialog.id)
             console.log(this.dialog.id)
@@ -248,15 +246,15 @@ export default {
         scan() {
             liff.scanCodeV2().then(result => {
                 // alert(JSON.stringify(result.value))
-                if(result.value == null) {
+                if (result.value == null) {
                     this.isShowWarning = true
                     //alert('nothing!, pls try again.');
                 } else {
                     let res = result.value;
-                    let stID = res.substr(0,7);
+                    let stID = res.substr(0, 7);
                     let actID = res.substr(7);
                     //alert(this.dialog.id);
-                    if(actID == this.dialog.id) {
+                    if (actID == this.dialog.id) {
                         this.setactivitystatustrue(actID, stID)
                     } else {
                         this.isShowError = true
@@ -264,7 +262,7 @@ export default {
                     }
                 }
             })
-            .catch(e => alert(e))
+                .catch(e => alert(e))
         },
         setactivitystatustrue(activityID, studentID) {
             var myHeaders = new Headers();
@@ -283,73 +281,150 @@ export default {
             };
 
             fetch("https://apricot-binturong-kit.cyclic.app/setactivitystatustrue", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.message === 'update activity true complete') {
-                    //router.push({ path: '/connect-done' })
-                    //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
-                    this.isShowSuccess = true
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
+                .then(response => response.json())
+                .then(result => {
+                    if (result.message === 'update activity true complete') {
+                        //router.push({ path: '/connect-done' })
+                        //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                        this.isShowSuccess = true
+                    } else {
+                        alert(JSON.stringify(result))
+                    }
+                })
+                .catch(error => console.log('error', error));
         },
         getwhoenroll(activityID) {
-            fetch('https://apricot-binturong-kit.cyclic.app/whoenroll/'+activityID)
-            .then(res => res.json())
-            .then((resultwhoenroll) => {
-                if(resultwhoenroll.status === 'error') {
-                    alert(JSON.stringify(resultwhoenroll))
-                } else if(resultwhoenroll.message === 'no one enroll') {
-                    console.log(resultwhoenroll)
-                } else {
-                    this.who = resultwhoenroll
-                    console.log(resultwhoenroll)
-                }
-            })
+            fetch('https://apricot-binturong-kit.cyclic.app/whoenroll/' + activityID)
+                .then(res => res.json())
+                .then((resultwhoenroll) => {
+                    if (resultwhoenroll.status === 'error') {
+                        alert(JSON.stringify(resultwhoenroll))
+                    } else if (resultwhoenroll.message === 'no one enroll') {
+                        console.log(resultwhoenroll)
+                    } else {
+                        this.who = resultwhoenroll
+                        console.log(resultwhoenroll)
+                    }
+                })
         },
         downloadPDF() {
-        let columns = [
-          { title: "รหัสนักศึกษา", dataKey: "studentID" },
-          { title: "ชื่อ", dataKey: "fname" },
-          { title: "นามสกุล", dataKey: "lname" },
-          { title: "คณะ", dataKey: "faculty" },
-          { title: "สถานะ", dataKey: "status" },
-        ];
-        var pdf = new jsPDF();
+            const today = new Date();
+            let columns = [
+                { title: "รหัสนักศึกษา", dataKey: "studentID" },
+                { title: "ชื่อ", dataKey: "fname" },
+                { title: "นามสกุล", dataKey: "lname" },
+                { title: "คณะ", dataKey: "faculty" },
+                { title: "สถานะ", dataKey: "status" },
+            ];
+            var pdf = new jsPDF();
 
-        // add the font to jsPDF
-        pdf.addFileToVFS("THSarabunNew.ttf", font);
-        pdf.addFont("THSarabunNew.ttf", "THSarabunNew", "normal");
-        pdf.setFont("THSarabunNew");
+            // add the font to jsPDF
+            pdf.addFileToVFS("THSarabunNew.ttf", font);
+            pdf.addFont("THSarabunNew.ttf", "THSarabunNew", "normal");
+            pdf.setFont("THSarabunNew");
 
-        //pdf.setFont("courier");
-        pdf.text(`${this.dialog.name}`, 10, 15);
-        pdf.setLineWidth(0.1).line(10, 20, 200, 20); // horizontal line
-        //pdf.autoTable({ html: '#toPDF', margin: { left: 10, top: 25 } });
-        pdf.autoTable({
-            columns,
-            body: this.who,
-            margin: { left: 10, top: 25 },
-            theme: 'grid',
-            styles: {font: "THSarabunNew"}
-        });
-        pdf.save('Report.pdf');
-      },
-      refreshDialog() {
-        this.isShowSuccess = false
-        this.isShowDialog = false
-        this.viewTicket(this.dialog)
-      },
-      edit() {
-        //localStorage.setItem('activityID', this.$store.getters.getActivity)
-        this.$router.push('edit');
-      },
+            //pdf.text(`${this.$store.getters.getActivity.name}`, 10, 15);
+            //pdf.text(`ออกเมื่อ: ${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')} ${today.toLocaleTimeString()}`, 10, 20);
+            pdf.autoTable({
+                body: [
+                    [
+                        {
+                            content: `${this.activity.name}`,
+                            styles: {
+                                halign: 'left',
+                                fontSize: 20,
+                                textColor: '#5CBBF6',
+                                font: "THSarabunNew"
+                            }
+                        },
+                        {
+                            content: `ออกเมื่อ: ${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')} ${today.toLocaleTimeString()}`,
+                            styles: {
+                                halign: 'right',
+                                fontSize: 12,
+                                textColor: '#5CBBF6',
+                                font: "THSarabunNew"
+                            }
+                        }
+                    ]
+                ],
+                theme: 'plain',
+                styles: {
+                    fillColor: '#EBF7FE'
+                }
+            });
+
+            pdf.autoTable({
+                body: [
+                    [
+                        {
+                            content: `รายชื่อนักศึกษา`,
+                            styles: {
+                                halign: 'center',
+                                fontSize: 14,
+                                textColor: '#000000',
+                                font: "THSarabunNew"
+                            }
+                        }
+                    ]
+                ],
+                theme: 'plain',
+                styles: {
+                    fillColor: '#FFFFFF'
+                }
+            });
+
+            // pdf.setLineWidth(0.1).line(10, 25, 200, 25); // horizontal line
+            pdf.autoTable({
+                columns,
+                body: this.who,
+                // margin: { left: 15, top: 30 },
+                theme: 'striped', //grid
+                styles: { font: "THSarabunNew" }
+            });
+            pdf.save('Report.pdf');
+        },
+        // downloadPDF() {
+        //     const today = new Date();
+        //     let columns = [
+        //         { title: "รหัสนักศึกษา", dataKey: "studentID" },
+        //         { title: "ชื่อ", dataKey: "fname" },
+        //         { title: "นามสกุล", dataKey: "lname" },
+        //         { title: "คณะ", dataKey: "faculty" },
+        //         { title: "สถานะ", dataKey: "status" },
+        //     ];
+        //     var pdf = new jsPDF();
+
+        //     // add the font to jsPDF
+        //     pdf.addFileToVFS("THSarabunNew.ttf", font);
+        //     pdf.addFont("THSarabunNew.ttf", "THSarabunNew", "normal");
+        //     pdf.setFont("THSarabunNew");
+
+        //     //pdf.setFont("courier");
+        //     pdf.text(`${this.dialog.name}`, 10, 15);
+        //     pdf.setLineWidth(0.1).line(10, 20, 200, 20); // horizontal line
+        //     //pdf.autoTable({ html: '#toPDF', margin: { left: 10, top: 25 } });
+        //     pdf.autoTable({
+        //         columns,
+        //         body: this.who,
+        //         margin: { left: 10, top: 25 },
+        //         theme: 'grid',
+        //         styles: { font: "THSarabunNew" }
+        //     });
+        //     pdf.save('Report.pdf');
+        // },
+        refreshDialog() {
+            this.isShowSuccess = false
+            this.isShowDialog = false
+            this.viewTicket(this.dialog)
+        },
+        edit() {
+            //localStorage.setItem('activityID', this.$store.getters.getActivity)
+            this.$router.push('edit');
+        },
     }
 }
 </script>
 
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

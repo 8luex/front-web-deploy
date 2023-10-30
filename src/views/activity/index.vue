@@ -6,12 +6,7 @@
         <v-container class="pt-0 pb-0">
             <v-row>
                 <v-col cols="12">
-                    <Card
-                    v-for="item in items"
-                    :key="item.id"
-                    :act="item"
-                    v-on:moreDetail="moreDetail(item)"
-                    />
+                    <Card v-for="item in items" :key="item.id" :act="item" v-on:moreDetail="moreDetail(item)" />
                 </v-col>
                 <v-col cols="12" class="text-center">
                     <div class="mt-2 text-caption text-disabled">
@@ -30,7 +25,7 @@
                         <p>ผู้สร้างกิจกรรม: {{ dialog.teacherfname }} {{ dialog.teacherlname }}</p>
                         <p>{{ dialog.faculty }}</p>
                         <p class="detail">รายละเอียดกิจกรรม: {{ dialog.detail }}</p>
-                        <p>วันที่: {{ dialog.eventDate.substring(0,10) }}</p>
+                        <p>วันที่: {{ dialog.eventDate.substring(0, 10) }}</p>
                         <p>เวลา: {{ dialog.timeStart }}-{{ dialog.timeEnd }}</p>
                         <p>สถานที่: {{ dialog.location }}</p>
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
@@ -54,11 +49,11 @@ import { ref } from 'vue';
 const items = ref([])
 
 fetch('https://apricot-binturong-kit.cyclic.app/activitys')
-.then(res => res.json())
-.then((result) => {
-  items.value = result
-  console.log(result)
-})
+    .then(res => res.json())
+    .then((result) => {
+        items.value = result
+        console.log(result)
+    })
 
 //<router-link to="/"></router-link>
 </script>
@@ -69,10 +64,10 @@ export default {
     components: {
         Card
     },
-    data () {
+    data() {
         return {
             isShowDialog: false,
-            dialog : {
+            dialog: {
                 name: '',
                 createdAt: '',
                 location: '',
@@ -90,7 +85,7 @@ export default {
     methods: {
         moreDetail(item) {
             this.isShowDialog = true
-            this.dialog= item
+            this.dialog = item
         },
     }
 }
@@ -102,9 +97,11 @@ export default {
     p {
         margin-bottom: 0;
     }
+
     .v-card__text {
         padding-bottom: 0;
     }
+
     .detail {
         margin: 10px 0;
     }
