@@ -329,7 +329,7 @@ export default {
                 body: [
                     [
                         {
-                            content: `${this.activity.name}`,
+                            content: `${this.dialog.name}`,
                             styles: {
                                 halign: 'left',
                                 fontSize: 20,
