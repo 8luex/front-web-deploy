@@ -37,10 +37,10 @@
                             class="w-100 mb-2" @click="edit()">
                             <v-icon size="large">mdi-square-edit-outline</v-icon>Edit
                         </v-btn>
-                        <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;"
+                        <!-- <v-btn variant="flat" rounded color="teal-accent-3" style="color: white !important;"
                             class="w-100 mb-2" @click="downloadPDF()">
                             <v-icon size="large">mdi-arrow-collapse-down</v-icon>Download Report
-                        </v-btn>
+                        </v-btn> -->
                         <v-table>
                             <thead>
                                 <tr>
