@@ -31,7 +31,7 @@
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
 
                         <div v-if="dialog.timeJoin == null">
-                            <v-icon class="mt-12 mb-9" size="large" color="teal-accent-3">mdi-check-circle-outline</v-icon>
+                            <v-icon style="display: block; margin-left: auto; margin-right: auto;" size="x-large" color="teal-accent-3">mdi-check-circle-outline</v-icon>
                             <p class="text-caption text-disabled text-center">ทำกิจกรรมเรียบร้อยแล้ว</p>
                         </div>
                         <div v-else>
