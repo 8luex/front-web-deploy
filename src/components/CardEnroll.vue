@@ -6,11 +6,11 @@
                 <v-card-title v-else class="text-h6">{{ act.name.substring(0, 16) + ".." }}</v-card-title>
                 <v-card-subtitle>วันที่: {{ act.eventDate.substring(0, 10) }}</v-card-subtitle>
                 <v-card-actions>
-                    <v-btn v-if="act.timeJoin == null" class="ms-2" color="teal-accent-3" variant="tonal" size="small"
+                    <v-btn v-if="act.timeJoin == null" class="ms-2" color="teal-accent-3" variant="outlined" size="small"
                         @click="$emit('viewTicket')">
                         View Ticket
                     </v-btn>
-                    <v-btn v-else class="ms-2" color="teal-accent-3" variant="outlined" size="small"
+                    <v-btn v-else class="ms-2" color="teal-accent-3" variant="tonal" size="small"
                         @click="$emit('viewTicket')">
                         Completed
                     </v-btn>
