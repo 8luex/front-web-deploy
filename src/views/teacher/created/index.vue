@@ -70,7 +70,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="grey" text @click="isShowDialog = false">ปิด</v-btn>
+                        <v-btn color="grey" text @click="closeDialog">ปิด</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -413,8 +413,11 @@ export default {
         //     });
         //     pdf.save('Report.pdf');
         // },
-        refreshDialog() {
+        closeDialog(){
             this.who = []
+            this.isShowDialog = false
+        },
+        refreshDialog() {
             this.isShowSuccess = false
             this.isShowDialog = false
             this.viewTicket(this.dialog)
