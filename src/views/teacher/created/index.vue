@@ -70,7 +70,10 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="grey" text @click="isShowDialog = false">ปิด</v-btn>
+                        <v-btn color="grey" text @click="{
+                            isShowDialog = false
+                            who = []
+                        }">ปิด</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
