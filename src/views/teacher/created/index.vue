@@ -304,7 +304,7 @@ export default {
                                 }
                             ]
                         }
-                        await axios.post("https://api.line.me/v2/bot/message/push", JSON.stringify(article), { headers });
+                        await axios.post("https://api.line.me/v2/bot/message/push", JSON.stringify(article), headers);
                         this.isShowSuccess = true
                     } else {
                         alert(JSON.stringify(result))
