@@ -31,13 +31,14 @@
                         <p>ชั่วโมงกิจกรรมที่จะได้รับ: {{ dialog.hoursToReceive }}</p>
 
                         <div v-if="dialog.timeJoin == null">
-                            <v-icon style="display: block; margin-left: auto; margin-right: auto;" size="x-large" color="teal-accent-3">mdi-check-circle-outline</v-icon>
-                            <p class="text-caption text-disabled text-center">ทำกิจกรรมเรียบร้อยแล้ว</p>
-                        </div>
-                        <div v-else>
                             <VueQrcode style="display: block; margin-left: auto; margin-right: auto;" v-bind:value="qrValue"
                                 v-bind:color="qrColor" v-bind:type="qrType" v-bind:errorCorrectionLevel="correctionLevel" />
                             <p class="text-caption text-disabled text-center">แสดง qr code นี้กับเจ้าของกิจกรรม</p>
+                        </div>
+                        <div v-else>
+                            <v-icon style="display: block; margin-left: auto; margin-right: auto;" size="x-large"
+                                color="teal-accent-3">mdi-check-circle-outline</v-icon>
+                            <p class="text-caption text-disabled text-center">ทำกิจกรรมเรียบร้อยแล้ว</p>
                         </div>
 
                     </v-card-text>
