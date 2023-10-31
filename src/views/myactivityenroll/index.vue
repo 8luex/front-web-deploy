@@ -36,8 +36,9 @@
                             <p class="text-caption text-disabled text-center">แสดง qr code นี้กับเจ้าของกิจกรรม</p>
                         </div>
                         <div v-else>
-                            <v-icon style="display: block; margin-left: auto; margin-right: auto;" size="x-large"
-                                color="teal-accent-3">mdi-check-circle-outline</v-icon>
+                            <v-icon
+                                style="display: block; margin-left: auto; margin-right: auto; margin-top: 10px; margin-bottom: 12px;"
+                                size="x-large" color="teal-accent-3">mdi-check-circle-outline</v-icon>
                             <p class="text-caption text-disabled text-center">ทำกิจกรรมเรียบร้อยแล้ว</p>
                         </div>
 
