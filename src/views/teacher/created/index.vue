@@ -128,6 +128,7 @@ import liff from '@line/liff';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { font } from '@/assets/THSarabunNew'
+import axios from 'axios'
 
 // const items = ref([])
 
@@ -282,10 +283,28 @@ export default {
 
             fetch("https://apricot-binturong-kit.cyclic.app/setactivitystatustrue", requestOptions)
                 .then(response => response.json())
-                .then(result => {
+                .then(async result => {
                     if (result.message === 'update activity true complete') {
                         //router.push({ path: '/connect-done' })
                         //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                        const headers = {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer n9SrfCUXUZE68EKk/2u605XjDbRcttCOh80d2G07hT2aze7yvPw7HC9Vv6KUHruuj6JY+O2wKDzfCkyU4jM9mDG36AgcQXw3abqNrbLmo9WQnS69CoMWqLmOYrmKpUnAc2eu1YXMqTzc0nFwlk3eDwdB04t89/1O/w1cDnyilFU="
+                        };
+                        const article = {
+                            "to": "U9325b70184a81caf5d81ac60128b4304",
+                            "messages": [
+                                {
+                                    "type": "text",
+                                    "text": "Hello, world1"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": "Hello, world2"
+                                }
+                            ]
+                        }
+                        await axios.post("https://api.line.me/v2/bot/message/push", article, { headers });
                         this.isShowSuccess = true
                     } else {
                         alert(JSON.stringify(result))
@@ -413,7 +432,7 @@ export default {
         //     });
         //     pdf.save('Report.pdf');
         // },
-        closeDialog(){
+        closeDialog() {
             this.who = []
             this.isShowDialog = false
         },
