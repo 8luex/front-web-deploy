@@ -8,11 +8,11 @@
                 <v-card-actions>
                     <v-btn v-if="act.timeJoin == null" class="ms-2" color="teal-accent-3" variant="tonal" size="small"
                         @click="$emit('viewTicket')">
-                        Completed
+                        View Ticket
                     </v-btn>
                     <v-btn v-else class="ms-2" color="teal-accent-3" variant="outlined" size="small"
                         @click="$emit('viewTicket')">
-                        View Ticket
+                        Completed
                     </v-btn>
                 </v-card-actions>
             </div>
