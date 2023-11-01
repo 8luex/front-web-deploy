@@ -128,7 +128,6 @@ import liff from '@line/liff';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { font } from '@/assets/THSarabunNew'
-import axios from 'axios'
 
 // const items = ref([])
 
