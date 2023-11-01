@@ -287,24 +287,27 @@ export default {
                     if (result.message === 'update activity true complete') {
                         //router.push({ path: '/connect-done' })
                         //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
-                        const headers = {
-                            "Content-Type": "application/json",
-                            "Authorization": "Bearer n9SrfCUXUZE68EKk/2u605XjDbRcttCOh80d2G07hT2aze7yvPw7HC9Vv6KUHruuj6JY+O2wKDzfCkyU4jM9mDG36AgcQXw3abqNrbLmo9WQnS69CoMWqLmOYrmKpUnAc2eu1YXMqTzc0nFwlk3eDwdB04t89/1O/w1cDnyilFU="
+
+                        var lmyHeaders = new Headers();
+                        lmyHeaders.append("Content-Type", "application/json");
+                        var lraw = JSON.stringify({
+                            "dialog": this.dialog,
+                        });
+
+                        var lrequestOptions = {
+                            method: 'POST',
+                            headers: lmyHeaders,
+                            body: lraw,
+                            redirect: 'follow'
                         };
-                        const article = {
-                            "to": "U9325b70184a81caf5d81ac60128b4304",
-                            "messages": [
-                                {
-                                    "type": "text",
-                                    "text": "Hello, world1"
-                                },
-                                {
-                                    "type": "text",
-                                    "text": "Hello, world2"
-                                }
-                            ]
-                        }
-                        await axios.post("https://api.line.me/v2/bot/message/push", JSON.stringify(article), { headers });
+
+                        fetch("https://apricot-binturong-kit.cyclic.app/linecompleted", lrequestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result)
+                            })
+                            .catch(error => console.log('error', error));//
+
                         this.isShowSuccess = true
                     } else {
                         alert(JSON.stringify(result))
