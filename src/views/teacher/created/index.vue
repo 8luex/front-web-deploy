@@ -290,7 +290,8 @@ export default {
                         var lmyHeaders = new Headers();
                         lmyHeaders.append("Content-Type", "application/json");
                         var lraw = JSON.stringify({
-                            "dialog": this.dialog,
+                            "name": this.dialog.name,
+                            "hoursToReceive": this.dialog.hoursToReceive
                         });
 
                         var lrequestOptions = {
