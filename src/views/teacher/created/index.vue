@@ -287,29 +287,38 @@ export default {
                         //router.push({ path: '/connect-done' })
                         //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
 
-                        var lmyHeaders = new Headers();
-                        lmyHeaders.append("Content-Type", "application/json");
-                        var lraw = JSON.stringify({
-                            "studentID": studentID,
-                            "name": this.dialog.name,
-                            "hoursToReceive": this.dialog.hoursToReceive
-                        });
+                        fetch('https://apricot-binturong-kit.cyclic.app/getlineid/' + studentID)
+                            .then(res => res.json())
+                            .then((result) => {
+                                if (result.length > 0) {
+                                    console.log(result[0].lineID)
+                                    var lmyHeaders = new Headers();
+                                    lmyHeaders.append("Content-Type", "application/json");
+                                    var lraw = JSON.stringify({
+                                        "name": this.dialog.name,
+                                        "hoursToReceive": this.dialog.hoursToReceive,
+                                        "userId": result[0].lineID
+                                    });
 
-                        var lrequestOptions = {
-                            method: 'POST',
-                            headers: lmyHeaders,
-                            body: lraw,
-                            redirect: 'follow'
-                        };
+                                    var lrequestOptions = {
+                                        method: 'POST',
+                                        headers: lmyHeaders,
+                                        body: lraw,
+                                        redirect: 'follow'
+                                    };
 
-                        fetch("https://apricot-binturong-kit.cyclic.app/linecompleted", lrequestOptions)
-                            .then(response => response.json())
-                            .then(result => {
-                                console.log(result)
+                                    fetch("https://apricot-binturong-kit.cyclic.app/linecompleted", lrequestOptions)
+                                        .then(response => response.json())
+                                        .then(result => {
+                                            console.log(result)
+                                        })
+                                        .catch(error => console.log('error', error));
+
+                                    this.isShowSuccess = true
+                                } else {
+                                    alert('ไม่พบบัญชีที่เชื่อมต่อ')
+                                }
                             })
-                            .catch(error => console.log('error', error));
-
-                        this.isShowSuccess = true
                     }
                     else {
                         alert(JSON.stringify(result))
