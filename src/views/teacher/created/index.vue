@@ -286,6 +286,7 @@ export default {
                     if (result.message === 'update activity true complete') {
                         //router.push({ path: '/connect-done' })
                         //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
+                        console.log(this.dialog)
 
                         var lmyHeaders = new Headers();
                         lmyHeaders.append("Content-Type", "application/json");
