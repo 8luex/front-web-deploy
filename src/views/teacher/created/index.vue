@@ -282,7 +282,7 @@ export default {
 
             fetch("https://apricot-binturong-kit.cyclic.app/setactivitystatustrue", requestOptions)
                 .then(response => response.json())
-                .then(async result => {
+                .then(result => {
                     if (result.message === 'update activity true complete') {
                         //router.push({ path: '/connect-done' })
                         //alert("ยืนยันการทำกิจกรรม สำเร็จ!")
@@ -307,10 +307,11 @@ export default {
                             .then(result => {
                                 console.log(result)
                             })
-                            .catch(error => console.log('error', error));//
+                            .catch(error => console.log('error', error));
 
                         this.isShowSuccess = true
-                    } else {
+                    }
+                    else {
                         alert(JSON.stringify(result))
                     }
                 })
