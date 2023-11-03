@@ -202,7 +202,8 @@ export default {
                                         "eventDate": eventDate,
                                         "timeStart": timeStart,
                                         "timeEnd": timeEnd,
-                                        "location": location
+                                        "location": location,
+                                        "userId": result[0].lineID
                                     });
 
                                     var lrequestOptions = {
