@@ -35,7 +35,7 @@
                         <v-spacer></v-spacer>
                         <v-btn color="grey" text @click="isShowDialog = false">ยกเลิก</v-btn>
                         <v-btn color="teal-accent-3" text
-                            @click="activityEnroll(dialog.id, dialog.name, stID, dialog.eventDate, dialog.timeStart, dialog.location)">ลงทะเบียน</v-btn>
+                            @click="activityEnroll(dialog.id, dialog.name, stID, dialog.eventDate, dialog.timeStart, dialog.timeEnd, dialog.location)">ลงทะเบียน</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -162,8 +162,8 @@ export default {
             this.isShowDialog = true
             this.dialog = item
         },
-        activityEnroll(activityID, name, studentID, eventDate, timeStart, location) {
-            console.log(activityID, name, studentID, eventDate, timeStart, location)
+        activityEnroll(activityID, name, studentID, eventDate, timeStart, timeEnd, location) {
+            console.log(activityID, name, studentID, eventDate, timeStart, timeEnd, location)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -201,6 +201,7 @@ export default {
                                         "name": name,
                                         "eventDate": eventDate,
                                         "timeStart": timeStart,
+                                        "timeEnd": timeEnd,
                                         "location": location
                                     });
 
