@@ -119,7 +119,8 @@ export default {
         },
         handleGetSelectedMonth() {
             const proxy = { ...this.$refs.calendar }
-            console.log(this.$refs.calendar.pages);
+            console.log(this.$refs.calendar.pages[0].month);
+            console.log(this.$refs.calendar.pages[0].year);
             console.log(proxy);
             const proxyPages = { ...proxy.pages }
             const proxyPagesCurrently = { ...proxyPages[0] }
