@@ -118,14 +118,16 @@ export default {
             liff.closeWindow();
         },
         handleGetSelectedMonth() {
-            const proxy = { ...this.$refs.calendar }
-            console.log(this.$refs.calendar.pages[0].month);
-            console.log(this.$refs.calendar.pages[0].year);
-            console.log(proxy);
-            const proxyPages = { ...proxy.pages }
-            const proxyPagesCurrently = { ...proxyPages[0] }
-            const monthCurrently = proxyPagesCurrently.month
-            const yearCurrently = proxyPagesCurrently.year
+            // const proxy = { ...this.$refs.calendar }
+            // console.log(this.$refs.calendar.pages[0].month);
+            // console.log(this.$refs.calendar.pages[0].year);
+            // console.log(proxy);
+            // const proxyPages = { ...proxy.pages }
+            // const proxyPagesCurrently = { ...proxyPages[0] }
+            // const monthCurrently = proxyPagesCurrently.month
+            const monthCurrently = this.$refs.calendar.pages[0].month
+            // const yearCurrently = proxyPagesCurrently.year
+            const yearCurrently = this.$refs.calendar.pages[0].year
             console.log(monthCurrently);
             console.log(yearCurrently);
 
