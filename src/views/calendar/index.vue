@@ -123,6 +123,7 @@ export default {
             console.log(calendar.value);
             console.log(toRaw(this.$refs.calendar));
             console.log(this.$refs.calendar);
+            console.log({ ...proxy });
             console.log(proxy);
             const proxyPages = { ...proxy.pages }
             const proxyPagesCurrently = { ...proxyPages[0] }
