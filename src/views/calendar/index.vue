@@ -50,6 +50,7 @@ import { ref, isProxy, toRaw } from 'vue';
 import liff from '@line/liff';
 
 // const items = ref([])
+const calendar = ref(null);
 
 export default {
     setup() {
@@ -118,6 +119,8 @@ export default {
         },
         handleGetSelectedMonth() {
             const proxy = { ...this.$refs.calendar }
+            console.log(calendar);
+            console.log(calendar.value);
             console.log(toRaw(this.$refs.calendar));
             console.log(this.$refs.calendar);
             console.log(proxy);
