@@ -24,7 +24,8 @@
                     </div>
                 </v-col>
                 <v-col cols="12" class="text-center pl-10 pr-10">
-                    <v-btn variant="flat" rounded color="deep-orange-accent-4" style="color: white !important;" class="w-100 mt-2" @click="close">
+                    <v-btn variant="flat" rounded color="deep-orange-accent-4" style="color: white !important;"
+                        class="w-100 mt-2" @click="close">
                         Disconnect Account
                     </v-btn>
                 </v-col>
@@ -105,9 +106,9 @@ export default {
             liffId: '1657670230-gEk5QdxY', //BLUEZO Event Disconnect Teacher
         })
         liff.ready.then(() => {
-            if(!liff.isLoggedIn()) {
+            if (!liff.isLoggedIn()) {
                 liff.login(); //Test PC
-            }       
+            }
             liff.getProfile().then(profile => {
                 console.log(profile)
                 //this.lineID = profile.lineID;
@@ -119,7 +120,13 @@ export default {
     },
     methods: {
         close() {
-            liff.closeWindow();
+            fetch('https://apricot-binturong-kit.cyclic.app/unlink-richmenu/' + this.$store.getters.getLine.userId)
+                .then(res => res.json())
+                .then((result) => {
+                    liff.closeWindow();
+                    items.value = result
+                    console.log(result)
+                })
         },
         getconnect() {
             var myHeaders = new Headers();
@@ -137,18 +144,18 @@ export default {
             };
 
             fetch("https://apricot-binturong-kit.cyclic.app/teacherdisconnectcheck", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.message === 'already connected') {
-                    items.value = result.line[0]
-                    console.log(result)//Test
-                } else if(result.message === 'not yet connected') {
-                    alert('ยังไม่ได้เชื่อมโยงบัญชี')
-                } else {
-                    alert(JSON.stringify(result))
-                }
-            })
-            .catch(error => console.log('error', error));
+                .then(response => response.json())
+                .then(result => {
+                    if (result.message === 'already connected') {
+                        items.value = result.line[0]
+                        console.log(result)//Test
+                    } else if (result.message === 'not yet connected') {
+                        alert('ยังไม่ได้เชื่อมโยงบัญชี')
+                    } else {
+                        alert(JSON.stringify(result))
+                    }
+                })
+                .catch(error => console.log('error', error));
         }
     },
     computed: {
