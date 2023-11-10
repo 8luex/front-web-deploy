@@ -67,10 +67,10 @@
                                         class="mt-5 mb-4 mr-1" @click="downloadPDF">
                                         <v-icon size="large">mdi-arrow-collapse-down</v-icon>Download Report
                                     </v-btn>
-                                    <v-btn variant="flat" rounded color="deep-orange-accent-4"
+                                    <!-- <v-btn variant="flat" rounded color="deep-orange-accent-4"
                                         style="color: white !important;" class="mt-5 mb-4" @click="stopActivity">
                                         <v-icon size="large">mdi-close-octagon-outline</v-icon>
-                                    </v-btn>
+                                    </v-btn> -->
                                     <v-text-field type="text" v-model="input" density="compact" variant="solo"
                                         label="Search students..." append-inner-icon="mdi-magnify" single-line
                                         hide-details></v-text-field>
