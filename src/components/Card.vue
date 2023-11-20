@@ -1,7 +1,10 @@
 <template>
     <v-card class="mx-auto" :class="0 == 1 ? 'limit': ''" max-width="400">
         <v-img cover class="white--text align-end" height="200px" :src="act.image">
-            <div class="more-detail" @click="$emit('moreDetail')">
+            <div v-if="act.countenroll>=act.max" class="more-detail-closed">
+                ปิดรับลงทะเบียน
+            </div>
+            <div v-else class="more-detail" @click="$emit('moreDetail')">
                 เพิ่มเติม
             </div>
         </v-img>
@@ -10,7 +13,8 @@
                 <v-card-text class="text--primary">
                     <h3 v-if="act.name.length<28">{{ act.name }}</h3>
                     <h3 v-else>{{ act.name.substring(0,28)+".." }}</h3>
-                    <div style="color: #1DE9B6;">ชั่วโมงที่ได้รับ {{ act.hoursToReceive }} ชม.</div>
+                    <div v-if="act.countenroll>=act.max" style="color: rgb(107, 107, 107);">ชั่วโมงที่ได้รับ {{ act.hoursToReceive }} ชม.</div>
+                    <div v-else style="color: #1DE9B6;">ชั่วโมงที่ได้รับ {{ act.hoursToReceive }} ชม.</div>
                     <div>จำนวนผู้ลงทะเบียน: {{ act.countenroll }}/{{ act.max }}</div>
                 </v-card-text>
                 <v-card-subtitle class="pt-0">
@@ -52,6 +56,19 @@ export default {
 .more-detail {
     font-size: 12px;
     color: #1DE9B6;
+    border-radius: 25px;
+    background-color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    display: inline;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.more-detail-closed {
+    font-size: 12px;
+    color: rgb(107, 107, 107);
     border-radius: 25px;
     background-color: white;
     padding: 10px 20px;
