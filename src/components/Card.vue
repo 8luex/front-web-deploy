@@ -17,7 +17,8 @@
                     วันที่: {{ act.eventDate.substring(0,10) }}
                 </v-card-subtitle>
             </div>
-            <div class="circle"></div>
+            <div v-if="act.countenroll>=act.max" class="circle"></div>
+            <div v-else class="circlered"></div>
         </div>
     </v-card>
 </template>
@@ -36,6 +37,15 @@ export default {
     min-width: auto !important;
     border-radius: 50%;
     background: #1DE9B6 !important;
+    align-self: center;
+}
+
+.circlered {
+    width: 15px !important;
+    height: 15px !important;
+    min-width: auto !important;
+    border-radius: 50%;
+    background: #DD2C00 !important;
     align-self: center;
 }
 
