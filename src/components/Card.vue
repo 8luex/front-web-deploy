@@ -17,8 +17,8 @@
                     วันที่: {{ act.eventDate.substring(0,10) }}
                 </v-card-subtitle>
             </div>
-            <div v-if="act.countenroll>=act.max" class="circle"></div>
-            <div v-else class="circlered"></div>
+            <div v-if="act.countenroll>=act.max" class="circlered"></div>
+            <div v-else class="circle"></div>
         </div>
     </v-card>
 </template>
